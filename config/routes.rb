@@ -1,16 +1,27 @@
 Rails.application.routes.draw do
-  resources :song_videos
-  resources :user_songs
-  resources :user_artists
-  resources :user_albums
-  resources :song_video_comments
-  resources :songvideos
   resources :users
   resources :songs
   resources :albums
   resources :artists
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :user_songs
+  resources :user_albums
+  resources :user_artists
+  resources :song_videos
+  resources :song_video_comments
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+  get '/me', to: 'users#show'
+  # root :to => 'artists#index'
+  # root :to => 'albums#index'
+
+ 
+ 
+ 
+  get '/hello', to: 'application#hello_world'
+
+  get '*path',
+      to: 'fallback#index',
+      constraints: ->(req) { !req.xhr? && req.format.html? }
 end

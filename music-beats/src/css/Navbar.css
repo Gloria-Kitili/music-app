@@ -1,0 +1,66 @@
+.sidebar {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    flex: 0.1;
+    padding-bottom: 60px;
+    min-width: 200px;
+    color: white;
+    background-color: #040404;
+    float: left;
+    z-index: 1000;
+    position: fixed;
+    
+   
+  }
+
+
+.nav-menu-items{
+    margin-left: 5px;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .nav-menu-items a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .nav-menu-items p{
+    padding: 6px;
+  }
+  
+  .nav-menu-items span{
+    margin-left: 10px;
+  }
+  
+  .nav-menu-items p:hover{
+    background-color: gray;
+    border-radius: 10px;
+  }
+
+.spotify{
+  padding: 6px;
+  width: 40%;
+  margin-top: 4px;
+  margin-left: -15px;
+
+
+}
+.heading{
+  display: flex;
+  margin-left: 9px;
+  
+}
+
+.soundscape{
+  margin-left: -48px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Gotham Font Family;
+}
+
+

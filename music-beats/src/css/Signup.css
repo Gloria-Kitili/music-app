@@ -1,0 +1,79 @@
+.body_sign{
+    background: linear-gradient(transparent, rgba(0, 0, 0, 1));
+    background-color: rgb(94, 92, 104);
+    color: white;
+    padding-left: 20px; 
+    min-height: 100vh;
+    flex: 1;
+    z-index: 1000;
+  
+}
+
+
+.form {
+    width: 30%;  
+    margin: auto;
+    position: relative;
+    transform: translate(-0%, 45%)
+    
+  
+
+}
+
+form{
+    margin-left: 1px;
+}
+
+.form.signup {
+    width: 30%;  
+    margin: auto;
+    position: relative;
+    transform: translate(-0%, 35%)
+    
+  
+
+}
+
+
+h2{
+    margin-left: 100px; 
+}
+.btn.btn-success {
+    margin-left: 35%;
+}
+
+.btn.btn-success.login {
+    margin-left: 37%;
+}
+
+
+.redirect{
+    margin-top: 20px;
+    margin-left: 20%;
+    display: flex;   
+    gap: 10px;
+}
+
+
+
+.soundscapes{   
+    margin-top: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Gotham Font Family;
+  }
+
+  .spotifys{
+    /* padding: 6px; */    
+    margin-top: 28px;
+    margin-left: 840px;
+   
+  
+  
+  }
+  .headings{
+    display: flex;
+    margin-left: 9px;
+    gap: 10px;
+    
+  }
