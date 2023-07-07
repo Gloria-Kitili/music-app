@@ -1,4 +1,4 @@
-### SoundScape
+### Music-App
 
 SoundScape is a cutting-edge music app that allows you to fully immerse yourself in your favorite songs.
 With its sleek design and user-friendly interface, SoundScape offers a unique audio experience that brings your music to life like never before.
@@ -10,7 +10,7 @@ The database is deployed here https://railsapp-soundscape.onrender.com
 
 The frontend react app page is found here https://github.com/derrickmomanyi/SoundScape-FrontEnd
 
-![Home Page](https://github.com/derrickmomanyi/SoundScape/blob/main/images/Home.png?raw=true)
+
 
 ## User Stories
 
@@ -60,7 +60,7 @@ You can use the following commands to run the application:
 
 ## Author
 
-- [Derrick Momanyi](https://github.com/derrickmomanyi)
+
 
 License
 Copyright © 2023 Derrick Momanyi This project is MORINGA SCHOOL licensed.
