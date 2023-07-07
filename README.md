@@ -1,14 +1,8 @@
 ### Music-App
+Music-app is a cutting-edge music app that allows you to fully immerse yourself in your favorite songs.
+With its sleek design and user-friendly interface, Music-app offers a unique audio experience that brings your music to life like never before.
+Whether you're a casual listener or an avid music lover, Music-App has something for everyone. Discover new artists, create playlists, and enjoy high-quality audio streaming all in one convenient location. With Music-App, your music will never sound the same again.
 
-SoundScape is a cutting-edge music app that allows you to fully immerse yourself in your favorite songs.
-With its sleek design and user-friendly interface, SoundScape offers a unique audio experience that brings your music to life like never before.
-Whether you're a casual listener or an avid music lover, SoundScape has something for everyone. Discover new artists, create playlists, and enjoy high-quality audio streaming all in one convenient location. With SoundScape, your music will never sound the same again.
-
-The app is currently deployed here https://soundscape-frontend.onrender.com
-
-The database is deployed here https://railsapp-soundscape.onrender.com
-
-The frontend react app page is found here https://github.com/derrickmomanyi/SoundScape-FrontEnd
 
 
 
@@ -63,7 +57,7 @@ You can use the following commands to run the application:
 
 
 License
-Copyright © 2023 Derrick Momanyi This project is MORINGA SCHOOL licensed.
+Copyright © 2023 Gloria-Kitili This project is MORINGA SCHOOL licensed.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
