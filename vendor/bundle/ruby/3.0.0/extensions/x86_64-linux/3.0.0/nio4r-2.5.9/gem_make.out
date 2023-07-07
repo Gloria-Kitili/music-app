@@ -1,5 +1,5 @@
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.9/ext/nio4r
-/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20230705-24685-pjpfvt.rb extconf.rb
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20230707-20963-qybsuf.rb extconf.rb
 checking for unistd.h... yes
 checking for linux/aio_abi.h... yes
 checking for linux/io_uring.h... yes
@@ -46,4 +46,4 @@ linking shared-object nio4r_ext.so
 
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.9/ext/nio4r
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20230705-24685-jhr805
+/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20230707-20963-xwxpnp
