@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     end
 
     def render_not_found_response
-      render json: { errors: " Welcome to SoundScape, music will be assigned to you shortly." }, status: :not_found
+      render json: { errors: " Welcome to music-app, music will be assigned to you shortly." }, status: :not_found
   end
 
        

@@ -18,7 +18,7 @@ function AlbumPage({ album, user}){
   }
 
   function handleAddAlbum() {
-    fetch('https://railsapp-soundscape.onrender.com/user_albums', {
+    fetch('https://railsapp-music-app.onrender.com/user_albums', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

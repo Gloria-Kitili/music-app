@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://railsapp-soundscape.onrender.com',
+      target: 'https://railsapp-music-app.onrender.com',
       changeOrigin: true,
     })
   );

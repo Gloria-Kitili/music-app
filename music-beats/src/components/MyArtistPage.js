@@ -12,7 +12,7 @@ const MyArtistPage = ( { userArtist, onDeleteUserArtist } ) => {
   }
 
   function handleDeleteUserArtist() {
-    fetch(`https://railsapp-soundscape.onrender.com/user_artists/${id}`, {
+    fetch(`https://railsapp-music-app.onrender.com/user_artists/${id}`, {
         method:'DELETE'
       })
     onDeleteUserArtist(id)

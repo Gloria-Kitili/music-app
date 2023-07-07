@@ -18,7 +18,7 @@ const ArtistPage = ( { artist, user } ) => {
   }
 
   function handleAddArtist() {
-    fetch(`https://railsapp-soundscape.onrender.com/user_artists`, {
+    fetch(`https://railsapp-music-app.onrender.com/user_artists`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -9,7 +9,7 @@ const [userAlbums, setUserAlbums] = useState([])
 
 
   useEffect(() => {
-      fetch(`https://railsapp-soundscape.onrender.com//users/${user.id}`)
+      fetch(`https://railsapp-music-app.onrender.com//users/${user.id}`)
       .then(res => res.json())
       .then(user => setUserAlbums(user.user_albums))
   }, [user.id])

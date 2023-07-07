@@ -22,7 +22,7 @@ function App() {
 
  //check if user is authorized after logging in
   useEffect(() => {
-    fetch('https://railsapp-soundscape.onrender.com/me')
+    fetch('https://railsapp-music-app.onrender.com/me')
     .then((res) => {
       if (res.ok) {
         res.json().then((user) => {
@@ -39,14 +39,14 @@ function App() {
   },[]);
 
   useEffect(() => {
-    fetch('https://railsapp-soundscape.onrender.com/albums')
+    fetch('https://railsapp-music-app.onrender.com/albums')
     .then(res => res.json())
     .then((albums) => setAlbums(albums))
   }, []);
   // console.log(albums);
 
   useEffect(() => {
-    fetch(`https://railsapp-soundscape.onrender.com/artists`)
+    fetch(`https://railsapp-music-app.onrender.com/artists`)
     .then((r) => r.json())
     .then(artists => setArtists(artists))
   }, [])

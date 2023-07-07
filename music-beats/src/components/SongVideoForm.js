@@ -21,7 +21,7 @@ function SongVideoForm( { id, user, addSongVideos } ) {
 
       function handleSubmit(e){
         e.preventDefault();
-        fetch('https://railsapp-soundscape.onrender.com/song_videos', {
+        fetch('https://railsapp-music-app.onrender.com/song_videos', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

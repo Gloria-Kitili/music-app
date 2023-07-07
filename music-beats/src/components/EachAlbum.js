@@ -13,7 +13,7 @@ const EachAlbum = ( { user } ) => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`https://railsapp-soundscape.onrender.com/albums/${id}`)
+    fetch(`https://railsapp-music-app.onrender.com/albums/${id}`)
     .then((res) => res.json())
     .then(album => {
       setAlbum(album);
