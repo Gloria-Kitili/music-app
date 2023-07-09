@@ -323,7 +323,7 @@ module Puma
     end
 
     # Tell the server to listen on host +host+, port +port+.
-    # If +optimize_for_latency+ is true (the default) then music-beatss connecting
+    # If +optimize_for_latency+ is true (the default) then clients connecting
     # will be optimized for latency over throughput.
     #
     # +backlog+ indicates how many unaccepted connections the kernel should

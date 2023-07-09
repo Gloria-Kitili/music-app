@@ -106,7 +106,7 @@ module DEBUGGER__
                 #   [:check, expr] => CheckBreakpoint
       #
       @tracers = {}
-      @th_music-beatss = {} # {Thread => Threadmusic-beats}
+      @th_music_beats = {} # {Thread => Threadmusic_beats}
       @q_evt = Queue.new
       @displays = []
       @tc = nil
@@ -185,7 +185,7 @@ module DEBUGGER__
 
         # Thread management
         setup_threads
-        thc = get_thread_music-beats Thread.current
+        thc = get_thread_music-beats thread.current
         thc.mark_as_management
 
         if @ui.respond_to?(:reader_thread) && thc = get_thread_music-beats(@ui.reader_thread)

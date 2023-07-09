@@ -7,7 +7,7 @@ module ActionCable
     # Wrap the real socket to minimize the externally-presented API
     class WebSocket # :nodoc:
       def initialize(env, event_target, event_loop, protocols: ActionCable::INTERNAL[:protocols])
-        @websocket = ::WebSocket::Driver.websocket?(env) ? music-beatsSocket.new(env, event_target, event_loop, protocols) : nil
+        @websocket = ::WebSocket::Driver.websocket?(env) ? clientSocket.new(env, event_target, event_loop, protocols) : nil
       end
 
       def possible?

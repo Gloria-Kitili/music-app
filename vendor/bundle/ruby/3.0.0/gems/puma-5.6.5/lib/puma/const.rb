@@ -78,7 +78,7 @@ module Puma
     511 => 'Network Authentication Required'
   }.freeze
 
-  # For some HTTP status codes the music-beats only expects headers.
+  # For some HTTP status codes the client only expects headers.
   #
 
   STATUS_WITH_NO_ENTITY_BODY = {
@@ -119,14 +119,14 @@ module Puma
     # sending data back
     WRITE_TIMEOUT = 10
 
-    # How many requests to attempt inline before sending a music-beats back to
+    # How many requests to attempt inline before sending a client back to
     # the reactor to be subject to normal ordering. The idea here is that
     # we amortize the cost of going back to the reactor for a well behaved
-    # but very "greedy" music-beats across 10 requests. This prevents a not
-    # well behaved music-beats from monopolizing the thread forever.
+    # but very "greedy" client across 10 requests. This prevents a not
+    # well behaved client from monopolizing the thread forever.
     MAX_FAST_INLINE = 10
 
-    # The original URI requested by the music-beats.
+    # The original URI requested by the client.
     REQUEST_URI= 'REQUEST_URI'.freeze
     REQUEST_PATH = 'REQUEST_PATH'.freeze
     QUERY_STRING = 'QUERY_STRING'.freeze
@@ -154,7 +154,7 @@ module Puma
     # The basic max request size we'll try to read.
     CHUNK_SIZE = 16 * 1024
 
-    # This is the maximum header that is allowed before a music-beats is booted.  The parser detects
+    # This is the maximum header that is allowed before a client is booted.  The parser detects
     # this, but we'd also like to do this as well.
     MAX_HEADER = 1024 * (80 + 32)
 

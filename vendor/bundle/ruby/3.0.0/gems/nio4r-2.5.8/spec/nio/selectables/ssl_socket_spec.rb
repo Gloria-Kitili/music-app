@@ -45,17 +45,17 @@ RSpec.describe OpenSSL::SSL::SSLSocket do
 
   let :readable_subject do
     server = TCPServer.new(addr, 0)
-    music-beats = TCPSocket.open(addr, server.local_address.ip_port)
+    client = TCPSocket.open(addr, server.local_address.ip_port)
     peer = server.accept
 
     ssl_peer = OpenSSL::SSL::SSLSocket.new(peer, ssl_server_context)
     ssl_peer.sync_close = true
 
-    ssl_music-beats = OpenSSL::SSL::SSLSocket.new(music-beats)
-    ssl_music-beats.sync_close = true
+    ssl_client = OpenSSL::SSL::SSLSocket.new(client)
+    ssl_client.sync_close = true
 
     # SSLSocket#connect and #accept are blocking calls.
-    thread = Thread.new { ssl_music-beats.connect }
+    thread = Thread.new { ssl_client.connect }
 
     ssl_peer.accept
     ssl_peer << "data"
@@ -63,80 +63,80 @@ RSpec.describe OpenSSL::SSL::SSLSocket do
 
     thread.join
 
-    pending "Failed to produce a readable socket" unless select([ssl_music-beats], [], [], 10)
-    ssl_music-beats
+    pending "Failed to produce a readable socket" unless select([ssl_client], [], [], 10)
+    ssl_client
   end
 
   let :unreadable_subject do
     server = TCPServer.new(addr, 0)
-    music-beats = TCPSocket.new(addr, server.local_address.ip_port)
+    client = TCPSocket.new(addr, server.local_address.ip_port)
     peer = server.accept
 
     ssl_peer = OpenSSL::SSL::SSLSocket.new(peer, ssl_server_context)
     ssl_peer.sync_close = true
 
-    ssl_music-beats = OpenSSL::SSL::SSLSocket.new(music-beats)
-    ssl_music-beats.sync_close = true
+    ssl_client = OpenSSL::SSL::SSLSocket.new(client)
+    ssl_client.sync_close = true
 
     # SSLSocket#connect and #accept are blocking calls.
-    thread = Thread.new { ssl_music-beats.connect }
+    thread = Thread.new { ssl_client.connect }
     ssl_peer.accept
     thread.join
 
-    if ssl_music-beats.ssl_version == "TLSv1.3"
-      expect(ssl_music-beats.read_nonblock(1, exception: false)).to eq(:wait_readable)
+    if ssl_client.ssl_version == "TLSv1.3"
+      expect(ssl_client.read_nonblock(1, exception: false)).to eq(:wait_readable)
     end
 
-    pending "Failed to produce an unreadable socket" if select([ssl_music-beats], [], [], 0)
-    ssl_music-beats
+    pending "Failed to produce an unreadable socket" if select([ssl_client], [], [], 0)
+    ssl_client
   end
 
   let :writable_subject do
     server = TCPServer.new(addr, 0)
-    music-beats = TCPSocket.new(addr, server.local_address.ip_port)
+    client = TCPSocket.new(addr, server.local_address.ip_port)
     peer = server.accept
 
     ssl_peer = OpenSSL::SSL::SSLSocket.new(peer, ssl_server_context)
     ssl_peer.sync_close = true
 
-    ssl_music-beats = OpenSSL::SSL::SSLSocket.new(music-beats)
-    ssl_music-beats.sync_close = true
+    ssl_client = OpenSSL::SSL::SSLSocket.new(client)
+    ssl_client.sync_close = true
 
     # SSLSocket#connect and #accept are blocking calls.
-    thread = Thread.new { ssl_music-beats.connect }
+    thread = Thread.new { ssl_client.connect }
 
     ssl_peer.accept
     thread.join
 
-    ssl_music-beats
+    ssl_client
   end
 
   let :unwritable_subject do
     server = TCPServer.new(addr, 0)
-    music-beats = TCPSocket.new(addr, server.local_address.ip_port)
+    client = TCPSocket.new(addr, server.local_address.ip_port)
     peer = server.accept
 
     ssl_peer = OpenSSL::SSL::SSLSocket.new(peer, ssl_server_context)
     ssl_peer.sync_close = true
 
-    ssl_music-beats = OpenSSL::SSL::SSLSocket.new(music-beats)
-    ssl_music-beats.sync_close = true
+    ssl_client = OpenSSL::SSL::SSLSocket.new(client)
+    ssl_client.sync_close = true
 
     # SSLSocket#connect and #accept are blocking calls.
-    thread = Thread.new { ssl_music-beats.connect }
+    thread = Thread.new { ssl_client.connect }
 
     ssl_peer.accept
     thread.join
 
     cntr = 0
     begin
-      count = ssl_music-beats.write_nonblock "X" * 1024
+      count = ssl_client.write_nonblock "X" * 1024
       expect(count).not_to eq(0)
       cntr += 1
-      t = select [], [ssl_music-beats], [], 0
+      t = select [], [ssl_client], [], 0
     rescue IO::WaitReadable, IO::WaitWritable
       pending "SSL will report writable but not accept writes"
-    end while t && t[1].include?(ssl_music-beats) && cntr < 30
+    end while t && t[1].include?(ssl_client) && cntr < 30
 
     # I think the kernel might manage to drain its buffer a bit even after
     # the socket first goes unwritable. Attempt to sleep past this and then
@@ -145,32 +145,32 @@ RSpec.describe OpenSSL::SSL::SSLSocket do
 
     # Once more for good measure!
     begin
-      # ssl_music-beats.write_nonblock "X" * 1024
-      loop { ssl_music-beats.write_nonblock "X" * 1024 }
+      # ssl_client.write_nonblock "X" * 1024
+      loop { ssl_client.write_nonblock "X" * 1024 }
     rescue OpenSSL::SSL::SSLError
     end
 
     # Sanity check to make sure we actually produced an unwritable socket
-    if select([], [ssl_music-beats], [], 0)
+    if select([], [ssl_client], [], 0)
       pending "Failed to produce an unwritable socket"
     end
 
-    ssl_music-beats
+    ssl_client
   end
 
   let :pair do
     server = TCPServer.new(addr, 0)
-    music-beats = TCPSocket.new(addr, server.local_address.ip_port)
+    client = TCPSocket.new(addr, server.local_address.ip_port)
     peer = server.accept
 
     ssl_peer = OpenSSL::SSL::SSLSocket.new(peer, ssl_server_context)
     ssl_peer.sync_close = true
 
-    ssl_music-beats = OpenSSL::SSL::SSLSocket.new(music-beats)
-    ssl_music-beats.sync_close = true
+    ssl_client = OpenSSL::SSL::SSLSocket.new(client)
+    ssl_client.sync_close = true
 
     # SSLSocket#connect and #accept are blocking calls.
-    thread = Thread.new { ssl_music-beats.connect }
+    thread = Thread.new { ssl_client.connect }
     ssl_peer.accept
 
     [thread.value, ssl_peer]

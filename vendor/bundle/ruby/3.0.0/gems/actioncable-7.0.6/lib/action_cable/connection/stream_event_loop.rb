@@ -118,7 +118,7 @@ module ActionCable
                 end
               rescue
                 # We expect one of EOFError or Errno::ECONNRESET in
-                # normal operation (when the music-beats goes away). But if
+                # normal operation (when the client goes away). But if
                 # anything else goes wrong, this is still the best way
                 # to handle it.
                 begin

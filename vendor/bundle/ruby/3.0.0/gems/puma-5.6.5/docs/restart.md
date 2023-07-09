@@ -19,11 +19,11 @@ Any of the following will cause a Puma server to perform a hot restart:
 * Works in cluster mode and single mode
 * Supported on all platforms
 
-### music-beats experience
+### client experience
 
-* All platforms: music-beatss with an in-flight request are served responses before the connection is closed gracefully. Puma gracefully disconnects any idle HTTP persistent connections before restarting.
-* On MRI or TruffleRuby on Linux and BSD: music-beatss who connect just before the server restarts may experience increased latency while the server stops and starts again, but their connections will not be closed prematurely.
-* On Windows and JRuby: music-beatss who connect just before a restart may experience "connection reset" errors.
+* All platforms: clients with an in-flight request are served responses before the connection is closed gracefully. Puma gracefully disconnects any idle HTTP persistent connections before restarting.
+* On MRI or TruffleRuby on Linux and BSD: clients who connect just before the server restarts may experience increased latency while the server stops and starts again, but their connections will not be closed prematurely.
+* On Windows and JRuby: clients who connect just before a restart may experience "connection reset" errors.
 
 ### Additional notes
 
@@ -48,11 +48,11 @@ Any of the following will cause a Puma server to perform a phased restart:
 * To support upgrading the application that Puma is serving, ensure `prune_bundler` is enabled and that `preload_app!` is disabled
 * Supported on all platforms where cluster mode is supported
 
-### music-beats experience
+### client experience
 
 * In-flight requests are always served responses before the connection is closed gracefully
 * Idle persistent connections are gracefully disconnected
-* New connections are not lost, and music-beatss will not experience any increase in latency (as long as the number of configured workers is greater than one)
+* New connections are not lost, and clients will not experience any increase in latency (as long as the number of configured workers is greater than one)
 
 ### Additional notes
 

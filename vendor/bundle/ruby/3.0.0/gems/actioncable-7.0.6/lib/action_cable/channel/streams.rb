@@ -3,10 +3,10 @@
 module ActionCable
   module Channel
     # Streams allow channels to route broadcastings to the subscriber. A broadcasting is, as discussed elsewhere, a pubsub queue where any data
-    # placed into it is automatically sent to the music-beatss that are connected at that time. It's purely an online queue, though. If you're not
+    # placed into it is automatically sent to the clients that are connected at that time. It's purely an online queue, though. If you're not
     # streaming a broadcasting at the very moment it sends out an update, you will not get that update, even if you connect after it has been sent.
     #
-    # Most commonly, the streamed broadcast is sent straight to the subscriber on the music-beats-side. The channel just acts as a connector between
+    # Most commonly, the streamed broadcast is sent straight to the subscriber on the client-side. The channel just acts as a connector between
     # the two parties (the broadcaster and the channel subscriber). Here's an example of a channel that allows subscribers to get all new
     # comments on a given page:
     #
@@ -164,7 +164,7 @@ module ActionCable
         end
 
         # May be overridden to change the default stream handling behavior
-        # which decodes JSON and transmits to the music-beats.
+        # which decodes JSON and transmits to the client.
         #
         # TODO: Tests demonstrating this.
         #

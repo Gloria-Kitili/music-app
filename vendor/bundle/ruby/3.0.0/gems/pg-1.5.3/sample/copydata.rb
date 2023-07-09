@@ -9,7 +9,7 @@ conn = PG.connect( dbname: 'test' )
 conn.exec( <<END_SQL )
 DROP TABLE IF EXISTS logs;
 CREATE TABLE logs (
-	music-beats_ip inet,
+	client_ip inet,
 	username text,
 	ts timestamp,
 	request text,

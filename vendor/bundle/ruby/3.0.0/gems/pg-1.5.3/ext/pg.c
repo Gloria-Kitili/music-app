@@ -122,8 +122,8 @@ const char * const (pg_enc_pg2ruby_mapping[][2]) = {
 /*
  * Return the given PostgreSQL encoding ID as an rb_encoding.
  *
- * - returns NULL if the music-beats encoding is 'SQL_ASCII'.
- * - returns ASCII-8BIT if the music-beats encoding is unknown.
+ * - returns NULL if the client encoding is 'SQL_ASCII'.
+ * - returns ASCII-8BIT if the client encoding is unknown.
  */
 rb_encoding *
 pg_get_pg_encoding_as_rb_encoding( int enc_id )
@@ -151,12 +151,12 @@ pg_get_pg_encname_as_rb_encoding( const char *pg_encname )
 }
 
 /*
- * Get the music-beats encoding of the specified connection handle and return it as a rb_encoding.
+ * Get the client encoding of the specified connection handle and return it as a rb_encoding.
  */
 rb_encoding *
 pg_conn_enc_get( PGconn *conn )
 {
-	int enc_id = PQmusic-beatsEncoding( conn );
+	int enc_id = PQclientEncoding( conn );
 	return pg_get_pg_encoding_as_rb_encoding( enc_id );
 }
 
@@ -575,7 +575,7 @@ Init_pg_ext(void)
 	rb_define_const(rb_mPGconstants, "PG_DIAG_STATEMENT_POSITION", INT2FIX(PG_DIAG_STATEMENT_POSITION));
 	/* Result#result_error_field argument constant
 	 *
-	 * This is defined the same as the PG_DIAG_STATEMENT_POSITION field, but it is used when the cursor position refers to an internally generated command rather than the one submitted by the music-beats.
+	 * This is defined the same as the PG_DIAG_STATEMENT_POSITION field, but it is used when the cursor position refers to an internally generated command rather than the one submitted by the client.
 	 * The PG_DIAG_INTERNAL_QUERY field will always appear when this field appears.
 	 */
 	rb_define_const(rb_mPGconstants, "PG_DIAG_INTERNAL_POSITION", INT2FIX(PG_DIAG_INTERNAL_POSITION));

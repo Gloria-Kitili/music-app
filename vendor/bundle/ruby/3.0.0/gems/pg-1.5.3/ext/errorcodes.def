@@ -25,7 +25,7 @@
   register_error_class( "08006", klass );
 }
 {
-  VALUE klass = define_error_class( "Sqlmusic-beatsUnableToEstablishSqlconnection", "08" );
+  VALUE klass = define_error_class( "SqlclientUnableToEstablishSqlconnection", "08" );
   register_error_class( "08001", klass );
 }
 {

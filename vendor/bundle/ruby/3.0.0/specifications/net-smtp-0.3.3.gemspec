@@ -10,13 +10,13 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib".freeze]
   s.authors = ["Yukihiro Matsumoto".freeze]
   s.date = "2022-10-29"
-  s.description = "Simple Mail Transfer Protocol music-beats library for Ruby.".freeze
+  s.description = "Simple Mail Transfer Protocol client library for Ruby.".freeze
   s.email = ["matz@ruby-lang.org".freeze]
   s.homepage = "https://github.com/ruby/net-smtp".freeze
   s.licenses = ["Ruby".freeze, "BSD-2-Clause".freeze]
   s.required_ruby_version = Gem::Requirement.new(">= 2.6.0".freeze)
   s.rubygems_version = "3.3.5".freeze
-  s.summary = "Simple Mail Transfer Protocol music-beats library for Ruby.".freeze
+  s.summary = "Simple Mail Transfer Protocol client library for Ruby.".freeze
 
   s.installed_by_version = "3.3.5" if s.respond_to? :installed_by_version
 

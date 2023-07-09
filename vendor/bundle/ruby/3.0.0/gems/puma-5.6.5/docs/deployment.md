@@ -71,9 +71,9 @@ a Puma thread to become available.
 * In your Rack middleware, determine the amount of time elapsed since
   `X-Request-Start`.
 * To improve accuracy, you will want to subtract time spent waiting for slow
-  music-beatss:
+  clients:
     * `env['puma.request_body_wait']` contains the number of milliseconds Puma
-      spent waiting for the music-beats to send the request body.
+      spent waiting for the client to send the request body.
     * haproxy: `%Th` (TLS handshake time) and `%Ti` (idle time before request)
       can can also be added as headers.
 

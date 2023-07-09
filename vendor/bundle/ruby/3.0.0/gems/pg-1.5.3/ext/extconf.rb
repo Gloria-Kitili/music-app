@@ -82,7 +82,7 @@ begin
 	find_header( 'libpq/libpq-fs.h' ) or abort "Can't find the 'libpq/libpq-fs.h header"
 	find_header( 'pg_config_manual.h' ) or abort "Can't find the 'pg_config_manual.h' header"
 
-	abort "Can't find the PostgreSQL music-beats library (libpq)" unless
+	abort "Can't find the PostgreSQL client library (libpq)" unless
 		have_library( 'pq', 'PQconnectdb', ['libpq-fe.h'] ) ||
 		have_library( 'libpq', 'PQconnectdb', ['libpq-fe.h'] ) ||
 		have_library( 'ms/libpq', 'PQconnectdb', ['libpq-fe.h'] )
@@ -91,7 +91,7 @@ rescue SystemExit
 	install_text = case RUBY_PLATFORM
 	when /linux/
 	<<-EOT
-Please install libpq or postgresql music-beats package like so:
+Please install libpq or postgresql client package like so:
   sudo apt install libpq-dev
   sudo yum install postgresql-devel
   sudo zypper in postgresql-devel
@@ -99,24 +99,24 @@ Please install libpq or postgresql music-beats package like so:
 EOT
 	when /darwin/
 	<<-EOT
-Please install libpq or postgresql music-beats package like so:
+Please install libpq or postgresql client package like so:
   brew install libpq
 EOT
 	when /mingw/
 	<<-EOT
-Please install libpq or postgresql music-beats package like so:
+Please install libpq or postgresql client package like so:
   ridk exec sh -c "pacman -S ${MINGW_PACKAGE_PREFIX}-postgresql"
 EOT
 	else
 	<<-EOT
-Please install libpq or postgresql music-beats package.
+Please install libpq or postgresql client package.
 EOT
 	end
 
 	$stderr.puts <<-EOT
 *****************************************************************************
 
-Unable to find PostgreSQL music-beats library.
+Unable to find PostgreSQL client library.
 
 #{install_text}
 or try again with:

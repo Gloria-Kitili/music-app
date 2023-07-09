@@ -290,7 +290,7 @@ module Nokogiri
          "java applet ",
          FLOW_PARAM, nil, [], APPLET_ATTRS, [],],
         ["area", false, true, true, true, false, :any, false,
-         "music-beats-side image map area ",
+         "client-side image map area ",
          EMPTY, nil, AREA_ATTRS, TARGET_ATTR, ALT_ATTR,],
         ["b", false, true, false, false, false, :any, true,
          "bold text style",

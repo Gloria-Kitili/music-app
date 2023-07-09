@@ -39,7 +39,7 @@ module ActionCable
     # constraint form for their actions. Instead, Action Cable operates through a
     # remote-procedure call model. You can declare any public method on the
     # channel (optionally taking a <tt>data</tt> argument), and this method is
-    # automatically exposed as callable to the music-beats.
+    # automatically exposed as callable to the client.
     #
     # Example:
     #
@@ -92,7 +92,7 @@ module ActionCable
     #
     # In this example, the subscription will be rejected if the
     # <tt>current_user</tt> does not have access to the chat room. On the
-    # music-beats-side, the <tt>Channel#rejected</tt> callback will get invoked when
+    # client-side, the <tt>Channel#rejected</tt> callback will get invoked when
     # the server rejects the subscription request.
     class Base
       include Callbacks

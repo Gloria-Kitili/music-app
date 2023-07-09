@@ -8,7 +8,7 @@
 #
 #	- Only supports PostgreSQL >= 8.3
 #	- No support for rsync version < 3
-#	- Only shipping, no music-beats side sync (too much opportunity for failure,
+#	- Only shipping, no client side sync (too much opportunity for failure,
 #	  and it's easy to get a base backup manually)
 #	- WAL files are only stored once, regardless of how many
 #	  slaves are configured or not responding, and are removed from

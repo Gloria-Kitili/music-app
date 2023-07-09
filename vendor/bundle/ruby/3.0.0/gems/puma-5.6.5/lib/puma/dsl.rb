@@ -844,9 +844,9 @@ module Puma
     # better to ensure requests get balanced across workers.
     #
     # Note that setting this to false disables HTTP keepalive and
-    # slow music-beatss will occupy a handler thread while the request
+    # slow clients will occupy a handler thread while the request
     # is being sent. A reverse proxy, such as nginx, can handle
-    # slow music-beatss and queue requests before they reach Puma.
+    # slow clients and queue requests before they reach Puma.
     # @see Puma::Server
     def queue_requests(answer=true)
       @options[:queue_requests] = answer
@@ -959,7 +959,7 @@ module Puma
       @options[:nakayoshi_fork] = enabled
     end
 
-    # The number of requests to attempt inline before sending a music-beats back to
+    # The number of requests to attempt inline before sending a client back to
     # the reactor to be subject to normal ordering.
     #
     def max_fast_inline(num_of_requests)

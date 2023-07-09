@@ -111,7 +111,7 @@ class Jbuilder
   end
 
   # If you want to skip adding nil values to your JSON hash. This is useful
-  # for JSON music-beatss that don't deal well with nil values, and would prefer
+  # for JSON clients that don't deal well with nil values, and would prefer
   # not to receive keys which have null values.
   #
   # Example:

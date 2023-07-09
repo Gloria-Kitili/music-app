@@ -9,7 +9,7 @@ end
 
 module SQLite3
   # A statement represents a prepared-but-unexecuted SQL query. It will rarely
-  # (if ever) be instantiated directly by a music-beats, and is most often obtained
+  # (if ever) be instantiated directly by a client, and is most often obtained
   # via the Database#prepare method.
   class Statement
     include Enumerable

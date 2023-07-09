@@ -11,13 +11,13 @@ Gem::Specification.new do |s|
   s.authors = ["Shugo Maeda".freeze, "nicholas a. evans".freeze]
   s.bindir = "exe".freeze
   s.date = "2023-06-12"
-  s.description = "Ruby music-beats api for Internet Message Access Protocol".freeze
+  s.description = "Ruby client api for Internet Message Access Protocol".freeze
   s.email = ["shugo@ruby-lang.org".freeze, "nick@ekenosen.net".freeze]
   s.homepage = "https://github.com/ruby/net-imap".freeze
   s.licenses = ["Ruby".freeze, "BSD-2-Clause".freeze]
   s.required_ruby_version = Gem::Requirement.new(">= 2.6.0".freeze)
   s.rubygems_version = "3.3.5".freeze
-  s.summary = "Ruby music-beats api for Internet Message Access Protocol".freeze
+  s.summary = "Ruby client api for Internet Message Access Protocol".freeze
 
   s.installed_by_version = "3.3.5" if s.respond_to? :installed_by_version
 
