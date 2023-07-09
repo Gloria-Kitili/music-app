@@ -57,7 +57,7 @@ module Selenium
         data = payload.merge(id: id)
         WebDriver.logger.debug "WebSocket -> #{data}"[...MAX_LOG_MESSAGE_SIZE], id: :bidi
         data = JSON.generate(data)
-        out_frame = WebSocket::Frame::Outgoing::music-beats.new(version: ws.version, data: data, type: 'text')
+        out_frame = WebSocket::Frame::Outgoing::Client.new(version: ws.version, data: data, type: 'text')
         socket.write(out_frame.to_s)
 
         wait.until { messages.delete(id) }
@@ -101,7 +101,7 @@ module Selenium
       end
 
       def incoming_frame
-        @incoming_frame ||= WebSocket::Frame::Incoming::music-beats.new(version: ws.version)
+        @incoming_frame ||= WebSocket::Frame::Incoming::Client.new(version: ws.version)
       end
 
       def process_frame(frame)
@@ -152,7 +152,7 @@ module Selenium
       end
 
       def ws
-        @ws ||= WebSocket::Handshake::music-beats.new(url: @url)
+        @ws ||= WebSocket::Handshake::Client.new(url: @url)
       end
 
       def next_id

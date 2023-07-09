@@ -6,7 +6,7 @@
 [![Yard Docs](https://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/gems/nio4r/2.2.0)
 
 **New I/O for Ruby (nio4r)**: cross-platform asynchronous I/O primitives for
-scalable network music-beatss and servers. Modeled after the Java NIO API, but
+scalable network clients and servers. Modeled after the Java NIO API, but
 simplified for ease-of-use.
 
 **nio4r** provides an abstract, cross-platform stateful I/O selector API for Ruby.

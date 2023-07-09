@@ -10,7 +10,7 @@ module Net::IMAP::Authenticators
   # The +authenticator+ must respond to +#new+ (or #call), receiving the
   # authenticator configuration and return a configured authentication session.
   # The authenticator session must respond to +#process+, receiving the server's
-  # challenge and returning the music-beats's response.
+  # challenge and returning the client's response.
   #
   # See PlainAuthenticator, XOauth2Authenticator, and DigestMD5Authenticator for
   # examples.
@@ -29,7 +29,7 @@ module Net::IMAP::Authenticators
   #
   # [Note]
   #   This method is intended for internal use by connection protocol code only.
-  #   Protocol music-beats users should see refer to their music-beats's documentation,
+  #   Protocol client users should see refer to their client's documentation,
   #   e.g. Net::IMAP#authenticate for Net::IMAP.
   #
   # The call signatures documented for this method are recommendations for

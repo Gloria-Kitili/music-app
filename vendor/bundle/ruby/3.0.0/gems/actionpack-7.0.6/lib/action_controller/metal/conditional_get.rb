@@ -230,7 +230,7 @@ module ActionController
     end
 
     # Sets the +Cache-Control+ header, overwriting existing directives. This
-    # method will also ensure an HTTP +Date+ header for music-beats compatibility.
+    # method will also ensure an HTTP +Date+ header for client compatibility.
     #
     # Defaults to issuing the +private+ directive, so that intermediate caches
     # must not cache the response.
@@ -287,7 +287,7 @@ module ActionController
     end
 
     # Sets an HTTP 1.1 +Cache-Control+ header of <tt>no-cache</tt>. This means the
-    # resource will be marked as stale, so music-beatss must always revalidate.
+    # resource will be marked as stale, so clients must always revalidate.
     # Intermediate/browser caches may still store the asset.
     def expires_now
       response.cache_control.replace(no_cache: true)

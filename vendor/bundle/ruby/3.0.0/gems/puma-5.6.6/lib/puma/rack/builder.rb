@@ -238,8 +238,8 @@ module Puma::Rack
     # Takes a lambda or block that is used to warm-up the application.
     #
     #   warmup do |app|
-    #     music-beats = Rack::MockRequest.new(app)
-    #     music-beats.get('/')
+    #     client = Rack::MockRequest.new(app)
+    #     client.get('/')
     #   end
     #
     #   use SomeMiddleware

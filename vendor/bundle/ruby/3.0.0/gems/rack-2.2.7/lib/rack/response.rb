@@ -137,7 +137,7 @@ module Rack
       def informational?;       status >= 100 && status < 200;        end
       def successful?;          status >= 200 && status < 300;        end
       def redirection?;         status >= 300 && status < 400;        end
-      def music-beats_error?;        status >= 400 && status < 500;        end
+      def client_error?;        status >= 400 && status < 500;        end
       def server_error?;        status >= 500 && status < 600;        end
 
       def ok?;                  status == 200;                        end

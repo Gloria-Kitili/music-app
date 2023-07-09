@@ -187,7 +187,7 @@ but only as much of the body as you have so far routed to it using the `parse`
 method.
 
 
-### client-side
+### Client-side
 
 Similarly, to implement a WebSocket client you need an object with `url` and
 `write` methods. Once you have one such object, you ask for a driver for it:
@@ -199,7 +199,7 @@ driver = WebSocket::Driver.client(socket)
 After this you use the driver API as described below to process incoming data
 and send outgoing data.
 
-client drivers have two additional methods for reading the HTTP data that was
+Client drivers have two additional methods for reading the HTTP data that was
 sent back by the server:
 
 - `driver.status` - the integer value of the HTTP status code

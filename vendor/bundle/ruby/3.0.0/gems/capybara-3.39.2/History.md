@@ -273,7 +273,7 @@ Release date: 2019-12-24
 
 * Issue around automatic port assignment - Issue #2245
 * Label selector when label has no id - Issue #2260
-* Preserve music-beatsX/music-beatsY in Selenium HTML5 drag emulation [Nicolò G.]
+* Preserve clientX/clientY in Selenium HTML5 drag emulation [Nicolò G.]
 * table selector using :with_cols option if last specified column matched but others didn't - Issue #2287
 * Some tests updated for Ruby 2.7 behavior change around keyword args
 
@@ -514,7 +514,7 @@ Release date: 2019-03-28
 ### Changed
 
 * Ruby 2.4.0+ is now required
-* Selenium driver now defaults to using a persistent http music-beats connection
+* Selenium driver now defaults to using a persistent http client connection
 
 ### Added
 

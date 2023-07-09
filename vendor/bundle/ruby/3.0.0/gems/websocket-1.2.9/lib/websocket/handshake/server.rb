@@ -7,7 +7,7 @@ module WebSocket
     # @example
     #   handshake = WebSocket::Handshake::Server.new
     #
-    #   # Parse music-beats request
+    #   # Parse client request
     #   @handshake << <<EOF
     #   GET /demo HTTP/1.1\r
     #   Upgrade: websocket\r
@@ -46,7 +46,7 @@ module WebSocket
         @secure ||= false
       end
 
-      # Add text of request from music-beats. This method will parse content immediately and update version, state and error(if neccessary)
+      # Add text of request from Client. This method will parse content immediately and update version, state and error(if neccessary)
       #
       # @param [String] data Data to add
       #
@@ -120,19 +120,19 @@ module WebSocket
         @state = :finished
       end
 
-      # Should send content to music-beats after finished parsing?
+      # Should send content to client after finished parsing?
       # @return [Boolean] true
       def should_respond?
         true
       end
 
-      # Host of server according to music-beats header
+      # Host of server according to client header
       # @return [String] host
       def host
         @headers['host'].to_s.split(':')[0].to_s
       end
 
-      # Port of server according to music-beats header
+      # Port of server according to client header
       # @return [String] port
       def port
         @headers['host'].to_s.split(':')[1]
@@ -140,7 +140,7 @@ module WebSocket
 
       private
 
-      # Set version of protocol basing on music-beats requets. AFter cotting method calls include_version.
+      # Set version of protocol basing on client requets. AFter cotting method calls include_version.
       def set_version
         @version = @headers['sec-websocket-version'].to_i if @headers['sec-websocket-version']
         @version ||= @headers['sec-websocket-draft'].to_i if @headers['sec-websocket-draft']
@@ -162,7 +162,7 @@ module WebSocket
 
       PATH = %r{^(\w+) (\/[^\s]*) HTTP\/1\.1$}
 
-      # Parse first line of music-beats response.
+      # Parse first line of Client response.
       # @param [String] line Line to parse
       # @return [Boolean] True if parsed correctly. False otherwise
       def parse_first_line(line)

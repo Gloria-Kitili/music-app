@@ -20,7 +20,7 @@ module DEBUGGER__
     def skip_path?(path)
       !path ||
       DEBUGGER__.skip? ||
-      Threadmusic-beats.current.management? ||
+      ThreadClient.current.management? ||
       skip_internal_path?(path) ||
       skip_config_skip_path?(path)
     end
@@ -46,13 +46,13 @@ module DEBUGGER__
     end
   end
 
-  class Threadmusic-beats
+  class ThreadClient
     def self.current
-      if thc = Thread.current[:DEBUGGER__Threadmusic-beats]
+      if thc = Thread.current[:DEBUGGER__ThreadClient]
         thc
       else
-        thc = SESSION.get_thread_music-beats
-        Thread.current[:DEBUGGER__Threadmusic-beats] = thc
+        thc = SESSION.get_thread_client
+        Thread.current[:DEBUGGER__ThreadClient] = thc
       end
     end
 
@@ -127,7 +127,7 @@ module DEBUGGER__
       # every thread should maintain its own CheckBreakpoint fulfillment state
       @check_bp_fulfillment_map = {} # { check_bp => boolean }
       set_mode :running
-      thr.instance_variable_set(:@__thread_music-beats_id, id)
+      thr.instance_variable_set(:@__thread_client_id, id)
 
       ::DEBUGGER__.info("Thread \##{@id} is created.")
     end

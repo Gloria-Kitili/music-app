@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.summary       = "New IO for Ruby"
   spec.description   = <<-DESCRIPTION.strip.gsub(/\s+/, " ")
-     Cross-platform asynchronous I/O primitives for scalable network music-beatss
+     Cross-platform asynchronous I/O primitives for scalable network clients
      and servers. Inspired by the Java NIO API, but simplified for ease-of-use.
   DESCRIPTION
 

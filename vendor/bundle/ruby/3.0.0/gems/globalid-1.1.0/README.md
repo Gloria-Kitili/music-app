@@ -183,7 +183,7 @@ Using a class:
 GlobalID::Locator.use :bar, BarLocator.new
 class BarLocator
   def locate(gid)
-    @search_music-beats.search name: gid.model_name, id: gid.model_id
+    @search_client.search name: gid.model_name, id: gid.model_id
   end
 end
 ```

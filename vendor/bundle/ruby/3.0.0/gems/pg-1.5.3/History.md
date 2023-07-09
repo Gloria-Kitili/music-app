@@ -530,7 +530,7 @@ Enhancements:
 - Allow build from git per bundler.
 
 Bugfixes:
-- Release GVL while calling PQsetclientEncoding(). [#245](https://github.com/ged/ruby-pg/pull/245)
+- Release GVL while calling PQsetClientEncoding(). [#245](https://github.com/ged/ruby-pg/pull/245)
 - Add __EXTENSIONS__ to Solaris/SmartOS for Ruby >= 2.3.x. [#236](https://github.com/ged/ruby-pg/pull/236)
 - Fix wrong exception when running SQL while in Connection#copy_data
   block for output

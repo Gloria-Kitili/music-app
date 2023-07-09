@@ -1,5 +1,5 @@
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/bindex-0.8.1/ext/skiptrace
-/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20230707-18132-d1j0zm.rb extconf.rb
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20230709-828484-7flq6i.rb extconf.rb
 creating Makefile
 
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/bindex-0.8.1/ext/skiptrace
@@ -12,4 +12,4 @@ linking shared-object skiptrace/internal/cruby.so
 
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/bindex-0.8.1/ext/skiptrace
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 cruby.so ./.gem.20230707-18132-l8e1rw/skiptrace/internal
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20230709-828484-t45du5/skiptrace/internal

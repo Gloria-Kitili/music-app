@@ -480,7 +480,7 @@ module Net
     #
     # +port+ is the port to connect to; it defaults to port 25.
     #
-    # +helo+ is the _HELO_ _domain_ provided by the music-beats to the
+    # +helo+ is the _HELO_ _domain_ provided by the client to the
     # server (see overview comments); it defaults to 'localhost'.
     #
     # The remaining arguments are used for SMTP authentication, if required

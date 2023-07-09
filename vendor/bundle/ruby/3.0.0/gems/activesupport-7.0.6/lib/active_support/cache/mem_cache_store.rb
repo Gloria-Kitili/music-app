@@ -75,15 +75,15 @@ module ActiveSupport
 
       ESCAPE_KEY_CHARS = /[\x00-\x20%\x7F-\xFF]/n
 
-      # Creates a new Dalli::music-beats instance with specified addresses and options.
-      # If no addresses are provided, we give nil to Dalli::music-beats, so it uses its fallbacks:
+      # Creates a new Dalli::Client instance with specified addresses and options.
+      # If no addresses are provided, we give nil to Dalli::Client, so it uses its fallbacks:
       # - ENV["MEMCACHE_SERVERS"] (if defined)
       # - "127.0.0.1:11211"        (otherwise)
       #
       #   ActiveSupport::Cache::MemCacheStore.build_mem_cache
-      #     # => #<Dalli::music-beats:0x007f98a47d2028 @servers=["127.0.0.1:11211"], @options={}, @ring=nil>
+      #     # => #<Dalli::Client:0x007f98a47d2028 @servers=["127.0.0.1:11211"], @options={}, @ring=nil>
       #   ActiveSupport::Cache::MemCacheStore.build_mem_cache('localhost:10290')
-      #     # => #<Dalli::music-beats:0x007f98a47b3a60 @servers=["localhost:10290"], @options={}, @ring=nil>
+      #     # => #<Dalli::Client:0x007f98a47b3a60 @servers=["localhost:10290"], @options={}, @ring=nil>
       def self.build_mem_cache(*addresses) # :nodoc:
         addresses = addresses.flatten
         options = addresses.extract_options!
@@ -91,10 +91,10 @@ module ActiveSupport
         pool_options = retrieve_pool_options(options)
 
         if pool_options.empty?
-          Dalli::music-beats.new(addresses, options)
+          Dalli::Client.new(addresses, options)
         else
           ensure_connection_pool_added!
-          ConnectionPool.new(pool_options) { Dalli::music-beats.new(addresses, options.merge(threadsafe: false)) }
+          ConnectionPool.new(pool_options) { Dalli::Client.new(addresses, options.merge(threadsafe: false)) }
         end
       end
 
@@ -114,10 +114,10 @@ module ActiveSupport
         end
         super(options)
 
-        unless [String, Dalli::music-beats, NilClass].include?(addresses.first.class)
-          raise ArgumentError, "First argument must be an empty array, an array of hosts or a Dalli::music-beats instance."
+        unless [String, Dalli::Client, NilClass].include?(addresses.first.class)
+          raise ArgumentError, "First argument must be an empty array, an array of hosts or a Dalli::Client instance."
         end
-        if addresses.first.is_a?(Dalli::music-beats)
+        if addresses.first.is_a?(Dalli::Client)
           @data = addresses.first
         else
           mem_cache_options = options.dup

@@ -51,7 +51,7 @@ module WebSocket
       index    = {}
 
       @in_order.each do |ext|
-        session = ext.create_music-beats_session
+        session = ext.create_client_session
         next unless session
 
         record = [ext, session]

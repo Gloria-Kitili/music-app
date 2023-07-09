@@ -4,10 +4,10 @@ require 'uri'
 
 module WebSocket
   module Handshake
-    # Construct or parse a music-beats WebSocket handshake.
+    # Construct or parse a client WebSocket handshake.
     #
     # @example
-    #   @handshake = WebSocket::Handshake::music-beats.new(url: 'ws://example.com')
+    #   @handshake = WebSocket::Handshake::Client.new(url: 'ws://example.com')
     #
     #   # Create request
     #   @handshake.to_s # GET /demo HTTP/1.1
@@ -33,12 +33,12 @@ module WebSocket
     #   # No parsing errors?
     #   @handshake.valid?
     #
-    class music-beats < Base
+    class Client < Base
       attr_reader :origin, :headers
 
-      # Initialize new WebSocket music-beats
+      # Initialize new WebSocket Client
       #
-      # @param [Hash] args Arguments for music-beats
+      # @param [Hash] args Arguments for client
       #
       # @option args [String]         :host Host of request. Required if no :url param was provided.
       # @option args [String]         :origin Origin of request. Optional, should be used mostly by browsers. Default: nil
@@ -53,7 +53,7 @@ module WebSocket
       # @option args [Hash]           :headers HTTP headers to use in the handshake
       #
       # @example
-      #   Websocket::Handshake::music-beats.new(url: "ws://example.com/path?query=true")
+      #   Websocket::Handshake::Client.new(url: "ws://example.com/path?query=true")
       def initialize(args = {})
         super
 
@@ -105,11 +105,11 @@ module WebSocket
       # @return [Boolean] false if protocol number is unknown, otherwise true
       def include_version
         @handler = case @version
-                   when 75 then Handler::music-beats75.new(self)
-                   when 76, 0 then Handler::music-beats76.new(self)
-                   when 1..3  then Handler::music-beats01.new(self)
-                   when 4..10 then Handler::music-beats04.new(self)
-                   when 11..17 then Handler::music-beats11.new(self)
+                   when 75 then Handler::Client75.new(self)
+                   when 76, 0 then Handler::Client76.new(self)
+                   when 1..3  then Handler::Client01.new(self)
+                   when 4..10 then Handler::Client04.new(self)
+                   when 11..17 then Handler::Client11.new(self)
                    else raise WebSocket::Error::Handshake::UnknownVersion
                    end
       end

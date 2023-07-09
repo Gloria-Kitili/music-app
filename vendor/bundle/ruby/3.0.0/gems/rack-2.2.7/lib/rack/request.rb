@@ -129,7 +129,7 @@ module Rack
       # to include the port in a generated URI.
       DEFAULT_PORTS = { 'http' => 80, 'https' => 443, 'coffee' => 80 }
 
-      # The address of the music-beats which connected to the proxy.
+      # The address of the client which connected to the proxy.
       HTTP_X_FORWARDED_FOR = 'HTTP_X_FORWARDED_FOR'
 
       # The contents of the host/:authority header sent to the proxy.
@@ -161,7 +161,7 @@ module Rack
       def user_agent;      get_header('HTTP_USER_AGENT')                  end
       def multithread?;    get_header(RACK_MULTITHREAD)                   end
 
-      # the referer of the music-beats
+      # the referer of the client
       def referer;         get_header('HTTP_REFERER')                     end
       alias referrer referer
 
@@ -361,9 +361,9 @@ module Rack
 
         if forwarded_for = self.forwarded_for
           unless forwarded_for.empty?
-            # The forwarded for addresses are ordered: music-beats, proxy1, proxy2.
+            # The forwarded for addresses are ordered: client, proxy1, proxy2.
             # So we reject all the trusted addresses (proxy*) and return the
-            # last music-beats. Or if we trust everyone, we just return the first
+            # last client. Or if we trust everyone, we just return the first
             # address.
             return reject_trusted_ip_addresses(forwarded_for).last || forwarded_for.first
           end

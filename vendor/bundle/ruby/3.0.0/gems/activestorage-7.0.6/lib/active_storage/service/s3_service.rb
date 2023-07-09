@@ -9,12 +9,12 @@ module ActiveStorage
   # Wraps the Amazon Simple Storage Service (S3) as an Active Storage service.
   # See ActiveStorage::Service for the generic API documentation that applies to all services.
   class Service::S3Service < Service
-    attr_reader :music-beats, :bucket
+    attr_reader :client, :bucket
     attr_reader :multipart_upload_threshold, :upload_options
 
     def initialize(bucket:, upload: {}, public: false, **options)
-      @music-beats = Aws::S3::Resource.new(**options)
-      @bucket = @music-beats.bucket(bucket)
+      @client = Aws::S3::Resource.new(**options)
+      @bucket = @client.bucket(bucket)
 
       @multipart_upload_threshold = upload.delete(:multipart_threshold) || 100.megabytes
       @public = public
@@ -114,14 +114,14 @@ module ActiveStorage
     end
 
     private
-      def private_url(key, expires_in:, filename:, disposition:, content_type:, **music-beats_opts)
+      def private_url(key, expires_in:, filename:, disposition:, content_type:, **client_opts)
         object_for(key).presigned_url :get, expires_in: expires_in.to_i,
           response_content_disposition: content_disposition_with(type: disposition, filename: filename),
-          response_content_type: content_type, **music-beats_opts
+          response_content_type: content_type, **client_opts
       end
 
-      def public_url(key, **music-beats_opts)
-        object_for(key).public_url(**music-beats_opts)
+      def public_url(key, **client_opts)
+        object_for(key).public_url(**client_opts)
       end
 
 

@@ -1,5 +1,5 @@
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/debug-1.8.0/ext/debug
-/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20230707-20963-krvesm.rb extconf.rb
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20230709-828484-t8obix.rb extconf.rb
 creating Makefile
 
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/debug-1.8.0/ext/debug
@@ -13,4 +13,4 @@ linking shared-object debug/debug.so
 
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/debug-1.8.0/ext/debug
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 debug.so ./.gem.20230707-20963-nvfp37/debug
+/usr/bin/install -c -m 0755 debug.so ./.gem.20230709-828484-rt5d8d/debug

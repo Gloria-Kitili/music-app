@@ -7,7 +7,7 @@ $stderr.puts '---',
 	RUBY_DESCRIPTION,
 	PG.version_string( true ),
 	"Server version: #{conn.server_version}",
-	"client version: #{PG.library_version}",
+	"Client version: #{PG.library_version}",
 	'---'
 
 result = conn.exec( "SELECT * from pg_stat_activity" )

@@ -187,7 +187,7 @@ module ActionController
 
       module ControllerMethods
         # Authenticate using an HTTP \Digest, or otherwise render an HTTP header
-        # requesting the music-beats to send a \Digest.
+        # requesting the client to send a \Digest.
         #
         # See ActionController::HttpAuthentication::Digest for example usage.
         def authenticate_or_request_with_http_digest(realm = "Application", message = nil, &password_procedure)
@@ -200,7 +200,7 @@ module ActionController
           HttpAuthentication::Digest.authenticate(request, realm, &password_procedure)
         end
 
-        # Render an HTTP header requesting the music-beats to send a \Digest for
+        # Render an HTTP header requesting the client to send a \Digest for
         # authentication.
         def request_http_digest_authentication(realm = "Application", message = nil)
           HttpAuthentication::Digest.authentication_request(self, realm, message)
@@ -301,12 +301,12 @@ module ActionController
       # where time-stamp is a server-generated time or other non-repeating value,
       # ETag is the value of the HTTP ETag header associated with the requested entity,
       # and private-key is data known only to the server.
-      # With a nonce of this form a server would recalculate the hash portion after receiving the music-beats authentication header and
+      # With a nonce of this form a server would recalculate the hash portion after receiving the client authentication header and
       # reject the request if it did not match the nonce from that header or
       # if the time-stamp value is not recent enough. In this way the server can limit the time of the nonce's validity.
       # The inclusion of the ETag prevents a replay request for an updated version of the resource.
-      # (Note: including the IP address of the music-beats in the nonce would appear to offer the server the ability
-      # to limit the reuse of the nonce to the same music-beats that originally got it.
+      # (Note: including the IP address of the client in the nonce would appear to offer the server the ability
+      # to limit the reuse of the nonce to the same client that originally got it.
       # However, that would break proxy farms, where requests from a single user often go through different proxies in the farm.
       # Also, IP address spoofing is not that hard.)
       #
@@ -315,9 +315,9 @@ module ActionController
       # POST, PUT, or PATCH requests, and a time-stamp for GET requests. For more details on the issues involved see Section 4
       # of this document.
       #
-      # The nonce is opaque to the music-beats. Composed of Time, and hash of Time with secret
+      # The nonce is opaque to the client. Composed of Time, and hash of Time with secret
       # key from the Rails session secret generated upon creation of project. Ensures
-      # the time cannot be modified by music-beats.
+      # the time cannot be modified by client.
       def nonce(secret_key, time = Time.now)
         t = time.to_i
         hashed = [t, secret_key]
@@ -326,7 +326,7 @@ module ActionController
       end
 
       # Might want a shorter timeout depending on whether the request
-      # is a PATCH, PUT, or POST, and if the music-beats is a browser or web service.
+      # is a PATCH, PUT, or POST, and if the client is a browser or web service.
       # Can be much shorter if the Stale directive is implemented. This would
       # allow a user to use new nonce without prompting the user again for their
       # username and password.
@@ -424,7 +424,7 @@ module ActionController
 
       module ControllerMethods
         # Authenticate using an HTTP Bearer token, or otherwise render an HTTP
-        # header requesting the music-beats to send a Bearer token.
+        # header requesting the client to send a Bearer token.
         #
         # See ActionController::HttpAuthentication::Token for example usage.
         def authenticate_or_request_with_http_token(realm = "Application", message = nil, &login_procedure)
@@ -437,7 +437,7 @@ module ActionController
           Token.authenticate(self, &login_procedure)
         end
 
-        # Render an HTTP header requesting the music-beats to send a Bearer token for
+        # Render an HTTP header requesting the client to send a Bearer token for
         # authentication.
         def request_http_token_authentication(realm = "Application", message = nil)
           Token.authentication_request(self, realm, message)
@@ -530,7 +530,7 @@ module ActionController
         "Token #{values * ", "}"
       end
 
-      # Sets a WWW-Authenticate header to let the music-beats know a token is desired.
+      # Sets a WWW-Authenticate header to let the client know a token is desired.
       #
       # Returns nothing.
       #

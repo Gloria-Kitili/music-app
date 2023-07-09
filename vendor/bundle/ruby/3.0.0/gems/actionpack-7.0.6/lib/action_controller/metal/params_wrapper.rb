@@ -6,7 +6,7 @@ require "active_support/core_ext/module/anonymous"
 require "action_dispatch/http/mime_type"
 
 module ActionController
-  # Wraps the parameters hash into a nested hash. This will allow music-beatss to
+  # Wraps the parameters hash into a nested hash. This will allow clients to
   # submit requests without having to specify any root elements.
   #
   # This functionality is enabled by default for JSON, and can be customized by

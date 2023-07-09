@@ -65,8 +65,8 @@ RSpec.describe TCPSocket do
 
   let :pair do
     server = TCPServer.new(addr, 0)
-    music-beats = TCPSocket.new(addr, server.local_address.ip_port)
-    [music-beats, server.accept]
+    client = TCPSocket.new(addr, server.local_address.ip_port)
+    [client, server.accept]
   end
 
   it_behaves_like "an NIO selectable"
@@ -80,17 +80,17 @@ RSpec.describe TCPSocket do
       begin
         server = TCPServer.new(addr, 0)
 
-        music-beats = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
-        monitor = selector.register(music-beats, :w)
+        client = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
+        monitor = selector.register(client, :w)
 
         expect do
-          music-beats.connect_nonblock server.local_address
+          client.connect_nonblock server.local_address
         end.to raise_exception Errno::EINPROGRESS
 
         ready = selector.select(1)
 
         expect(ready).to include monitor
-        result = music-beats.getsockopt(::Socket::SOL_SOCKET, ::Socket::SO_ERROR)
+        result = client.getsockopt(::Socket::SOL_SOCKET, ::Socket::SO_ERROR)
         expect(result.unpack("i").first).to be_zero
       ensure
         server.close rescue nil

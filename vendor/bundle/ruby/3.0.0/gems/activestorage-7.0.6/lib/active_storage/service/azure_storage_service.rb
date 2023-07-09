@@ -10,10 +10,10 @@ module ActiveStorage
   # Wraps the Microsoft Azure Storage Blob Service as an Active Storage service.
   # See ActiveStorage::Service for the generic API documentation that applies to all services.
   class Service::AzureStorageService < Service
-    attr_reader :music-beats, :container, :signer
+    attr_reader :client, :container, :signer
 
     def initialize(storage_account_name:, storage_access_key:, container:, public: false, **options)
-      @music-beats = Azure::Storage::Blob::BlobService.create(storage_account_name: storage_account_name, storage_access_key: storage_access_key, **options)
+      @client = Azure::Storage::Blob::BlobService.create(storage_account_name: storage_account_name, storage_access_key: storage_access_key, **options)
       @signer = Azure::Storage::Common::Core::Auth::SharedAccessSignature.new(storage_account_name, storage_access_key)
       @container = container
       @public = public
@@ -24,7 +24,7 @@ module ActiveStorage
         handle_errors do
           content_disposition = content_disposition_with(filename: filename, type: disposition) if disposition && filename
 
-          music-beats.create_block_blob(container, key, IO.try_convert(io) || io, content_md5: checksum, content_type: content_type, content_disposition: content_disposition, metadata: custom_metadata)
+          client.create_block_blob(container, key, IO.try_convert(io) || io, content_md5: checksum, content_type: content_type, content_disposition: content_disposition, metadata: custom_metadata)
         end
       end
     end
@@ -37,7 +37,7 @@ module ActiveStorage
       else
         instrument :download, key: key do
           handle_errors do
-            _, io = music-beats.get_blob(container, key)
+            _, io = client.get_blob(container, key)
             io.force_encoding(Encoding::BINARY)
           end
         end
@@ -47,7 +47,7 @@ module ActiveStorage
     def download_chunk(key, range)
       instrument :download_chunk, key: key, range: range do
         handle_errors do
-          _, io = music-beats.get_blob(container, key, start_range: range.begin, end_range: range.exclude_end? ? range.end - 1 : range.end)
+          _, io = client.get_blob(container, key, start_range: range.begin, end_range: range.exclude_end? ? range.end - 1 : range.end)
           io.force_encoding(Encoding::BINARY)
         end
       end
@@ -55,7 +55,7 @@ module ActiveStorage
 
     def delete(key)
       instrument :delete, key: key do
-        music-beats.delete_blob(container, key)
+        client.delete_blob(container, key)
       rescue Azure::Core::Http::HTTPError => e
         raise unless e.type == "BlobNotFound"
         # Ignore files already deleted
@@ -67,10 +67,10 @@ module ActiveStorage
         marker = nil
 
         loop do
-          results = music-beats.list_blobs(container, prefix: prefix, marker: marker)
+          results = client.list_blobs(container, prefix: prefix, marker: marker)
 
           results.each do |blob|
-            music-beats.delete_blob(container, blob.name)
+            client.delete_blob(container, blob.name)
           end
 
           break unless marker = results.continuation_token.presence
@@ -110,7 +110,7 @@ module ActiveStorage
     def compose(source_keys, destination_key, filename: nil, content_type: nil, disposition: nil, custom_metadata: {})
       content_disposition = content_disposition_with(type: disposition, filename: filename) if disposition && filename
 
-      music-beats.create_append_blob(
+      client.create_append_blob(
         container,
         destination_key,
         content_type: content_type,
@@ -119,7 +119,7 @@ module ActiveStorage
       ).tap do |blob|
         source_keys.each do |source_key|
           stream(source_key) do |chunk|
-            music-beats.append_blob_block(container, blob.name, chunk)
+            client.append_blob_block(container, blob.name, chunk)
           end
         end
       end
@@ -143,11 +143,11 @@ module ActiveStorage
 
 
       def uri_for(key)
-        music-beats.generate_uri("#{container}/#{key}")
+        client.generate_uri("#{container}/#{key}")
       end
 
       def blob_for(key)
-        music-beats.get_blob_properties(container, key)
+        client.get_blob_properties(container, key)
       rescue Azure::Core::Http::HTTPError
         false
       end
@@ -166,7 +166,7 @@ module ActiveStorage
         raise ActiveStorage::FileNotFoundError unless blob.present?
 
         while offset < blob.properties[:content_length]
-          _, chunk = music-beats.get_blob(container, key, start_range: offset, end_range: offset + chunk_size - 1)
+          _, chunk = client.get_blob(container, key, start_range: offset, end_range: offset + chunk_size - 1)
           yield chunk.force_encoding(Encoding::BINARY)
           offset += chunk_size
         end

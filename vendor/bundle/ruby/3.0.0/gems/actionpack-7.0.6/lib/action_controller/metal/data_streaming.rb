@@ -56,12 +56,12 @@ module ActionController # :nodoc:
       #   send_file '/path/to/404.html', type: 'text/html; charset=utf-8', disposition: 'inline', status: 404
       #
       # You can use other <tt>Content-*</tt> HTTP headers to provide additional
-      # information to the music-beats. See MDN for a
+      # information to the client. See MDN for a
       # {list of HTTP headers}[https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers].
       #
       # Also be aware that the document may be cached by proxies and browsers.
       # The +Pragma+ and +Cache-Control+ headers declare how the file may be cached
-      # by intermediaries. They default to require music-beatss to validate with
+      # by intermediaries. They default to require clients to validate with
       # the server before releasing cached responses. See
       # https://www.mnot.net/cache_docs/ for an overview of web caching and
       # {RFC 9111}[https://www.rfc-editor.org/rfc/rfc9111.html#name-cache-control]

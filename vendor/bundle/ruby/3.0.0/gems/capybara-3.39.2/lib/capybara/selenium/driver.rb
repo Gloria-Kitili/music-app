@@ -64,12 +64,12 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
 
   def browser
     unless @browser
-      options[:http_music-beats] ||= begin
-        require 'capybara/selenium/patches/persistent_music-beats'
+      options[:http_client] ||= begin
+        require 'capybara/selenium/patches/persistent_client'
         if options[:timeout]
-          ::Capybara::Selenium::Persistentmusic-beats.new(read_timeout: options[:timeout])
+          ::Capybara::Selenium::PersistentClient.new(read_timeout: options[:timeout])
         else
-          ::Capybara::Selenium::Persistentmusic-beats.new
+          ::Capybara::Selenium::PersistentClient.new
         end
       end
       processed_options = options.reject { |key, _val| SPECIAL_OPTIONS.include?(key) }

@@ -599,12 +599,12 @@ module ActiveRecord
       # object from an association collection.
       #
       #   class Firm < ActiveRecord::Base
-      #     has_many :music-beatss,
+      #     has_many :clients,
       #              dependent: :destroy,
-      #              after_add: :congratulate_music-beats,
+      #              after_add: :congratulate_client,
       #              after_remove: :log_after_remove
       #
-      #     def congratulate_music-beats(record)
+      #     def congratulate_client(record)
       #       # ...
       #     end
       #
@@ -615,9 +615,9 @@ module ActiveRecord
       # It's possible to stack callbacks by passing them as an array. Example:
       #
       #   class Firm < ActiveRecord::Base
-      #     has_many :music-beatss,
+      #     has_many :clients,
       #              dependent: :destroy,
-      #              after_add: [:congratulate_music-beats, -> (firm, record) { firm.log << "after_adding#{record.id}" }],
+      #              after_add: [:congratulate_client, -> (firm, record) { firm.log << "after_adding#{record.id}" }],
       #              after_remove: :log_after_remove
       #   end
       #
@@ -631,15 +631,15 @@ module ActiveRecord
       #
       # Note: To trigger remove callbacks, you must use +destroy+ / +destroy_all+ methods. For example:
       #
-      # * <tt>firm.music-beatss.destroy(music-beats)</tt>
-      # * <tt>firm.music-beatss.destroy(*music-beatss)</tt>
-      # * <tt>firm.music-beatss.destroy_all</tt>
+      # * <tt>firm.clients.destroy(client)</tt>
+      # * <tt>firm.clients.destroy(*clients)</tt>
+      # * <tt>firm.clients.destroy_all</tt>
       #
       # +delete+ / +delete_all+ methods like the following do *not* trigger remove callbacks:
       #
-      # * <tt>firm.music-beatss.delete(music-beats)</tt>
-      # * <tt>firm.music-beatss.delete(*music-beatss)</tt>
-      # * <tt>firm.music-beatss.delete_all</tt>
+      # * <tt>firm.clients.delete(client)</tt>
+      # * <tt>firm.clients.delete(*clients)</tt>
+      # * <tt>firm.clients.delete_all</tt>
       #
       # == Association extensions
       #
@@ -717,22 +717,22 @@ module ActiveRecord
       # You can also go through a #has_many association on the join model:
       #
       #   class Firm < ActiveRecord::Base
-      #     has_many   :music-beatss
-      #     has_many   :invoices, through: :music-beatss
+      #     has_many   :clients
+      #     has_many   :invoices, through: :clients
       #   end
       #
-      #   class music-beats < ActiveRecord::Base
+      #   class Client < ActiveRecord::Base
       #     belongs_to :firm
       #     has_many   :invoices
       #   end
       #
       #   class Invoice < ActiveRecord::Base
-      #     belongs_to :music-beats
+      #     belongs_to :client
       #   end
       #
       #   @firm = Firm.first
-      #   @firm.music-beatss.flat_map { |c| c.invoices } # select all invoices for all music-beatss of the firm
-      #   @firm.invoices                            # selects all invoices by going through the music-beats join model
+      #   @firm.clients.flat_map { |c| c.invoices } # select all invoices for all clients of the firm
+      #   @firm.invoices                            # selects all invoices by going through the Client join model
       #
       # Similarly you can go through a #has_one association on the join model:
       #
@@ -1075,15 +1075,15 @@ module ActiveRecord
       #   module MyApplication
       #     module Business
       #       class Firm < ActiveRecord::Base
-      #         has_many :music-beatss
+      #         has_many :clients
       #       end
       #
-      #       class music-beats < ActiveRecord::Base; end
+      #       class Client < ActiveRecord::Base; end
       #     end
       #   end
       #
-      # When <tt>Firm#music-beatss</tt> is called, it will in turn call
-      # <tt>MyApplication::Business::music-beats.find_all_by_firm_id(firm.id)</tt>.
+      # When <tt>Firm#clients</tt> is called, it will in turn call
+      # <tt>MyApplication::Business::Client.find_all_by_firm_id(firm.id)</tt>.
       # If you want to associate with a class in another module scope, this can be done by
       # specifying the complete class name.
       #
@@ -1235,7 +1235,7 @@ module ActiveRecord
         # collections of associated objects will be added:
         #
         # +collection+ is a placeholder for the symbol passed as the +name+ argument, so
-        # <tt>has_many :music-beatss</tt> would add among others <tt>music-beatss.empty?</tt>.
+        # <tt>has_many :clients</tt> would add among others <tt>clients.empty?</tt>.
         #
         # [collection]
         #   Returns a Relation of all the associated objects.
@@ -1302,23 +1302,23 @@ module ActiveRecord
         #
         # === Example
         #
-        # A <tt>Firm</tt> class declares <tt>has_many :music-beatss</tt>, which will add:
-        # * <tt>Firm#music-beatss</tt> (similar to <tt>music-beats.where(firm_id: id)</tt>)
-        # * <tt>Firm#music-beatss<<</tt>
-        # * <tt>Firm#music-beatss.delete</tt>
-        # * <tt>Firm#music-beatss.destroy</tt>
-        # * <tt>Firm#music-beatss=</tt>
-        # * <tt>Firm#music-beats_ids</tt>
-        # * <tt>Firm#music-beats_ids=</tt>
-        # * <tt>Firm#music-beatss.clear</tt>
-        # * <tt>Firm#music-beatss.empty?</tt> (similar to <tt>firm.music-beatss.size == 0</tt>)
-        # * <tt>Firm#music-beatss.size</tt> (similar to <tt>music-beats.count "firm_id = #{id}"</tt>)
-        # * <tt>Firm#music-beatss.find</tt> (similar to <tt>music-beats.where(firm_id: id).find(id)</tt>)
-        # * <tt>Firm#music-beatss.exists?(name: 'ACME')</tt> (similar to <tt>music-beats.exists?(name: 'ACME', firm_id: firm.id)</tt>)
-        # * <tt>Firm#music-beatss.build</tt> (similar to <tt>music-beats.new(firm_id: id)</tt>)
-        # * <tt>Firm#music-beatss.create</tt> (similar to <tt>c = music-beats.new(firm_id: id); c.save; c</tt>)
-        # * <tt>Firm#music-beatss.create!</tt> (similar to <tt>c = music-beats.new(firm_id: id); c.save!</tt>)
-        # * <tt>Firm#music-beatss.reload</tt>
+        # A <tt>Firm</tt> class declares <tt>has_many :clients</tt>, which will add:
+        # * <tt>Firm#clients</tt> (similar to <tt>Client.where(firm_id: id)</tt>)
+        # * <tt>Firm#clients<<</tt>
+        # * <tt>Firm#clients.delete</tt>
+        # * <tt>Firm#clients.destroy</tt>
+        # * <tt>Firm#clients=</tt>
+        # * <tt>Firm#client_ids</tt>
+        # * <tt>Firm#client_ids=</tt>
+        # * <tt>Firm#clients.clear</tt>
+        # * <tt>Firm#clients.empty?</tt> (similar to <tt>firm.clients.size == 0</tt>)
+        # * <tt>Firm#clients.size</tt> (similar to <tt>Client.count "firm_id = #{id}"</tt>)
+        # * <tt>Firm#clients.find</tt> (similar to <tt>Client.where(firm_id: id).find(id)</tt>)
+        # * <tt>Firm#clients.exists?(name: 'ACME')</tt> (similar to <tt>Client.exists?(name: 'ACME', firm_id: firm.id)</tt>)
+        # * <tt>Firm#clients.build</tt> (similar to <tt>Client.new(firm_id: id)</tt>)
+        # * <tt>Firm#clients.create</tt> (similar to <tt>c = Client.new(firm_id: id); c.save; c</tt>)
+        # * <tt>Firm#clients.create!</tt> (similar to <tt>c = Client.new(firm_id: id); c.save!</tt>)
+        # * <tt>Firm#clients.reload</tt>
         # The declaration can also include an +options+ hash to specialize the behavior of the association.
         #
         # === Scopes
@@ -1783,7 +1783,7 @@ module ActiveRecord
         #   associated records to be deleted in a background job.
         #
         # Option examples:
-        #   belongs_to :firm, foreign_key: "music-beats_of"
+        #   belongs_to :firm, foreign_key: "client_of"
         #   belongs_to :person, primary_key: "name", foreign_key: "person_name"
         #   belongs_to :author, class_name: "Person", foreign_key: "author_id"
         #   belongs_to :valid_coupon, ->(o) { where "discounts > ?", o.payments_count },

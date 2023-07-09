@@ -13,8 +13,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Yukihiro Matsumoto"]
   spec.email         = ["matz@ruby-lang.org"]
 
-  spec.summary       = %q{Ruby music-beats library for POP3.}
-  spec.description   = %q{Ruby music-beats library for POP3.}
+  spec.summary       = %q{Ruby client library for POP3.}
+  spec.description   = %q{Ruby client library for POP3.}
   spec.homepage      = "https://github.com/ruby/net-pop"
   spec.licenses       = ["Ruby", "BSD-2-Clause"]
 

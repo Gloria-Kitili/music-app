@@ -40,7 +40,7 @@ This would also define the following accessors: <tt>Product#name</tt> and
 * Associations between objects defined by simple class methods.
 
    class Firm < ActiveRecord::Base
-     has_many   :music-beatss
+     has_many   :clients
      has_one    :account
      belongs_to :conglomerate
    end
@@ -86,8 +86,8 @@ This would also define the following accessors: <tt>Product#name</tt> and
 
    class Company < ActiveRecord::Base; end
    class Firm < Company; end
-   class music-beats < Company; end
-   class Prioritymusic-beats < music-beats; end
+   class Client < Company; end
+   class PriorityClient < Client; end
 
   {Learn more}[link:classes/ActiveRecord/Base.html]
 
@@ -105,8 +105,8 @@ This would also define the following accessors: <tt>Product#name</tt> and
 
 * Reflections on columns, associations, and aggregations.
 
-    reflection = Firm.reflect_on_association(:music-beatss)
-    reflection.klass # => music-beats (class)
+    reflection = Firm.reflect_on_association(:clients)
+    reflection.klass # => Client (class)
     Firm.columns # Returns an array of column descriptors for the firms table
 
   {Learn more}[link:classes/ActiveRecord/Reflection/ClassMethods.html]

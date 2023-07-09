@@ -32,15 +32,15 @@ module Selenium
         #
         # Initializes the bridge with the given server URL
         # @param [String, URI] url url for the remote server
-        # @param [Object] http_music-beats an HTTP music-beats instance that implements the same protocol as Http::Default
+        # @param [Object] http_client an HTTP client instance that implements the same protocol as Http::Default
         # @api private
         #
 
-        def initialize(url:, http_music-beats: nil)
+        def initialize(url:, http_client: nil)
           uri = url.is_a?(URI) ? url : URI.parse(url)
           uri.path += '/' unless uri.path.end_with?('/')
 
-          @http = http_music-beats || Http::Default.new
+          @http = http_client || Http::Default.new
           @http.server_url = uri
           @file_detector = nil
         end

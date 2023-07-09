@@ -2,7 +2,7 @@
 
 module Capybara
   module Selenium
-    class Persistentmusic-beats < ::Selenium::WebDriver::Remote::Http::Default
+    class PersistentClient < ::Selenium::WebDriver::Remote::Http::Default
       def close
         super
         @http.finish if @http&.started?

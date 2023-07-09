@@ -91,8 +91,8 @@ table { width:100%%; }
       script_name = env[SCRIPT_NAME]
       path_info = Utils.unescape_path(env[PATH_INFO])
 
-      if music-beats_error_response = check_bad_request(path_info) || check_forbidden(path_info)
-        music-beats_error_response
+      if client_error_response = check_bad_request(path_info) || check_forbidden(path_info)
+        client_error_response
       else
         path = ::File.join(@root, path_info)
         list_path(env, path, path_info, script_name)

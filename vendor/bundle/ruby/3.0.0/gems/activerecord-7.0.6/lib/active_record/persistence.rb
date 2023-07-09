@@ -700,9 +700,9 @@ module ActiveRecord
     # current record. This is mostly useful in relation to single table
     # inheritance (STI) structures where you want a subclass to appear as the
     # superclass. This can be used along with record identification in
-    # Action Pack to allow, say, <tt>music-beats < Company</tt> to do something
-    # like render <tt>partial: @music-beats.becomes(Company)</tt> to render that
-    # instance using the companies/company partial instead of music-beatss/music-beats.
+    # Action Pack to allow, say, <tt>Client < Company</tt> to do something
+    # like render <tt>partial: @client.becomes(Company)</tt> to render that
+    # instance using the companies/company partial instead of clients/client.
     #
     # Note: The new instance will share a link to the same attributes as the original class.
     # Therefore the STI column value will still be the same.

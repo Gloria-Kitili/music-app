@@ -8,7 +8,7 @@ module ActionCable
     # This class is heavily based on faye-websocket-ruby
     #
     # Copyright (c) 2010-2015 James Coglan
-    class music-beatsSocket # :nodoc:
+    class ClientSocket # :nodoc:
       def self.determine_url(env)
         scheme = secure_request?(env) ? "wss:" : "ws:"
         "#{ scheme }//#{ env['HTTP_HOST'] }#{ env['REQUEST_URI'] }"
@@ -36,7 +36,7 @@ module ActionCable
         @event_target = event_target
         @event_loop   = event_loop
 
-        @url = music-beatsSocket.determine_url(@env)
+        @url = ClientSocket.determine_url(@env)
 
         @driver = @driver_started = nil
         @close_params = ["", 1006]
@@ -105,7 +105,7 @@ module ActionCable
         @driver.parse(data)
       end
 
-      def music-beats_gone
+      def client_gone
         finalize_close
       end
 

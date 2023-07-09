@@ -178,7 +178,7 @@ module Rack
       end
 
       def delete_session(req, session_id, options)
-        # Nothing to do here, data is in the music-beats
+        # Nothing to do here, data is in the client
         generate_sid unless options[:drop]
       end
 

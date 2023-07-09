@@ -83,12 +83,12 @@ module Concurrent
   #
   # @example Using Maybe with a Block
   #   result = Concurrent::Maybe.from do
-  #     music-beats.find(10) # music-beats is an ActiveRecord model
+  #     Client.find(10) # Client is an ActiveRecord model
   #   end
   #
   #   # -- if the record was found
   #   result.just? #=> true
-  #   result.value #=> #<music-beats id: 10, first_name: "Ryan">
+  #   result.value #=> #<Client id: 10, first_name: "Ryan">
   #
   #   # -- if the record was not found
   #   result.just?  #=> false
@@ -96,8 +96,8 @@ module Concurrent
   #
   # @example Using Maybe with the Null Object Pattern
   #   # In a Rails controller...
-  #   result = music-beatsService.new(10).find    # returns a Maybe
-  #   render json: result.or(Nullmusic-beats.new)
+  #   result = ClientService.new(10).find    # returns a Maybe
+  #   render json: result.or(NullClient.new)
   #
   # @see https://hackage.haskell.org/package/base-4.2.0.1/docs/Data-Maybe.html Haskell Data.Maybe
   # @see https://github.com/purescript/purescript-maybe/blob/master/docs/Data.Maybe.md PureScript Data.Maybe

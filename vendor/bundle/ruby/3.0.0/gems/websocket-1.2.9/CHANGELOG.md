@@ -22,7 +22,7 @@
 
 ## 1.2.4
 
-- add subprotocol handling for both server and music-beats
+- add subprotocol handling for both server and client
 
 ## 1.2.3
 
@@ -40,7 +40,7 @@
 ## 1.2.0
 
 - Remove support for Ruby 1.8
-- Add support for sending custom headers for music-beats
+- Add support for sending custom headers for Client
 - Better detection and handling of draft 76
 - Multiple small fixes and optimizations
 
@@ -105,9 +105,9 @@
 
 ## 1.0.1
 
-- allow creating music-beats with :uri and :url options
+- allow creating client with :uri and :url options
 - prevent strange results when header is mailformed
-- set music-beats path to '/' when :uri option is provided but without trailing slash
+- set client path to '/' when :uri option is provided but without trailing slash
 
 ## 1.0.0
 

@@ -132,7 +132,7 @@ module Rack
       ##                        the server is running on a non-standard port.
 
       ## <tt>HTTP_</tt> Variables:: Variables corresponding to the
-      ##                            music-beats-supplied HTTP request
+      ##                            client-supplied HTTP request
       ##                            headers (i.e., variables whose
       ##                            names begin with <tt>HTTP_</tt>). The
       ##                            presence or absence of these
@@ -678,7 +678,7 @@ module Rack
         }
 
         ## Special headers starting "rack." are for communicating with the
-        ## server, and must not be sent back to the music-beats.
+        ## server, and must not be sent back to the client.
         next if key =~ /^rack\..+$/
 
         ## The header must not contain a +Status+ key.

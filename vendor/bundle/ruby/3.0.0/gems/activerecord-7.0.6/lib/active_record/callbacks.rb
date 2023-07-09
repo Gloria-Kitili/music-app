@@ -55,9 +55,9 @@ module ActiveRecord
   #   end
   #
   #   class Firm < ActiveRecord::Base
-  #     # Disables access to the system, for associated music-beatss and people when the firm is destroyed
+  #     # Disables access to the system, for associated clients and people when the firm is destroyed
   #     before_destroy { |record| Person.where(firm_id: record.id).update_all(access: 'disabled')   }
-  #     before_destroy { |record| music-beats.where(music-beats_of: record.id).update_all(access: 'disabled') }
+  #     before_destroy { |record| Client.where(client_of: record.id).update_all(access: 'disabled') }
   #   end
   #
   # == Inheritable callback queues
@@ -267,7 +267,7 @@ module ActiveRecord
   #
   # If a <tt>before_*</tt> callback cancels the action a +ROLLBACK+ is issued. You
   # can also trigger a +ROLLBACK+ raising an exception in any of the callbacks,
-  # including <tt>after_*</tt> hooks. Note, however, that in that case the music-beats
+  # including <tt>after_*</tt> hooks. Note, however, that in that case the client
   # needs to be aware of it because an ordinary {#save}[rdoc-ref:Persistence#save] will raise such exception
   # instead of quietly returning +false+.
   #

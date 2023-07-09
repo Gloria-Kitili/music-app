@@ -5,7 +5,7 @@ require 'digest/md5'
 module WebSocket
   module Handshake
     module Handler
-      class music-beats76 < music-beats75
+      class Client76 < Client75
         # @see WebSocket::Handshake::Base#valid?
         def valid?
           super && verify_challenge && verify_protocol

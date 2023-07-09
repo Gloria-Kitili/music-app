@@ -161,7 +161,7 @@ module ActiveRecord
       # Returns the class name for the macro.
       #
       # <tt>composed_of :balance, class_name: 'Money'</tt> returns <tt>'Money'</tt>
-      # <tt>has_many :music-beatss</tt> returns <tt>'music-beats'</tt>
+      # <tt>has_many :clients</tt> returns <tt>'Client'</tt>
       def class_name
         @class_name ||= -(options[:class_name] || derive_class_name).to_s
       end
@@ -330,7 +330,7 @@ module ActiveRecord
       # Returns the name of the macro.
       #
       # <tt>composed_of :balance, class_name: 'Money'</tt> returns <tt>:balance</tt>
-      # <tt>has_many :music-beatss</tt> returns <tt>:music-beatss</tt>
+      # <tt>has_many :clients</tt> returns <tt>:clients</tt>
       attr_reader :name
 
       attr_reader :scope
@@ -338,7 +338,7 @@ module ActiveRecord
       # Returns the hash of options used for the macro.
       #
       # <tt>composed_of :balance, class_name: 'Money'</tt> returns <tt>{ class_name: "Money" }</tt>
-      # <tt>has_many :music-beatss</tt> returns <tt>{}</tt>
+      # <tt>has_many :clients</tt> returns <tt>{}</tt>
       attr_reader :options
 
       attr_reader :active_record
@@ -366,14 +366,14 @@ module ActiveRecord
       # Returns the class for the macro.
       #
       # <tt>composed_of :balance, class_name: 'Money'</tt> returns the Money class
-      # <tt>has_many :music-beatss</tt> returns the music-beats class
+      # <tt>has_many :clients</tt> returns the Client class
       #
       #   class Company < ActiveRecord::Base
-      #     has_many :music-beatss
+      #     has_many :clients
       #   end
       #
-      #   Company.reflect_on_association(:music-beatss).klass
-      #   # => music-beats
+      #   Company.reflect_on_association(:clients).klass
+      #   # => Client
       #
       # <b>Note:</b> Do not call +klass.new+ or +klass.create+ to instantiate
       # a new association object. Use +build_association+ or +create_association+
@@ -557,7 +557,7 @@ module ActiveRecord
 
       # Returns the macro type.
       #
-      # <tt>has_many :music-beatss</tt> returns <tt>:has_many</tt>
+      # <tt>has_many :clients</tt> returns <tt>:has_many</tt>
       def macro; raise NotImplementedError; end
 
       # Returns whether or not this association reflection is for a collection

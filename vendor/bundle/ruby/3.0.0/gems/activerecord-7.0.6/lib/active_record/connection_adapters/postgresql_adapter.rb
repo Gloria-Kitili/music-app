@@ -34,7 +34,7 @@ module ActiveRecord
       conn_params.slice!(*valid_conn_param_keys)
 
       ConnectionAdapters::PostgreSQLAdapter.new(
-        ConnectionAdapters::PostgreSQLAdapter.new_music-beats(conn_params),
+        ConnectionAdapters::PostgreSQLAdapter.new_client(conn_params),
         logger,
         conn_params,
         config,
@@ -55,10 +55,10 @@ module ActiveRecord
     # * <tt>:database</tt> - Defaults to be the same as the username.
     # * <tt>:schema_search_path</tt> - An optional schema search path for the connection given
     #   as a string of comma-separated schema names. This is backward-compatible with the <tt>:schema_order</tt> option.
-    # * <tt>:encoding</tt> - An optional music-beats encoding that is used in a <tt>SET music-beats_encoding TO
+    # * <tt>:encoding</tt> - An optional client encoding that is used in a <tt>SET client_encoding TO
     #   <encoding></tt> call on the connection.
-    # * <tt>:min_messages</tt> - An optional music-beats min messages that is used in a
-    #   <tt>SET music-beats_min_messages TO <min_messages></tt> call on the connection.
+    # * <tt>:min_messages</tt> - An optional client min messages that is used in a
+    #   <tt>SET client_min_messages TO <min_messages></tt> call on the connection.
     # * <tt>:variables</tt> - An optional hash of additional parameters that
     #   will be used in <tt>SET SESSION key = val</tt> calls on the connection.
     # * <tt>:insert_returning</tt> - An optional boolean to control the use of <tt>RETURNING</tt> for <tt>INSERT</tt> statements
@@ -74,7 +74,7 @@ module ActiveRecord
       ADAPTER_NAME = "PostgreSQL"
 
       class << self
-        def new_music-beats(conn_params)
+        def new_client(conn_params)
           PG.connect(**conn_params)
         rescue ::PG::Error => error
           if conn_params && conn_params[:dbname] && error.message.include?(conn_params[:dbname])
@@ -820,7 +820,7 @@ module ActiveRecord
           open_transactions > 0
         end
 
-        # Returns the statement identifier for the music-beats side cache
+        # Returns the statement identifier for the client side cache
         # of statements
         def sql_key(sql)
           "#{schema_search_path}-#{sql}"
@@ -849,7 +849,7 @@ module ActiveRecord
         # Connects to a PostgreSQL server and sets up the adapter depending on the
         # connected server's characteristics.
         def connect
-          @connection = self.class.new_music-beats(@connection_parameters)
+          @connection = self.class.new_client(@connection_parameters)
           configure_connection
           add_pg_encoders
           add_pg_decoders
@@ -859,9 +859,9 @@ module ActiveRecord
         # This is called by #connect and should not be called manually.
         def configure_connection
           if @config[:encoding]
-            @connection.set_music-beats_encoding(@config[:encoding])
+            @connection.set_client_encoding(@config[:encoding])
           end
-          self.music-beats_min_messages = @config[:min_messages] || "warning"
+          self.client_min_messages = @config[:min_messages] || "warning"
           self.schema_search_path = @config[:schema_search_path] || @config[:schema_order]
 
           # Use standard-conforming strings so we don't have to do the E'...' dance.

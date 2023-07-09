@@ -6,7 +6,7 @@ require "active_support/json"
 
 module ActionController
   # Mix this module into your controller, and all actions in that controller
-  # will be able to stream data to the music-beats as it's written.
+  # will be able to stream data to the client as it's written.
   #
   #   class MyController < ActionController::Base
   #     include ActionController::Live
@@ -121,7 +121,7 @@ module ActionController
         end
     end
 
-    class music-beatsDisconnected < RuntimeError
+    class ClientDisconnected < RuntimeError
     end
 
     class Buffer < ActionDispatch::Response::Buffer # :nodoc:
@@ -132,12 +132,12 @@ module ActionController
       end
       @queue_size = 10
 
-      # Ignore that the music-beats has disconnected.
+      # Ignore that the client has disconnected.
       #
-      # If this value is `true`, calling `write` after the music-beats
+      # If this value is `true`, calling `write` after the client
       # disconnects will result in the written content being silently
       # discarded. If this value is `false` (the default), a
-      # music-beatsDisconnected exception will be raised.
+      # ClientDisconnected exception will be raised.
       attr_accessor :ignore_disconnect
 
       def initialize(response)
@@ -160,10 +160,10 @@ module ActionController
           @buf.clear
 
           unless @ignore_disconnect
-            # Raise music-beatsDisconnected, which is a RuntimeError (not an
+            # Raise ClientDisconnected, which is a RuntimeError (not an
             # IOError), because that's more appropriate for something beyond
             # the developer's control.
-            raise music-beatsDisconnected, "music-beats disconnected"
+            raise ClientDisconnected, "client disconnected"
           end
         end
       end
@@ -185,7 +185,7 @@ module ActionController
         end
       end
 
-      # Inform the producer/writing thread that the music-beats has
+      # Inform the producer/writing thread that the client has
       # disconnected; the reading thread is no longer interested in
       # anything that's being written.
       #
@@ -197,7 +197,7 @@ module ActionController
         end
       end
 
-      # Is the music-beats still connected and waiting for content?
+      # Is the client still connected and waiting for content?
       #
       # The result of calling `write` when this is `false` is determined
       # by `ignore_disconnect`.
@@ -253,7 +253,7 @@ module ActionController
       error = nil
       # This processes the action in a child thread. It lets us return the
       # response code and headers back up the Rack stack, and still process
-      # the body in parallel with sending data to the music-beats.
+      # the body in parallel with sending data to the client.
       new_controller_thread {
         ActiveSupport::Dependencies.interlock.running do
           t2 = Thread.current

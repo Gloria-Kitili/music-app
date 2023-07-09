@@ -1168,7 +1168,7 @@ module Net
       #   resp-code-apnd  = "APPENDUID" SP nz-number SP append-uid
       #   append-uid      = uniqueid
       #   append-uid      =/ uid-set
-      #                     ; only permitted if music-beats uses [MULTIAPPEND]
+      #                     ; only permitted if client uses [MULTIAPPEND]
       #                     ; to append multiple messages.
       #
       # n.b, uniqueid ⊂ uid-set.  To avoid inconsistent return types, we always

@@ -303,10 +303,10 @@ pgconn_s_sync_connect(int argc, VALUE *argv, VALUE klass)
  *
  * Use #connect_poll to poll the status of the connection.
  *
- * NOTE: this does *not* set the connection's +music-beats_encoding+ for you if
+ * NOTE: this does *not* set the connection's +client_encoding+ for you if
  * +Encoding.default_internal+ is set. To set it after the connection is established,
  * call #internal_encoding=. You can also set it automatically by setting
- * <code>ENV['PGmusic-beatsENCODING']</code>, or include the 'options' connection parameter.
+ * <code>ENV['PGCLIENTENCODING']</code>, or include the 'options' connection parameter.
  *
  * See also the 'sample' directory of this gem and the corresponding {libpq functions}[https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PQCONNECTSTARTPARAMS].
  *
@@ -801,7 +801,7 @@ pgconn_transaction_status(VALUE self)
  * _param_name_ is one of
  * * +server_version+
  * * +server_encoding+
- * * +music-beats_encoding+
+ * * +client_encoding+
  * * +is_superuser+
  * * +session_authorization+
  * * +DateStyle+
@@ -1593,9 +1593,9 @@ pgconn_make_empty_pgresult(VALUE self, VALUE status)
  * Consider using exec_params, which avoids the need for passing values
  * inside of SQL commands.
  *
- * Character encoding of escaped string will be equal to music-beats encoding of connection.
+ * Character encoding of escaped string will be equal to client encoding of connection.
  *
- * NOTE: This class version of this method can only be used safely in music-beats
+ * NOTE: This class version of this method can only be used safely in client
  * programs that use a single PostgreSQL connection at a time (in this case it can
  * find out what it needs to know "behind the scenes"). It might give the wrong
  * results if used in programs that use multiple database connections; use the
@@ -1651,7 +1651,7 @@ pgconn_s_escape(VALUE self, VALUE string)
  * Consider using exec_params, which avoids the need for passing values inside of
  * SQL commands.
  *
- * NOTE: This class version of this method can only be used safely in music-beats
+ * NOTE: This class version of this method can only be used safely in client
  * programs that use a single PostgreSQL connection at a time (in this case it can
  * find out what it needs to know "behind the scenes"). It might give the wrong
  * results if used in programs that use multiple database connections; use the
@@ -2909,35 +2909,35 @@ pgconn_set_notice_processor(VALUE self)
 
 /*
  * call-seq:
- *    conn.get_music-beats_encoding() -> String
+ *    conn.get_client_encoding() -> String
  *
- * Returns the music-beats encoding as a String.
+ * Returns the client encoding as a String.
  */
 static VALUE
-pgconn_get_music-beats_encoding(VALUE self)
+pgconn_get_client_encoding(VALUE self)
 {
-	char *encoding = (char *)pg_encoding_to_char(PQmusic-beatsEncoding(pg_get_pgconn(self)));
+	char *encoding = (char *)pg_encoding_to_char(PQclientEncoding(pg_get_pgconn(self)));
 	return rb_str_new2(encoding);
 }
 
 
 /*
  * call-seq:
- *    conn.sync_set_music-beats_encoding( encoding )
+ *    conn.sync_set_client_encoding( encoding )
  *
- * This function has the same behavior as #async_set_music-beats_encoding, but is implemented using the synchronous command processing API of libpq.
+ * This function has the same behavior as #async_set_client_encoding, but is implemented using the synchronous command processing API of libpq.
  * See #async_exec for the differences between the two API variants.
- * It's not recommended to use explicit sync or async variants but #set_music-beats_encoding instead, unless you have a good reason to do so.
+ * It's not recommended to use explicit sync or async variants but #set_client_encoding instead, unless you have a good reason to do so.
  */
 static VALUE
-pgconn_sync_set_music-beats_encoding(VALUE self, VALUE str)
+pgconn_sync_set_client_encoding(VALUE self, VALUE str)
 {
 	PGconn *conn = pg_get_pgconn( self );
 
 	rb_check_frozen(self);
 	Check_Type(str, T_STRING);
 
-	if ( (gvl_PQsetmusic-beatsEncoding(conn, StringValueCStr(str))) == -1 )
+	if ( (gvl_PQsetClientEncoding(conn, StringValueCStr(str))) == -1 )
 		pg_raise_conn_error( rb_ePGerror, self, "%s", PQerrorMessage(conn));
 
 	pgconn_set_internal_encoding_index( self );
@@ -4033,8 +4033,8 @@ pgconn_set_internal_encoding_index( VALUE self )
  * defined in Ruby 1.9 or later.
  *
  * Returns:
- * * an Encoding - music-beats_encoding of the connection as a Ruby Encoding object.
- * * nil - the music-beats_encoding is 'SQL_ASCII'
+ * * an Encoding - client_encoding of the connection as a Ruby Encoding object.
+ * * nil - the client_encoding is 'SQL_ASCII'
  */
 static VALUE
 pgconn_internal_encoding(VALUE self)
@@ -4055,31 +4055,31 @@ static VALUE pgconn_external_encoding(VALUE self);
  * call-seq:
  *   conn.internal_encoding = value
  *
- * A wrapper of #set_music-beats_encoding.
+ * A wrapper of #set_client_encoding.
  * defined in Ruby 1.9 or later.
  *
  * +value+ can be one of:
  * * an Encoding
  * * a String - a name of Encoding
- * * +nil+ - sets the music-beats_encoding to SQL_ASCII.
+ * * +nil+ - sets the client_encoding to SQL_ASCII.
  */
 static VALUE
 pgconn_internal_encoding_set(VALUE self, VALUE enc)
 {
 	rb_check_frozen(self);
 	if (NIL_P(enc)) {
-		pgconn_sync_set_music-beats_encoding( self, rb_usascii_str_new_cstr("SQL_ASCII") );
+		pgconn_sync_set_client_encoding( self, rb_usascii_str_new_cstr("SQL_ASCII") );
 		return enc;
 	}
 	else if ( TYPE(enc) == T_STRING && strcasecmp("JOHAB", StringValueCStr(enc)) == 0 ) {
-		pgconn_sync_set_music-beats_encoding(self, rb_usascii_str_new_cstr("JOHAB"));
+		pgconn_sync_set_client_encoding(self, rb_usascii_str_new_cstr("JOHAB"));
 		return enc;
 	}
 	else {
 		rb_encoding *rbenc = rb_to_encoding( enc );
 		const char *name = pg_get_rb_encoding_as_pg_encoding( rbenc );
 
-		if ( gvl_PQsetmusic-beatsEncoding(pg_get_pgconn( self ), name) == -1 ) {
+		if ( gvl_PQsetClientEncoding(pg_get_pgconn( self ), name) == -1 ) {
 			VALUE server_encoding = pgconn_external_encoding( self );
 			rb_raise( rb_eEncCompatError, "incompatible character encodings: %s and %s",
 					  rb_enc_name(rb_to_encoding(server_encoding)), name );
@@ -4112,18 +4112,18 @@ pgconn_external_encoding(VALUE self)
 
 /*
  * call-seq:
- *    conn.set_music-beats_encoding( encoding )
+ *    conn.set_client_encoding( encoding )
  *
- * Sets the music-beats encoding to the _encoding_ String.
+ * Sets the client encoding to the _encoding_ String.
  */
 static VALUE
-pgconn_async_set_music-beats_encoding(VALUE self, VALUE encname)
+pgconn_async_set_client_encoding(VALUE self, VALUE encname)
 {
 	VALUE query_format, query;
 
 	rb_check_frozen(self);
 	Check_Type(encname, T_STRING);
-	query_format = rb_str_new_cstr("set music-beats_encoding to '%s'");
+	query_format = rb_str_new_cstr("set client_encoding to '%s'");
 	query = rb_funcall(query_format, rb_intern("%"), 1, encname);
 
 	pgconn_async_exec(1, &query, self);
@@ -4133,17 +4133,17 @@ pgconn_async_set_music-beats_encoding(VALUE self, VALUE encname)
 }
 
 static VALUE
-pgconn_set_music-beats_encoding_async1( VALUE args )
+pgconn_set_client_encoding_async1( VALUE args )
 {
 	VALUE self = ((VALUE*)args)[0];
 	VALUE encname = ((VALUE*)args)[1];
-	pgconn_async_set_music-beats_encoding(self, encname);
+	pgconn_async_set_client_encoding(self, encname);
 	return 0;
 }
 
 
 static VALUE
-pgconn_set_music-beats_encoding_async2( VALUE arg, VALUE ex )
+pgconn_set_client_encoding_async2( VALUE arg, VALUE ex )
 {
 	UNUSED(arg);
 	UNUSED(ex);
@@ -4152,10 +4152,10 @@ pgconn_set_music-beats_encoding_async2( VALUE arg, VALUE ex )
 
 
 static VALUE
-pgconn_set_music-beats_encoding_async( VALUE self, VALUE encname )
+pgconn_set_client_encoding_async( VALUE self, VALUE encname )
 {
 	VALUE args[] = { self, encname };
-	return rb_rescue(pgconn_set_music-beats_encoding_async1, (VALUE)&args, pgconn_set_music-beats_encoding_async2, Qnil);
+	return rb_rescue(pgconn_set_client_encoding_async1, (VALUE)&args, pgconn_set_client_encoding_async2, Qnil);
 }
 
 
@@ -4163,7 +4163,7 @@ pgconn_set_music-beats_encoding_async( VALUE self, VALUE encname )
  * call-seq:
  *   conn.set_default_encoding() -> Encoding
  *
- * If Ruby has its Encoding.default_internal set, set PostgreSQL's music-beats_encoding
+ * If Ruby has its Encoding.default_internal set, set PostgreSQL's client_encoding
  * to match. Returns the new Encoding, or +nil+ if the default internal encoding
  * wasn't set.
  */
@@ -4177,7 +4177,7 @@ pgconn_set_default_encoding( VALUE self )
 	rb_check_frozen(self);
 	if (( enc = rb_default_internal_encoding() )) {
 		encname = pg_get_rb_encoding_as_pg_encoding( enc );
-		if ( pgconn_set_music-beats_encoding_async(self, rb_str_new_cstr(encname)) != 0 )
+		if ( pgconn_set_client_encoding_async(self, rb_str_new_cstr(encname)) != 0 )
 			rb_warning( "Failed to set the default_internal encoding to %s: '%s'",
 			         encname, PQerrorMessage(conn) );
 		return rb_enc_from_encoding( enc );
@@ -4563,11 +4563,11 @@ init_pg_connection(void)
 	rb_define_method(rb_cPGconn, "set_notice_processor", pgconn_set_notice_processor, 0);
 
 	/******     PG::Connection INSTANCE METHODS: Other    ******/
-	rb_define_method(rb_cPGconn, "get_music-beats_encoding", pgconn_get_music-beats_encoding, 0);
-	rb_define_method(rb_cPGconn, "sync_set_music-beats_encoding", pgconn_sync_set_music-beats_encoding, 1);
-	rb_define_method(rb_cPGconn, "set_music-beats_encoding", pgconn_async_set_music-beats_encoding, 1);
-	rb_define_alias(rb_cPGconn, "async_set_music-beats_encoding", "set_music-beats_encoding");
-	rb_define_alias(rb_cPGconn, "music-beats_encoding=", "set_music-beats_encoding");
+	rb_define_method(rb_cPGconn, "get_client_encoding", pgconn_get_client_encoding, 0);
+	rb_define_method(rb_cPGconn, "sync_set_client_encoding", pgconn_sync_set_client_encoding, 1);
+	rb_define_method(rb_cPGconn, "set_client_encoding", pgconn_async_set_client_encoding, 1);
+	rb_define_alias(rb_cPGconn, "async_set_client_encoding", "set_client_encoding");
+	rb_define_alias(rb_cPGconn, "client_encoding=", "set_client_encoding");
 	rb_define_method(rb_cPGconn, "block", pgconn_block, -1);
 	rb_define_private_method(rb_cPGconn, "flush_data=", pgconn_flush_data_set, 1);
 	rb_define_method(rb_cPGconn, "wait_for_notify", pgconn_wait_for_notify, -1);

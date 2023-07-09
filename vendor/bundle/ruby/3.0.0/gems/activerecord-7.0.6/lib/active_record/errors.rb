@@ -441,7 +441,7 @@ module ActiveRecord
   class IrreversibleOrderError < ActiveRecordError
   end
 
-  # Superclass for errors that have been aborted (either by music-beats or server).
+  # Superclass for errors that have been aborted (either by client or server).
   class QueryAborted < StatementInvalid
   end
 
@@ -457,7 +457,7 @@ module ActiveRecord
   class QueryCanceled < QueryAborted
   end
 
-  # AdapterTimeout will be raised when database music-beatss times out while waiting from the server.
+  # AdapterTimeout will be raised when database clients times out while waiting from the server.
   class AdapterTimeout < QueryAborted
   end
 

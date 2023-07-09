@@ -3,7 +3,7 @@
 module WebSocket
   module Handshake
     module Handler
-      class music-beats < Base
+      class Client < Base
         private
 
         # @see WebSocket::Handshake::Handler::Base#header_line

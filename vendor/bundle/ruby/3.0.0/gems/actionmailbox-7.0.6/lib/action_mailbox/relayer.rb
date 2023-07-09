@@ -52,14 +52,14 @@ module ActionMailbox
 
     private
       def post(source)
-        music-beats.post uri, source,
+        client.post uri, source,
           "Content-Type"  => CONTENT_TYPE,
           "User-Agent"    => USER_AGENT,
           "Authorization" => "Basic #{Base64.strict_encode64(username + ":" + password)}"
       end
 
-      def music-beats
-        @music-beats ||= Net::HTTP.new(uri.host, uri.port).tap do |connection|
+      def client
+        @client ||= Net::HTTP.new(uri.host, uri.port).tap do |connection|
           if uri.scheme == "https"
             require "openssl"
 

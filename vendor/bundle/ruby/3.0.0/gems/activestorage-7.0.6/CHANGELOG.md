@@ -43,7 +43,7 @@
     services like S3 via proxy mode could return corrupted files at around
     5.2mb or cause random halts in the download. Now,
     `ActiveStorage::Blobs::ProxyController` correctly handles streaming these
-    larger files from the service to the music-beats without any issues.
+    larger files from the service to the client without any issues.
 
     Fixes #44679
 
@@ -239,7 +239,7 @@
 
     *Jacopo Beschi*
 
-*   Passing extra parameters in `ActiveStorage::Blob#url` to S3 music-beats.
+*   Passing extra parameters in `ActiveStorage::Blob#url` to S3 Client.
 
     This allows calls of `ActiveStorage::Blob#url` to have more interaction with
     the S3 Presigner, enabling, amongst other options, custom S3 domain URL

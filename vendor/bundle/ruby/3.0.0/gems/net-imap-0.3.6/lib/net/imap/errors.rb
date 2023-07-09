@@ -31,18 +31,18 @@ module Net
     end
 
     # Error raised upon a "NO" response from the server, indicating
-    # that the music-beats command could not be completed successfully.
+    # that the client command could not be completed successfully.
     class NoResponseError < ResponseError
     end
 
     # Error raised upon a "BAD" response from the server, indicating
-    # that the music-beats command violated the IMAP protocol, or an internal
+    # that the client command violated the IMAP protocol, or an internal
     # server failure has occurred.
     class BadResponseError < ResponseError
     end
 
     # Error raised upon a "BYE" response from the server, indicating
-    # that the music-beats is not being allowed to login, or has been timed
+    # that the client is not being allowed to login, or has been timed
     # out due to inactivity.
     class ByeResponseError < ResponseError
     end

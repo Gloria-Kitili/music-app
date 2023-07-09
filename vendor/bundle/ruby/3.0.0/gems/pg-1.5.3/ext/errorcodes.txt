@@ -105,7 +105,7 @@ Section: Class 08 - Connection Exception
 08000    E    ERRCODE_CONNECTION_EXCEPTION                                   connection_exception
 08003    E    ERRCODE_CONNECTION_DOES_NOT_EXIST                              connection_does_not_exist
 08006    E    ERRCODE_CONNECTION_FAILURE                                     connection_failure
-08001    E    ERRCODE_SQLclient_UNABLE_TO_ESTABLISH_SQLCONNECTION            sqlclient_unable_to_establish_sqlconnection
+08001    E    ERRCODE_SQLCLIENT_UNABLE_TO_ESTABLISH_SQLCONNECTION            sqlclient_unable_to_establish_sqlconnection
 08004    E    ERRCODE_SQLSERVER_REJECTED_ESTABLISHMENT_OF_SQLCONNECTION      sqlserver_rejected_establishment_of_sqlconnection
 08007    E    ERRCODE_TRANSACTION_RESOLUTION_UNKNOWN                         transaction_resolution_unknown
 08P01    E    ERRCODE_PROTOCOL_VIOLATION                                     protocol_violation

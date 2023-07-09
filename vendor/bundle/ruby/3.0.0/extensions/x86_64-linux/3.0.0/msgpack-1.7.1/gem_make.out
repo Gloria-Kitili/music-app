@@ -1,5 +1,5 @@
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/msgpack-1.7.1/ext/msgpack
-/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20230707-20963-g89opb.rb extconf.rb
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20230709-828484-chiikn.rb extconf.rb
 checking for ruby/st.h... yes
 checking for st.h... no
 checking for rb_enc_interned_str() in ruby.h... yes
@@ -36,4 +36,4 @@ linking shared-object msgpack/msgpack.so
 
 current directory: /home/purple/music-app/vendor/bundle/ruby/3.0.0/gems/msgpack-1.7.1/ext/msgpack
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 msgpack.so ./.gem.20230707-20963-zzw23r/msgpack
+/usr/bin/install -c -m 0755 msgpack.so ./.gem.20230709-828484-uh38ya/msgpack

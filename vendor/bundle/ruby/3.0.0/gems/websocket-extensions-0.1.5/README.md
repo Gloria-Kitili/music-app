@@ -70,7 +70,7 @@ text, binary and continuation frames. It has the following properties:
 A driver author is someone implementing the WebSocket protocol proper, and who
 wishes end users to be able to use WebSocket extensions with their library.
 
-At the start of a WebSocket session, on both the music-beats and the server side,
+At the start of a WebSocket session, on both the client and the server side,
 they should begin by creating an extension container and adding whichever
 extensions they want to use.
 
@@ -84,11 +84,11 @@ exts.add(PermessageDeflate)
 
 In the following examples, `exts` refers to this `Extensions` instance.
 
-#### music-beats sessions
+#### Client sessions
 
-music-beatss will use the methods `generate_offer` and `activate(header)`.
+Clients will use the methods `generate_offer` and `activate(header)`.
 
-As part of the handshake process, the music-beats must send a
+As part of the handshake process, the client must send a
 `Sec-WebSocket-Extensions` header to advertise that it supports the registered
 extensions. This header should be generated using:
 
@@ -97,11 +97,11 @@ request_headers['Sec-WebSocket-Extensions'] = exts.generate_offer
 ```
 
 This returns a string, for example `"permessage-deflate;
-music-beats_max_window_bits"`, that represents all the extensions the music-beats is
+client_max_window_bits"`, that represents all the extensions the client is
 offering to use, and their parameters. This string may contain multiple offers
 for the same extension.
 
-When the music-beats receives the handshake response from the server, it should pass
+When the client receives the handshake response from the server, it should pass
 the incoming `Sec-WebSocket-Extensions` header in to `exts` to activate the
 extensions the server has accepted:
 
@@ -109,10 +109,10 @@ extensions the server has accepted:
 exts.activate(response_headers['Sec-WebSocket-Extensions'])
 ```
 
-If the server has sent any extension responses that the music-beats does not
+If the server has sent any extension responses that the client does not
 recognize, or are in conflict with one another for use of RSV bits, or that use
 invalid parameters for the named extensions, then `exts.activate` will `raise`.
-In this event, the music-beats driver should fail the connection with closing code
+In this event, the client driver should fail the connection with closing code
 `1010`.
 
 #### Server sessions
@@ -123,20 +123,20 @@ A server session needs to generate a `Sec-WebSocket-Extensions` header to send
 in its handshake response:
 
 ```rb
-music-beats_offer = request_env['HTTP_SEC_WEBSOCKET_EXTENSIONS']
-ext_response = exts.generate_response(music-beats_offer)
+client_offer = request_env['HTTP_SEC_WEBSOCKET_EXTENSIONS']
+ext_response = exts.generate_response(client_offer)
 
 response_headers['Sec-WebSocket-Extensions'] = ext_response
 ```
 
-Calling `exts.generate_response(header)` activates those extensions the music-beats
+Calling `exts.generate_response(header)` activates those extensions the client
 has asked to use, if they are registered, asks each extension for a set of
 response parameters, and returns a string containing the response parameters for
 all accepted extensions.
 
 #### In both directions
 
-Both music-beatss and servers will use the methods `valid_frame_rsv(frame)`,
+Both clients and servers will use the methods `valid_frame_rsv(frame)`,
 `process_incoming_message(message)` and `process_outgoing_message(message)`.
 
 The WebSocket protocol requires that frames do not have any of the `RSV` bits
@@ -185,7 +185,7 @@ exts.close
 ### For extension authors
 
 An extension author is someone implementing an extension that transforms
-WebSocket messages passing between the music-beats and server. They would like to
+WebSocket messages passing between the client and server. They would like to
 implement their extension once and have it work with any protocol library.
 
 Extension authors will not install `websocket-extensions` or call it directly.
@@ -205,17 +205,17 @@ An `Extension` is any object that has the following properties:
 It must also implement the following methods:
 
 ```rb
-ext.create_music-beats_session
+ext.create_client_session
 ```
 
-This returns a *music-beatsSession*, whose interface is defined below.
+This returns a *ClientSession*, whose interface is defined below.
 
 ```rb
 ext.create_server_session(offers)
 ```
 
 This takes an array of offer params and returns a *ServerSession*, whose
-interface is defined below. For example, if the music-beats handshake contains the
+interface is defined below. For example, if the client handshake contains the
 offer header:
 
 ```
@@ -236,31 +236,31 @@ The extension must decide which set of parameters it wants to accept, if any,
 and return a *ServerSession* if it wants to accept the parameters and `nil`
 otherwise.
 
-#### *music-beatsSession*
+#### *ClientSession*
 
-A *music-beatsSession* is the type returned by `ext.create_music-beats_session`. It must
+A *ClientSession* is the type returned by `ext.create_client_session`. It must
 implement the following methods, as well as the *Session* API listed below.
 
 ```rb
-music-beats_session.generate_offer
+client_session.generate_offer
 # e.g.  -> [
 #            { 'server_no_context_takeover' => true, 'server_max_window_bits' => 8 },
 #            { 'server_max_window_bits' => 15 }
 #          ]
 ```
 
-This must return a set of parameters to include in the music-beats's
+This must return a set of parameters to include in the client's
 `Sec-WebSocket-Extensions` offer header. If the session wants to offer multiple
 configurations, it can return an array of sets of parameters as shown above.
 
 ```rb
-music-beats_session.activate(params) # -> true
+client_session.activate(params) # -> true
 ```
 
 This must take a single set of parameters from the server's handshake response
-and use them to configure the music-beats session. If the music-beats accepts the given
+and use them to configure the client session. If the client accepts the given
 parameters, then this method must return `true`. If it returns any other value,
-the framework will interpret this as the music-beats rejecting the response, and will
+the framework will interpret this as the client rejecting the response, and will
 `raise`.
 
 #### *ServerSession*
@@ -275,12 +275,12 @@ server_session.generate_response
 
 This returns the set of parameters the server session wants to send in its
 `Sec-WebSocket-Extensions` response header. Only one set of parameters is
-returned to the music-beats per extension. Server sessions that would confict on
+returned to the client per extension. Server sessions that would confict on
 their use of RSV bits are not activated.
 
 #### *Session*
 
-The *Session* API must be implemented by both music-beats and server sessions. It
+The *Session* API must be implemented by both client and server sessions. It
 contains three methods: `process_incoming_message(message)` and
 `process_outgoing_message(message)`.
 

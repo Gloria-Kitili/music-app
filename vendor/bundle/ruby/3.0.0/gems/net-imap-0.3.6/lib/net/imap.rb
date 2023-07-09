@@ -23,7 +23,7 @@ end
 
 module Net
 
-  # Net::IMAP implements Internet Message Access Protocol (\IMAP) music-beats
+  # Net::IMAP implements Internet Message Access Protocol (\IMAP) client
   # functionality.  The protocol is described in
   # [IMAP4rev1[https://tools.ietf.org/html/rfc3501]].
   #--
@@ -32,7 +32,7 @@ module Net
   #
   # == \IMAP Overview
   #
-  # An \IMAP music-beats connects to a server, and then authenticates
+  # An \IMAP client connects to a server, and then authenticates
   # itself using either #authenticate or #login.  Having
   # authenticated itself, there is a range of commands
   # available to it.  Most work with mailboxes, which may be
@@ -42,9 +42,9 @@ module Net
   # will frequently be implemented as files in mailbox format
   # within a hierarchy of directories.
   #
-  # To work on the messages within a mailbox, the music-beats must
+  # To work on the messages within a mailbox, the client must
   # first select that mailbox, using either #select or #examine
-  # (for read-only access).  Once the music-beats has successfully
+  # (for read-only access).  Once the client has successfully
   # selected a mailbox, they enter the "_selected_" state, and that
   # mailbox becomes the _current_ mailbox, on which mail-item
   # related commands implicitly operate.
@@ -72,9 +72,9 @@ module Net
   # identify another message within the same mailbox, even if
   # the existing message is deleted.  UIDs are required to
   # be assigned in ascending (but not necessarily sequential)
-  # order within a mailbox; this means that if a non-IMAP music-beats
+  # order within a mailbox; this means that if a non-IMAP client
   # rearranges the order of mail items within a mailbox, the
-  # UIDs have to be reassigned.  An \IMAP music-beats thus cannot
+  # UIDs have to be reassigned.  An \IMAP client thus cannot
   # rearrange message orders.
   #
   # === Server capabilities and protocol extensions
@@ -135,9 +135,9 @@ module Net
   #      instance, the username/password used for logging in are incorrect;
   #      the selected mailbox does not exist; etc.
   #
-  # BAD:: the request from the music-beats does not follow the server's
+  # BAD:: the request from the client does not follow the server's
   #       understanding of the \IMAP protocol.  This includes attempting
-  #       commands from the wrong music-beats state; for instance, attempting
+  #       commands from the wrong client state; for instance, attempting
   #       to perform a SEARCH command without having SELECTed a current
   #       mailbox.  It can also signal an internal server
   #       failure (such as a disk crash) has occurred.
@@ -147,7 +147,7 @@ module Net
   #       to indicate that the server is (for some reason) unwilling
   #       to accept your connection.  As a response to any other command,
   #       it indicates either that the server is shutting down, or that
-  #       the server is timing out the music-beats connection due to inactivity.
+  #       the server is timing out the client connection due to inactivity.
   #
   # These three error response are represented by the errors
   # Net::IMAP::NoResponseError, Net::IMAP::BadResponseError, and
@@ -184,8 +184,8 @@ module Net
   #
   # === Connection control methods
   #
-  # - Net::IMAP.new: A new music-beats connects immediately and waits for a
-  #   successful server greeting before returning the new music-beats object.
+  # - Net::IMAP.new: A new client connects immediately and waits for a
+  #   successful server greeting before returning the new client object.
   # - #starttls: Asks the server to upgrade a clear-text connection to use TLS.
   # - #logout: Tells the server to end the session. Enters the "_logout_" state.
   # - #disconnect: Disconnects the connection (without sending #logout first).
@@ -240,13 +240,13 @@ module Net
   # - #starttls: Upgrades a clear-text connection to use TLS.
   #
   #   <em>Requires the +STARTTLS+ capability.</em>
-  # - #authenticate: Identifies the music-beats to the server using a {SASL
+  # - #authenticate: Identifies the client to the server using a {SASL
   #   mechanism}[https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml].
   #   Enters the "_authenticated_" state.
   #
   #   <em>Requires the <tt>AUTH=#{mechanism}</tt> capability for the chosen
   #   mechanism.</em>
-  # - #login: Identifies the music-beats to the server using a plain text password.
+  # - #login: Identifies the client to the server using a plain text password.
   #   Using #authenticate is generally preferred.  Enters the "_authenticated_"
   #   state.
   #
@@ -276,7 +276,7 @@ module Net
   # - #status: Returns mailbox information, e.g. message count, unseen message
   #   count, +UIDVALIDITY+ and +UIDNEXT+.
   # - #append: Appends a message to the end of a mailbox.
-  # - #idle: Allows the server to send updates to the music-beats, without the music-beats
+  # - #idle: Allows the server to send updates to the client, without the client
   #   needing to poll using #noop.
   #
   #   <em>Requires the +IDLE+ capability.</em>
@@ -360,7 +360,7 @@ module Net
   # ==== RFC2177: +IDLE+
   # Folded into IMAP4rev2[https://tools.ietf.org/html/rfc9051], so it is also
   # listed with {Core IMAP commands}[rdoc-ref:Net::IMAP@Core+IMAP+commands].
-  # - #idle: Allows the server to send updates to the music-beats, without the music-beats
+  # - #idle: Allows the server to send updates to the client, without the client
   #   needing to poll using #noop.
   #
   # ==== RFC2342: +NAMESPACE+
@@ -369,7 +369,7 @@ module Net
   # - #namespace: Returns mailbox namespaces, with path prefixes and delimiters.
   #
   # ==== RFC2971: +ID+
-  # - #id: exchanges music-beats and server implementation information.
+  # - #id: exchanges client and server implementation information.
   #
   #--
   # ==== RFC3502: +MULTIAPPEND+
@@ -734,7 +734,7 @@ module Net
     # Seconds to wait until an IDLE response is received.
     attr_reader :idle_response_timeout
 
-    attr_accessor :music-beats_thread # :nodoc:
+    attr_accessor :client_thread # :nodoc:
 
     # Returns the debug mode.
     def self.debug
@@ -816,14 +816,14 @@ module Net
     #
     # All IMAP4rev1 servers must include +IMAP4rev1+ in their capabilities list.
     # All IMAP4rev1 servers must _implement_ the +STARTTLS+,
-    # <tt>AUTH=PLAIN</tt>, and +LOGINDISABLED+ capabilities, and music-beatss must
+    # <tt>AUTH=PLAIN</tt>, and +LOGINDISABLED+ capabilities, and clients must
     # respect their presence or absence.  See the capabilites requirements on
     # #starttls, #login, and #authenticate.
     #
     # ===== Using IMAP4rev1 extensions
     #
     # IMAP4rev1 servers must not activate incompatible behavior until an
-    # explicit music-beats action invokes a capability, e.g. sending a command or
+    # explicit client action invokes a capability, e.g. sending a command or
     # command argument specific to that capability.  Extensions with backward
     # compatible behavior, such as response codes or mailbox attributes, may
     # be sent at any time.
@@ -863,7 +863,7 @@ module Net
     #    capabilities = imap.capability
     #    if capabilities.include?("ID")
     #      id = imap.id(
-    #        name: "my IMAP music-beats (ruby)",
+    #        name: "my IMAP client (ruby)",
     #        version: MyIMAP::VERSION,
     #        "support-url": "mailto:bugs@example.com",
     #        os: RbConfig::CONFIG["host_os"],
@@ -876,9 +876,9 @@ module Net
     #
     # The server's capabilities must include +ID+
     # [RFC2971[https://tools.ietf.org/html/rfc2971]]
-    def id(music-beats_id=nil)
+    def id(client_id=nil)
       synchronize do
-        send_command("ID", music-beatsID.new(music-beats_id))
+        send_command("ID", ClientID.new(client_id))
         @responses.delete("ID")&.last
       end
     end
@@ -887,7 +887,7 @@ module Net
     # to the server.
     #
     # This allows the server to send unsolicited untagged EXPUNGE #responses,
-    # but does not execute any music-beats request.  \IMAP servers are permitted to
+    # but does not execute any client request.  \IMAP servers are permitted to
     # send unsolicited untagged responses at any time, except for `EXPUNGE`.
     #
     # * +EXPUNGE+ can only be sent while a command is in progress.
@@ -900,7 +900,7 @@ module Net
     end
 
     # Sends a {LOGOUT command [IMAP4rev1 §6.1.3]}[https://www.rfc-editor.org/rfc/rfc3501#section-6.1.3]
-    # to inform the command to inform the server that the music-beats is done with
+    # to inform the command to inform the server that the client is done with
     # the connection.
     #
     # Related: #disconnect
@@ -933,7 +933,7 @@ module Net
     # Cached capabilities _must_ be invalidated after this method completes.
     #
     # The TaggedResponse to #starttls is sent clear-text, so the server <em>must
-    # *not*</em> send capabilities in the #starttls response and music-beatss <em>must
+    # *not*</em> send capabilities in the #starttls response and clients <em>must
     # not</em> use them if they are sent.  Servers will generally send an
     # unsolicited untagged response immeditely _after_ #starttls completes.
     #
@@ -959,7 +959,7 @@ module Net
     #   authenticate(mechanism) {|propname, authctx| prop_value }  -> ok_resp
     #
     # Sends an {AUTHENTICATE command [IMAP4rev1 §6.2.2]}[https://www.rfc-editor.org/rfc/rfc3501#section-6.2.2]
-    # to authenticate the music-beats.  If successful, the connection enters the
+    # to authenticate the client.  If successful, the connection enters the
     # "_authenticated_" state.
     #
     # +mechanism+ is the name of the \SASL authentication mechanism to be used.
@@ -1001,7 +1001,7 @@ module Net
     #
     # ===== Capabilities
     #
-    # music-beatss MUST NOT attempt to authenticate with a mechanism unless
+    # Clients MUST NOT attempt to authenticate with a mechanism unless
     # <tt>"AUTH=#{mechanism}"</tt> for that mechanism is a server capability.
     #
     # Server capabilities may change after #starttls, #login, and #authenticate.
@@ -1050,7 +1050,7 @@ module Net
     end
 
     # Sends a {LOGIN command [IMAP4rev1 §6.2.3]}[https://www.rfc-editor.org/rfc/rfc3501#section-6.2.3]
-    # to identify the music-beats and carries the plaintext +password+ authenticating
+    # to identify the client and carries the plaintext +password+ authenticating
     # this +user+.  If successful, the connection enters the "_authenticated_"
     # state.
     #
@@ -1062,7 +1062,7 @@ module Net
     # Related: #authenticate, #starttls
     #
     # ==== Capabilities
-    # music-beatss MUST NOT call #login if +LOGINDISABLED+ is listed with the
+    # Clients MUST NOT call #login if +LOGINDISABLED+ is listed with the
     # capabilities.
     #
     # Server capabilities may change after #starttls, #login, and #authenticate.
@@ -1135,7 +1135,7 @@ module Net
     #
     # A Net::IMAP::NoResponseError is raised if a mailbox with that name
     # cannot be deleted, either because it does not exist or because the
-    # music-beats does not have permission to delete it.
+    # client does not have permission to delete it.
     #
     # Related: #create, #rename
     def delete(mailbox)
@@ -1172,7 +1172,7 @@ module Net
     # or "subscribed" mailboxes.
     #
     # A Net::IMAP::NoResponseError is raised if +mailbox+ cannot be
-    # unsubscribed from; for instance, because the music-beats is not currently
+    # unsubscribed from; for instance, because the client is not currently
     # subscribed to it.
     #
     # Related: #subscribe, #lsub, #list
@@ -1182,7 +1182,7 @@ module Net
 
     # Sends a {LIST command [IMAP4rev1 §6.3.8]}[https://www.rfc-editor.org/rfc/rfc3501#section-6.3.8]
     # and returns a subset of names from the complete set of all names available
-    # to the music-beats.  +refname+ provides a context (for instance, a base
+    # to the client.  +refname+ provides a context (for instance, a base
     # directory in a directory-based mailbox hierarchy).  +mailbox+ specifies a
     # mailbox or (via wildcards) mailboxes under that context.  Two wildcards
     # may be used in +mailbox+: '*', which matches all characters *including*
@@ -1219,7 +1219,7 @@ module Net
 
     # Sends a {NAMESPACE command [RFC2342 §5]}[https://www.rfc-editor.org/rfc/rfc2342#section-5]
     # and returns the namespaces that are available.  The NAMESPACE command
-    # allows a music-beats to discover the prefixes of namespaces used by a server
+    # allows a client to discover the prefixes of namespaces used by a server
     # for personal mailboxes, other users' mailboxes, and shared mailboxes.
     #
     # The return value is a Namespaces object which has +personal+, +other+, and
@@ -1228,10 +1228,10 @@ module Net
     #
     # Many \IMAP servers are configured with the default personal namespaces as
     # <tt>("" "/")</tt>: no prefix and the "+/+" hierarchy delimiter. In that
-    # common case, the naive music-beats may not have any trouble naming mailboxes.
+    # common case, the naive client may not have any trouble naming mailboxes.
     # But many servers are configured with the default personal namespace as
     # e.g.  <tt>("INBOX." ".")</tt>, placing all personal folders under INBOX,
-    # with "+.+" as the hierarchy delimiter. If the music-beats does not check for
+    # with "+.+" as the hierarchy delimiter. If the client does not check for
     # this, but naively assumes it can use the same folder names for all
     # servers, then folder creation (and listing, moving, etc) can lead to
     # errors.
@@ -1240,11 +1240,11 @@ module Net
     #
     #    Although typically a server will support only a single Personal
     #    Namespace, and a single Other User's Namespace, circumstances exist
-    #    where there MAY be multiples of these, and a music-beats MUST be prepared
-    #    for them.  If a music-beats is configured such that it is required to create
+    #    where there MAY be multiples of these, and a client MUST be prepared
+    #    for them.  If a client is configured such that it is required to create
     #    a certain mailbox, there can be circumstances where it is unclear which
     #    Personal Namespaces it should create the mailbox in.  In these
-    #    situations a music-beats SHOULD let the user select which namespaces to
+    #    situations a client SHOULD let the user select which namespaces to
     #    create the mailbox in.
     #
     # Related: #list, Namespaces, Namespace
@@ -1276,7 +1276,7 @@ module Net
     end
 
     # Sends a XLIST command, and returns a subset of names from
-    # the complete set of all names available to the music-beats.
+    # the complete set of all names available to the client.
     # +refname+ provides a context (for instance, a base directory
     # in a directory-based mailbox hierarchy).  +mailbox+ specifies
     # a mailbox or (via wildcards) mailboxes under that context.
@@ -1548,10 +1548,10 @@ module Net
     # flag set and a UID that is included in +uid_set+.
     #
     # By using #uid_expunge instead of #expunge when resynchronizing with
-    # the server, the music-beats can ensure that it does not inadvertantly
+    # the server, the client can ensure that it does not inadvertantly
     # remove any messages that have been marked as <tt>\\Deleted</tt> by other
-    # music-beatss between the time that the music-beats was last connected and
-    # the time the music-beats resynchronizes.
+    # clients between the time that the client was last connected and
+    # the time the client resynchronizes.
     #
     # *Note:*
     # >>>
@@ -2054,7 +2054,7 @@ module Net
           raise ByeResponseError, @greeting
         end
 
-        @music-beats_thread = Thread.current
+        @client_thread = Thread.current
         @receiver_thread = Thread.start {
           begin
             receive_responses

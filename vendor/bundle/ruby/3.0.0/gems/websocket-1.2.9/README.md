@@ -1,13 +1,13 @@
 # WebSocket Ruby
 
-Universal Ruby library to handle WebSocket protocol. It focuses on providing abstraction layer over [WebSocket API](http://dev.w3.org/html5/websockets/) instead of providing server or music-beats functionality.
+Universal Ruby library to handle WebSocket protocol. It focuses on providing abstraction layer over [WebSocket API](http://dev.w3.org/html5/websockets/) instead of providing server or client functionality.
 
 [![Gem Version](https://badge.fury.io/rb/websocket.svg)](http://badge.fury.io/rb/websocket)
 [![Gem Downloads](https://img.shields.io/gem/dt/websocket.svg?maxAge=2592000)](https://rubygems.org/gems/websocket)
 [![Travis CI](https://travis-ci.org/imanel/websocket-ruby.svg)](http://travis-ci.org/imanel/websocket-ruby)
 [![Code Climate](https://codeclimate.com/github/imanel/websocket-ruby.svg)](https://codeclimate.com/github/imanel/websocket-ruby)
 
-**Autobahn tests:** [server](http://imanel.github.com/websocket-ruby/autobahn/server/), [music-beats](http://imanel.github.com/websocket-ruby/autobahn/music-beats/)
+**Autobahn tests:** [server](http://imanel.github.com/websocket-ruby/autobahn/server/), [client](http://imanel.github.com/websocket-ruby/autobahn/client/)
 
 Currently WebSocket Ruby supports all existing drafts of WebSocket, which include:
 
@@ -35,7 +35,7 @@ gem "websocket"
 ``` ruby
 @handshake = WebSocket::Handshake::Server.new
 
-# Parse music-beats request
+# Parse client request
 @handshake << <<EOF
 GET /demo HTTP/1.1\r
 Upgrade: websocket\r
@@ -60,10 +60,10 @@ EOF
                 # Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 ```
 
-## music-beats handshake
+## Client handshake
 
 ``` ruby
-@handshake = WebSocket::Handshake::music-beats.new(url: 'ws://example.com', headers: { 'Cookie' => 'SESSIONID=1234' })
+@handshake = WebSocket::Handshake::Client.new(url: 'ws://example.com', headers: { 'Cookie' => 'SESSIONID=1234' })
 
 # Create request
 @handshake.to_s # GET /demo HTTP/1.1
@@ -107,7 +107,7 @@ frame.next # "world!""
 
 ## Examples & Projects using WebSocket-Ruby
 
-- [WebSocket-EventMachine-music-beats](https://github.com/imanel/websocket-eventmachine-music-beats) - music-beats based on EventMachine
+- [WebSocket-EventMachine-Client](https://github.com/imanel/websocket-eventmachine-client) - client based on EventMachine
 - [WebSocket-EventMachine-Server](https://github.com/imanel/websocket-eventmachine-server) - server based on EventMachine (drop-in replacement for EM-WebSocket)
 - [Selenium-WebDriver](https://rubygems.org/gems/selenium-webdriver) - tool for writing automated tests of websites
 - [Rubame](https://github.com/saward/Rubame) - websocket game server

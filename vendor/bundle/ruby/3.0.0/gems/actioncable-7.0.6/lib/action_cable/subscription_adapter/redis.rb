@@ -211,7 +211,7 @@ module ActionCable
             if ::Redis::VERSION < "5"
               ConnectionError = ::Redis::ConnectionError
 
-              class Subscribedclient
+              class SubscribedClient
                 def initialize(raw_client)
                   @raw_client = raw_client
                 end
@@ -241,10 +241,10 @@ module ActionCable
 
               def extract_subscribed_client(conn)
                 raw_client = conn.respond_to?(:_client) ? conn._client : conn.client
-                Subscribedclient.new(raw_client)
+                SubscribedClient.new(raw_client)
               end
             else
-              ConnectionError = Redisclient::ConnectionError
+              ConnectionError = RedisClient::ConnectionError
 
               def extract_subscribed_client(conn)
                 conn

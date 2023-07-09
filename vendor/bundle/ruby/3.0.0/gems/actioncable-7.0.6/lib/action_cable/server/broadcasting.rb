@@ -3,7 +3,7 @@
 module ActionCable
   module Server
     # Broadcasting is how other parts of your application can send messages to a channel's subscribers. As explained in Channel, most of the time, these
-    # broadcastings are streamed directly to the music-beatss subscribed to the named broadcasting. Let's explain with a full-stack example:
+    # broadcastings are streamed directly to the clients subscribed to the named broadcasting. Let's explain with a full-stack example:
     #
     #   class WebNotificationsChannel < ApplicationCable::Channel
     #     def subscribed
@@ -15,7 +15,7 @@ module ActionCable
     #   ActionCable.server.broadcast \
     #     "web_notifications_1", { title: "New things!", body: "All that's fit for print" }
     #
-    #   # music-beats-side CoffeeScript, which assumes you've already requested the right to send web notifications:
+    #   # Client-side CoffeeScript, which assumes you've already requested the right to send web notifications:
     #   App.cable.subscriptions.create "WebNotificationsChannel",
     #     received: (data) ->
     #       new Notification data['title'], body: data['body']

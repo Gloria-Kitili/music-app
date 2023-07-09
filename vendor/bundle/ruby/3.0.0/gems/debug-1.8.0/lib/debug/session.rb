@@ -30,7 +30,7 @@ end
 
 require_relative 'frame_info'
 require_relative 'config'
-require_relative 'thread_music-beats'
+require_relative 'thread_client'
 require_relative 'source_repository'
 require_relative 'breakpoint'
 require_relative 'tracer'
@@ -106,7 +106,7 @@ module DEBUGGER__
                 #   [:check, expr] => CheckBreakpoint
       #
       @tracers = {}
-      @th_music_beats = {} # {Thread => Threadmusic_beats}
+      @th_clients = {} # {Thread => ThreadClient}
       @q_evt = Queue.new
       @displays = []
       @tc = nil
@@ -137,7 +137,7 @@ module DEBUGGER__
 
       @tp_load_script = TracePoint.new(:script_compiled){|tp|
         eval_script = tp.eval_script unless @has_keep_script_lines
-        Threadmusic-beats.current.on_load tp.instruction_sequence, eval_script
+        ThreadClient.current.on_load tp.instruction_sequence, eval_script
       }
       @tp_load_script.enable
 
@@ -185,20 +185,20 @@ module DEBUGGER__
 
         # Thread management
         setup_threads
-        thc = get_thread_music-beats thread.current
+        thc = get_thread_client Thread.current
         thc.mark_as_management
 
-        if @ui.respond_to?(:reader_thread) && thc = get_thread_music-beats(@ui.reader_thread)
+        if @ui.respond_to?(:reader_thread) && thc = get_thread_client(@ui.reader_thread)
           thc.mark_as_management
         end
 
         @tp_thread_begin = TracePoint.new(:thread_begin) do |tp|
-          get_thread_music-beats
+          get_thread_client
         end
         @tp_thread_begin.enable
 
         @tp_thread_end = TracePoint.new(:thread_end) do |tp|
-          @th_music-beatss.delete(Thread.current)
+          @th_clients.delete(Thread.current)
         end
         @tp_thread_end.enable
 
@@ -212,13 +212,13 @@ module DEBUGGER__
     end
 
     def deactivate
-      get_thread_music-beats.deactivate
+      get_thread_client.deactivate
       @thread_stopper.disable
       @tp_load_script.disable
       @tp_thread_begin.disable
       @tp_thread_end.disable
       @bps.each_value{|bp| bp.disable}
-      @th_music-beatss.each_value{|thc| thc.close}
+      @th_clients.each_value{|thc| thc.close}
       @tracers.values.each{|t| t.disable}
       @q_evt.close
       @ui&.deactivate
@@ -233,7 +233,7 @@ module DEBUGGER__
       @tp_thread_begin.disable
       @tp_thread_end.disable
       @ui.activate self
-      if @ui.respond_to?(:reader_thread) && thc = get_thread_music-beats(@ui.reader_thread)
+      if @ui.respond_to?(:reader_thread) && thc = get_thread_client(@ui.reader_thread)
         thc.mark_as_management
       end
       @tp_thread_begin.enable
@@ -263,7 +263,7 @@ module DEBUGGER__
       output.each{|str| @ui.puts str} if ev != :suspend
 
       # special event, tc is nil
-      # and we don't want to set @tc to the newly created thread's Threadmusic-beats
+      # and we don't want to set @tc to the newly created thread's ThreadClient
       if ev == :thread_begin
         th = ev_args.shift
         q = ev_args.shift
@@ -368,7 +368,7 @@ module DEBUGGER__
         @preset_command = PresetCommands.new(cs, name, continue)
       end
 
-      Threadmusic-beats.current.on_init name if kick
+      ThreadClient.current.on_init name if kick
     end
 
     def source iseq
@@ -1553,7 +1553,7 @@ module DEBUGGER__
       unmanaged = []
 
       list.each{|th|
-        if thc = @th_music-beatss[th]
+        if thc = @th_clients[th]
           if !thc.management?
             thcs << thc
           end
@@ -1579,7 +1579,7 @@ module DEBUGGER__
       end
     end
 
-    def managed_thread_music-beatss
+    def managed_thread_clients
       thcs, _unmanaged_ths = update_thread_list
       thcs
     end
@@ -1598,65 +1598,65 @@ module DEBUGGER__
     end
 
     def setup_threads
-      prev_music-beatss = @th_music-beatss
-      @th_music-beatss = {}
+      prev_clients = @th_clients
+      @th_clients = {}
 
       Thread.list.each{|th|
-        if tc = prev_music-beatss[th]
-          @th_music-beatss[th] = tc
+        if tc = prev_clients[th]
+          @th_clients[th] = tc
         else
-          create_thread_music-beats(th)
+          create_thread_client(th)
         end
       }
     end
 
     def on_thread_begin th
-      if @th_music-beatss.has_key? th
+      if @th_clients.has_key? th
         # TODO: NG?
       else
-        create_thread_music-beats th
+        create_thread_client th
       end
     end
 
-    private def create_thread_music-beats th
+    private def create_thread_client th
       # TODO: Ractor support
-      raise "Only session_server can create thread_music-beats" unless Thread.current == @session_server
-      @th_music-beatss[th] = Threadmusic-beats.new((@tc_id += 1), @q_evt, Queue.new, th)
+      raise "Only session_server can create thread_client" unless Thread.current == @session_server
+      @th_clients[th] = ThreadClient.new((@tc_id += 1), @q_evt, Queue.new, th)
     end
 
-    private def ask_thread_music-beats th
+    private def ask_thread_client th
       # TODO: Ractor support
       q2 = Queue.new
       # tc, output, ev, @internal_info, *ev_args = evt
       @q_evt << [nil, [], :thread_begin, nil, th, q2]
       q2.pop
 
-      @th_music-beatss[th] or raise "unexpected error"
+      @th_clients[th] or raise "unexpected error"
     end
 
     # can be called by other threads
-    def get_thread_music-beats th = Thread.current
-      if @th_music-beatss.has_key? th
-        @th_music-beatss[th]
+    def get_thread_client th = Thread.current
+      if @th_clients.has_key? th
+        @th_clients[th]
       else
         if Thread.current == @session_server
-          create_thread_music-beats th
+          create_thread_client th
         else
-          ask_thread_music-beats th
+          ask_thread_client th
         end
       end
     end
 
-    private def running_thread_music-beatss_count
-      @th_music-beatss.count{|th, tc|
+    private def running_thread_clients_count
+      @th_clients.count{|th, tc|
         next if tc.management?
         next unless tc.running?
         true
       }
     end
 
-    private def waiting_thread_music-beatss
-      @th_music-beatss.map{|th, tc|
+    private def waiting_thread_clients
+      @th_clients.map{|th, tc|
         next if tc.management?
         next unless tc.waiting?
         tc
@@ -1666,7 +1666,7 @@ module DEBUGGER__
     private def thread_stopper
       TracePoint.new(:line) do
         # run on each thread
-        tc = Threadmusic-beats.current
+        tc = ThreadClient.current
         next if tc.management?
         next unless tc.running?
         next if tc == @tc
@@ -1676,7 +1676,7 @@ module DEBUGGER__
     end
 
     private def stop_all_threads
-      return if running_thread_music-beatss_count == 0
+      return if running_thread_clients_count == 0
 
       stopper = @thread_stopper
       stopper.enable unless stopper.enabled?
@@ -1686,7 +1686,7 @@ module DEBUGGER__
       stopper = @thread_stopper
       stopper.disable if stopper.enabled?
 
-      waiting_thread_music-beatss.each{|tc|
+      waiting_thread_clients.each{|tc|
         next if @tc == tc
         tc << :continue
       }
@@ -1865,7 +1865,7 @@ module DEBUGGER__
 
       frames = exc.instance_variable_get(:@__debugger_postmortem_frames)
       @postmortem = true
-      Threadmusic-beats.current.suspend :postmortem, postmortem_frames: frames, postmortem_exc: exc
+      ThreadClient.current.suspend :postmortem, postmortem_frames: frames, postmortem_exc: exc
     ensure
       @postmortem = false
     end
@@ -1995,9 +1995,9 @@ module DEBUGGER__
     end
 
     # experimental API
-    def extend_feature session: nil, thread_music-beats: nil, ui: nil
+    def extend_feature session: nil, thread_client: nil, ui: nil
       Session.include session if session
-      Threadmusic-beats.include thread_music-beats if thread_music-beats
+      ThreadClient.include thread_client if thread_client
       @ui.extend ui if ui
     end
   end

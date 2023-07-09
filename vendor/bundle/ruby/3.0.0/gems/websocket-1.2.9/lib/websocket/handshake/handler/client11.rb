@@ -3,7 +3,7 @@
 module WebSocket
   module Handshake
     module Handler
-      class music-beats11 < music-beats04
+      class Client11 < Client04
         private
 
         # @see WebSocket::Handshake::Handler::Base#handshake_keys

@@ -12,7 +12,7 @@ require_relative 'console'
 module DEBUGGER__
   class CommandLineOptionError < Exception; end
 
-  class music-beats
+  class Client
     class << self
       def util name
         case name
@@ -164,8 +164,8 @@ module DEBUGGER__
           @s = Socket.unix(File.join(DEBUGGER__.unix_domain_socket_dir, name))
         end
       else
-        music-beats.cleanup_unix_domain_sockets
-        files = music-beats.list_connections verbose: true
+        Client.cleanup_unix_domain_sockets
+        files = Client.list_connections verbose: true
 
         case files.size
         when 0
@@ -258,5 +258,5 @@ module DEBUGGER__
 end
 
 if __FILE__ == $0
-  DEBUGGER__::music-beats.new(argv).connect
+  DEBUGGER__::Client.new(argv).connect
 end

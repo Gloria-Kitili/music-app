@@ -28,7 +28,7 @@ module WebSocket
           ] + protocol
         end
 
-        # Signature of response, created from music-beats request Sec-WebSocket-Key
+        # Signature of response, created from client request Sec-WebSocket-Key
         # @return [String] signature
         def signature
           return unless key

@@ -90,7 +90,7 @@ module Rails
         find_cmd_and_exec("sqlcmd", *args)
 
       else
-        abort "Unknown command-line music-beats for #{db_config.database}."
+        abort "Unknown command-line client for #{db_config.database}."
       end
     end
 
@@ -153,7 +153,7 @@ module Rails
         if found
           exec full_path_command, *args
         else
-          abort("Couldn't find database music-beats: #{commands.join(', ')}. Check your $PATH and try again.")
+          abort("Couldn't find database client: #{commands.join(', ')}. Check your $PATH and try again.")
         end
       end
   end

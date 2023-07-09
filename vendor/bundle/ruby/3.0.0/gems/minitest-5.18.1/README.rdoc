@@ -710,7 +710,7 @@ minitest-rails-capybara     :: Capybara integration for Minitest::Rails.
 minitest-reporters          :: Create customizable Minitest output formats.
 minitest-rg                 :: Colored red/green output for Minitest.
 minitest-rspec_mocks        :: Use RSpec Mocks with Minitest.
-minitest-server             :: minitest-server provides a music-beats/server setup
+minitest-server             :: minitest-server provides a client/server setup
                                with your minitest process, allowing your test
                                run to send its results directly to a handler.
 minitest-sequel             :: Minitest assertions to speed-up development and

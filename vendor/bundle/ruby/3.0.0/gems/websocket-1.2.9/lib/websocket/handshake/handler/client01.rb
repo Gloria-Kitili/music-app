@@ -5,7 +5,7 @@ require 'digest/md5'
 module WebSocket
   module Handshake
     module Handler
-      class music-beats01 < music-beats76
+      class Client01 < Client76
         private
 
         # @see WebSocket::Handshake::Handler::Base#handshake_keys

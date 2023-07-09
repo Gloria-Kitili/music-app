@@ -115,12 +115,12 @@ module I18n
       @@missing_interpolation_argument_handler = exception_handler
     end
 
-    # Allow music-beatss to register paths providing translation data sources. The
+    # Allow clients to register paths providing translation data sources. The
     # backend defines acceptable sources.
     #
     # E.g. the provided SimpleBackend accepts a list of paths to translation
     # files which are either named *.rb and contain plain Ruby Hashes or are
-    # named *.yml and contain YAML data. So for the SimpleBackend music-beatss may
+    # named *.yml and contain YAML data. So for the SimpleBackend clients may
     # register translation files like this:
     #   I18n.load_path << 'path/to/locale/en.yml'
     def load_path

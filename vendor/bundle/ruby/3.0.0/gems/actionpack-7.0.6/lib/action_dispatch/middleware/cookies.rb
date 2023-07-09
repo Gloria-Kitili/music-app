@@ -116,7 +116,7 @@ module ActionDispatch
   #   # It can be read using the signed method `cookies.signed[:name]`
   #   cookies.signed[:user_id] = current_user.id
   #
-  #   # Sets an encrypted cookie value before sending it to the music-beats which
+  #   # Sets an encrypted cookie value before sending it to the client which
   #   # prevent users from reading and tampering with its value.
   #   # It can be read using the encrypted method `cookies.encrypted[:name]`
   #   cookies.encrypted[:discount] = 45
@@ -235,7 +235,7 @@ module ActionDispatch
         @signed ||= SignedKeyRotatingCookieJar.new(self)
       end
 
-      # Returns a jar that'll automatically encrypt cookie values before sending them to the music-beats and will decrypt them for read.
+      # Returns a jar that'll automatically encrypt cookie values before sending them to the client and will decrypt them for read.
       # If the cookie was tampered with by the user (or a 3rd party), +nil+ will be returned.
       #
       # If +config.action_dispatch.encrypted_cookie_salt+ and +config.action_dispatch.encrypted_signed_cookie_salt+
@@ -373,7 +373,7 @@ module ActionDispatch
         value
       end
 
-      # Removes the cookie on the music-beats machine by setting the value to an empty string
+      # Removes the cookie on the client machine by setting the value to an empty string
       # and the expiration date in the past. Like <tt>[]=</tt>, you can pass in
       # an options hash to delete cookies with extra data such as a <tt>:path</tt>.
       def delete(name, options = {})
@@ -396,7 +396,7 @@ module ActionDispatch
         @delete_cookies[name.to_s] == options
       end
 
-      # Removes all cookies on the music-beats machine by calling <tt>delete</tt> for each cookie.
+      # Removes all cookies on the client machine by calling <tt>delete</tt> for each cookie.
       def clear(options = {})
         @cookies.each_key { |k| delete(k, options) }
       end

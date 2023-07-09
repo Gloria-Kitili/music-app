@@ -13,8 +13,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Shugo Maeda", "nicholas a. evans"]
   spec.email         = ["shugo@ruby-lang.org", "nick@ekenosen.net"]
 
-  spec.summary       = %q{Ruby music-beats api for Internet Message Access Protocol}
-  spec.description   = %q{Ruby music-beats api for Internet Message Access Protocol}
+  spec.summary       = %q{Ruby client api for Internet Message Access Protocol}
+  spec.description   = %q{Ruby client api for Internet Message Access Protocol}
   spec.homepage      = "https://github.com/ruby/net-imap"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
   spec.licenses       = ["Ruby", "BSD-2-Clause"]

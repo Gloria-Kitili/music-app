@@ -8,7 +8,7 @@ module WebSocket
           @frame = frame
         end
 
-        # Convert data to raw frame ready to send to music-beats
+        # Convert data to raw frame ready to send to client
         # @return [String] Encoded frame
         def encode_frame
           raise NotImplementedError

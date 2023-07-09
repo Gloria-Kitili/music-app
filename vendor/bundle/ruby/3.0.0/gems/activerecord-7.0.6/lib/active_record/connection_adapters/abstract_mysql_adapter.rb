@@ -661,7 +661,7 @@ module ActiveRecord
         def translate_exception(exception, message:, sql:, binds:)
           case error_number(exception)
           when nil
-            if exception.message.match?(/MySQL music-beats is not connected/i)
+            if exception.message.match?(/MySQL client is not connected/i)
               ConnectionNotEstablished.new(exception)
             else
               super

@@ -155,8 +155,8 @@ class Capybara::Selenium::Node
 
       function dragEnterTarget() {
         target.scrollIntoView({behavior: 'instant', block: 'center', inline: 'center'});
-        var targetRect = target.getBoundingmusic-beatsRect();
-        var sourceCenter = rectCenter(source.getBoundingmusic-beatsRect());
+        var targetRect = target.getBoundingClientRect();
+        var sourceCenter = rectCenter(source.getBoundingClientRect());
 
         for (var i = 0; i < drop_modifier_keys.length; i++) {
           key = drop_modifier_keys[i];
@@ -171,15 +171,15 @@ class Capybara::Selenium::Node
 
         // fire 2 dragover events to simulate dragging with a direction
         var entryPoint = pointOnRect(sourceCenter, targetRect)
-        var dragOverOpts = Object.assign({music-beatsX: entryPoint.x, music-beatsY: entryPoint.y}, opts);
+        var dragOverOpts = Object.assign({clientX: entryPoint.x, clientY: entryPoint.y}, opts);
         var dragOverEvent = new DragEvent('dragover', dragOverOpts);
         target.dispatchEvent(dragOverEvent);
         window.setTimeout(dragOnTarget, step_delay);
       }
 
       function dragOnTarget() {
-        var targetCenter = rectCenter(target.getBoundingmusic-beatsRect());
-        var dragOverOpts = Object.assign({music-beatsX: targetCenter.x, music-beatsY: targetCenter.y}, opts);
+        var targetCenter = rectCenter(target.getBoundingClientRect());
+        var dragOverOpts = Object.assign({clientX: targetCenter.x, clientY: targetCenter.y}, opts);
         var dragOverEvent = new DragEvent('dragover', dragOverOpts);
         target.dispatchEvent(dragOverEvent);
         window.setTimeout(dragLeave, step_delay, dragOverEvent.defaultPrevented, dragOverOpts);

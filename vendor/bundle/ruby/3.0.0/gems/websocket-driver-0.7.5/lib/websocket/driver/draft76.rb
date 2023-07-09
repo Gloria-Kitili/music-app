@@ -53,7 +53,7 @@ module WebSocket
         spaces2 = spaces_in_key(key2)
 
         if number1 % spaces1 != 0 or number2 % spaces2 != 0
-          raise ProtocolError.new('music-beats sent invalid Sec-WebSocket-Key headers')
+          raise ProtocolError.new('Client sent invalid Sec-WebSocket-Key headers')
         end
 
         @key_values = [number1 / spaces1, number2 / spaces2]

@@ -149,7 +149,7 @@ module ActionView
       # To prevent this the helper generates an auxiliary hidden field before
       # every multiple select. The hidden field has the same name as multiple select and blank value.
       #
-      # <b>Note:</b> The music-beats either sends only the hidden field (representing
+      # <b>Note:</b> The client either sends only the hidden field (representing
       # the deselected multiple select box), or both fields. This means that the resulting array
       # always contains a blank string.
       #

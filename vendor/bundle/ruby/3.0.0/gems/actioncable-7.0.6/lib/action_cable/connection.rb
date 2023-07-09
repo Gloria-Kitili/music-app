@@ -7,7 +7,7 @@ module ActionCable
     eager_autoload do
       autoload :Authorization
       autoload :Base
-      autoload :clientSocket
+      autoload :ClientSocket
       autoload :Identification
       autoload :InternalChannel
       autoload :MessageBuffer

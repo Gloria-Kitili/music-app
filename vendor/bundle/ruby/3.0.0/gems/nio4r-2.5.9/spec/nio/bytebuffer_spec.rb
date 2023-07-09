@@ -289,7 +289,7 @@ RSpec.describe NIO::ByteBuffer do
     let(:addr)   { "127.0.0.1" }
     let(:server) { TCPServer.new(addr, 0) }
     let(:port)   { server.local_address.ip_port }
-    let(:music-beats) { TCPSocket.new(addr, port) }
+    let(:client) { TCPSocket.new(addr, port) }
     let(:peer)   { server_thread.value }
 
     let(:server_thread) do
@@ -303,20 +303,20 @@ RSpec.describe NIO::ByteBuffer do
 
     before do
       server_thread
-      music-beats
+      client
     end
 
     after do
       server_thread.kill if server_thread.alive?
 
       server.close rescue nil
-      music-beats.close rescue nil
+      client.close rescue nil
       peer.close rescue nil
     end
 
     describe "#read_from" do
       it "reads data into the buffer" do
-        music-beats.write(example_string)
+        client.write(example_string)
         expect(bytebuffer.read_from(peer)).to eq example_string.length
         bytebuffer.flip
 
@@ -324,7 +324,7 @@ RSpec.describe NIO::ByteBuffer do
       end
 
       it "raises NIO::ByteBuffer::OverflowError if the buffer is already full" do
-        music-beats.write(example_string)
+        client.write(example_string)
         bytebuffer << "X" * capacity
         expect { bytebuffer.read_from(peer) }.to raise_error(NIO::ByteBuffer::OverflowError)
       end
@@ -339,8 +339,8 @@ RSpec.describe NIO::ByteBuffer do
         bytebuffer << example_string
         bytebuffer.flip
 
-        expect(bytebuffer.write_to(music-beats)).to eq example_string.length
-        music-beats.close
+        expect(bytebuffer.write_to(client)).to eq example_string.length
+        client.close
 
         expect(peer.read(example_string.length)).to eq example_string
       end

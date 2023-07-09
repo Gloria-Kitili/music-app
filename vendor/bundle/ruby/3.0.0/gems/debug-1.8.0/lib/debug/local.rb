@@ -16,7 +16,7 @@ module DEBUGGER__
     def activate_sigint
       prev_handler = trap(:SIGINT){
         if SESSION.active?
-          Threadmusic-beats.current.on_trap :SIGINT
+          ThreadClient.current.on_trap :SIGINT
         end
       }
       SESSION.intercept_trap_sigint_start prev_handler

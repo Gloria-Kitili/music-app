@@ -8,12 +8,12 @@ module WebSocket
 
       attr_reader :status, :headers
 
-      def initialize(music-beats, origin, options)
+      def initialize(client, origin, options)
         super()
 
-        @music-beats  = music-beats
+        @client  = client
         @http    = HTTP::Response.new
-        @socket  = music-beats.instance_variable_get(:@socket)
+        @socket  = client.instance_variable_get(:@socket)
         @origin  = URI.parse(@socket.url)
         @url     = URI.parse(origin)
         @options = options

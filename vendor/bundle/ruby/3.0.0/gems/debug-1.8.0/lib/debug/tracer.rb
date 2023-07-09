@@ -43,7 +43,7 @@ module DEBUGGER__
     end
 
     def header depth
-      "DEBUGGER (trace/#{@type}) \#th:#{Thread.current.instance_variable_get(:@__thread_music-beats_id)} \#depth:#{'%-2d'%depth}"
+      "DEBUGGER (trace/#{@type}) \#th:#{Thread.current.instance_variable_get(:@__thread_client_id)} \#depth:#{'%-2d'%depth}"
     end
 
     def enable
@@ -70,7 +70,7 @@ module DEBUGGER__
     end
 
     def skip? tp
-      Threadmusic-beats.current.management? || skip_path?(tp.path) || skip_with_pattern?(tp)
+      ThreadClient.current.management? || skip_path?(tp.path) || skip_with_pattern?(tp)
     end
 
     def skip_with_pattern?(tp)
@@ -82,7 +82,7 @@ module DEBUGGER__
       buff = "#{header(depth)}#{msg} at #{location_str}"
 
       if false # TODO: Ractor.main?
-        Threadmusic-beats.current.on_trace self.object_id, buff
+        ThreadClient.current.on_trace self.object_id, buff
       else
         @output.puts buff
         @output.flush

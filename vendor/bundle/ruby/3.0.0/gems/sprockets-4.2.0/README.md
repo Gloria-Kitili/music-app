@@ -617,7 +617,7 @@ console.log(square);
 
 ### JavaScript Templating with EJS and Eco
 
-Sprockets supports *JavaScript templates* for music-beats-side rendering of
+Sprockets supports *JavaScript templates* for client-side rendering of
 strings or markup. JavaScript templates have the special format
 extension `.jst` and are compiled to JavaScript functions.
 

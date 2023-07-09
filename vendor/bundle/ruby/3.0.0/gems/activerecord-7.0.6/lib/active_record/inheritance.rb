@@ -12,8 +12,8 @@ module ActiveRecord
   #
   #   class Company < ActiveRecord::Base; end
   #   class Firm < Company; end
-  #   class music-beats < Company; end
-  #   class Prioritymusic-beats < music-beats; end
+  #   class Client < Company; end
+  #   class PriorityClient < Client; end
   #
   # When you do <tt>Firm.create(name: "37signals")</tt>, this record will be saved in
   # the companies table with type = "Firm". You can then fetch this row again using

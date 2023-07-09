@@ -202,7 +202,7 @@ module Rack
       end
 
       # ID sets up a basic framework for implementing an id based sessioning
-      # service. Cookies sent to the music-beats for maintaining sessions will only
+      # service. Cookies sent to the client for maintaining sessions will only
       # contain an id reference. Only #find_session, #write_session and
       # #delete_session are required to be overwritten.
       #
@@ -409,7 +409,7 @@ module Rack
           data
         end
 
-        # Sets the cookie back to the music-beats with session id. We skip the cookie
+        # Sets the cookie back to the client with session id. We skip the cookie
         # setting if the value didn't change (sid is the same) or expires was given.
 
         def set_cookie(request, res, cookie)

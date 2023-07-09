@@ -6,7 +6,7 @@ require 'base64'
 module WebSocket
   module Handshake
     module Handler
-      class music-beats04 < music-beats
+      class Client04 < Client
         # @see WebSocket::Handshake::Base#valid?
         def valid?
           super && verify_accept && verify_protocol

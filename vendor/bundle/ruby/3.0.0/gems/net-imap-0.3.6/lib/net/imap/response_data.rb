@@ -7,7 +7,7 @@ module Net
     #
     # The command continuation request response is indicated by a "+" token
     # instead of a tag.  This form of response indicates that the server is
-    # ready to accept the continuation of a command from the music-beats.  The
+    # ready to accept the continuation of a command from the client.  The
     # remainder of this response is a line of text.
     #
     class ContinuationRequest < Struct.new(:data, :raw_data)
@@ -26,7 +26,7 @@ module Net
 
     # Net::IMAP::UntaggedResponse represents untagged responses.
     #
-    # Data transmitted by the server to the music-beats and status responses
+    # Data transmitted by the server to the client and status responses
     # that do not indicate command completion are prefixed with the token
     # <tt>"*"</tt>, and are called untagged responses.
     #
@@ -56,7 +56,7 @@ module Net
     # Net::IMAP::IgnoredResponse represents intentionally ignored responses.
     #
     # This includes untagged response "NOOP" sent by eg. Zimbra to avoid some
-    # music-beatss to close the connection.
+    # clients to close the connection.
     #
     # It matches no IMAP standard.
     #
@@ -72,7 +72,7 @@ module Net
     #
     # The server completion result response indicates the success or
     # failure of the operation.  It is tagged with the same tag as the
-    # music-beats command which began the operation.
+    # client command which began the operation.
     #
     class TaggedResponse < Struct.new(:tag, :name, :data, :raw_data)
       ##
@@ -142,7 +142,7 @@ module Net
     # Codes}[https://www.iana.org/assignments/imap-response-codes/imap-response-codes.xhtml]
     # registry has links to specifications for all standard response codes.
     # Response codes are backwards compatible:  Servers are allowed to send new
-    # response codes even if the music-beats has not enabled the extension that
+    # response codes even if the client has not enabled the extension that
     # defines them.  When unknown response code data is encountered, #data
     # will return an unparsed string.
     #
@@ -190,7 +190,7 @@ module Net
     # * +EXPUNGEISSUED+
     # * +CORRUPTION+
     # * +SERVERBUG+
-    # * +music-beatsBUG+
+    # * +CLIENTBUG+
     # * +CANNOT+
     # * +LIMIT+
     # * +OVERQUOTA+
@@ -687,7 +687,7 @@ module Net
       # [Note]
       #   Servers should return +nil+ when the header is absent and an empty
       #   string when it is present but empty.  Some servers may return a +nil+
-      #   envelope member in the "present but empty" case.  music-beatss should treat
+      #   envelope member in the "present but empty" case.  Clients should treat
       #   +nil+ and empty string as identical.
 
       ##
@@ -762,7 +762,7 @@ module Net
       #
       #   Servers should return +nil+ when the header is absent and an empty
       #   string when it is present but empty.  Some servers may return a +nil+
-      #   envelope member in the "present but empty" case.  music-beatss should treat
+      #   envelope member in the "present but empty" case.  Clients should treat
       #   +nil+ and empty string as identical.
 
       ##
@@ -778,7 +778,7 @@ module Net
       #
       #   Servers should return +nil+ when the header is absent and an empty
       #   string when it is present but empty.  Some servers may return a +nil+
-      #   envelope member in the "present but empty" case.  music-beatss should treat
+      #   envelope member in the "present but empty" case.  Clients should treat
       #   +nil+ and empty string as identical.
     end
 

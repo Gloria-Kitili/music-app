@@ -103,9 +103,9 @@
 
 ## Rails 7.0.0.rc1 (December 06, 2021) ##
 
-*   The Action Cable music-beats now ensures successful channel subscriptions:
+*   The Action Cable client now ensures successful channel subscriptions:
 
-    * The music-beats maintains a set of pending subscriptions until either
+    * The client maintains a set of pending subscriptions until either
       the server confirms the subscription or the channel is torn down.
     * Rectifies the race condition where an unsubscribe is rapidly followed
       by a subscribe (on the same channel identifier) and the requests are
@@ -142,10 +142,10 @@
 
     *Dirkjan Bussink*
 
-*   The Action Cable music-beats now includes safeguards to prevent a "thundering
-    herd" of music-beats reconnects after server connectivity loss:
+*   The Action Cable client now includes safeguards to prevent a "thundering
+    herd" of client reconnects after server connectivity loss:
 
-    * The music-beats will wait a random amount between 1x and 3x of the stale
+    * The client will wait a random amount between 1x and 3x of the stale
       threshold after the server's last ping before making the first
       reconnection attempt.
     * Subsequent reconnection attempts now use exponential backoff instead of

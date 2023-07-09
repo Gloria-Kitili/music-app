@@ -74,7 +74,7 @@ RFCS = {
 
   # "Informational" RFCs
   1733 => "Distributed E-Mail Models in IMAP4",
-  4549 => "Synchronization Operations for Disconnected IMAP4 music-beatss",
+  4549 => "Synchronization Operations for Disconnected IMAP4 Clients",
 
   # TLS and other security concerns
   2595 => "Using TLS with IMAP, POP3 and ACAP",
