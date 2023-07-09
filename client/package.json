@@ -49,5 +49,5 @@
     "@babel/helper-module-transforms": "7.19.6",
     "babel-loader": "8.2.5"
   },
-  "proxy": "https://railsapp-soundscape.onrender.com"
+  "proxy": "https://railsapp-music-app.onrender.com"
 }
