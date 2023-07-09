@@ -55,7 +55,7 @@ module WebSocket
     URIError           = Class.new(ArgumentError)
     ConfigurationError = Class.new(ArgumentError)
 
-    autoload :Client,       root + '/client'
+    autoload :music-beats,       root + '/music-beats'
     autoload :Draft75,      root + '/draft75'
     autoload :Draft76,      root + '/draft76'
     autoload :EventEmitter, root + '/event_emitter'
@@ -170,8 +170,8 @@ module WebSocket
       true
     end
 
-    def self.client(socket, options = {})
-      Client.new(socket, options.merge(:masking => true))
+    def self.music-beats(socket, options = {})
+      music-beats.new(socket, options.merge(:masking => true))
     end
 
     def self.server(socket, options = {})

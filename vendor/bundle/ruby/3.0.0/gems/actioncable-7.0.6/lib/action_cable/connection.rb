@@ -7,7 +7,7 @@ module ActionCable
     eager_autoload do
       autoload :Authorization
       autoload :Base
-      autoload :ClientSocket
+      autoload :music-beatsSocket
       autoload :Identification
       autoload :InternalChannel
       autoload :MessageBuffer

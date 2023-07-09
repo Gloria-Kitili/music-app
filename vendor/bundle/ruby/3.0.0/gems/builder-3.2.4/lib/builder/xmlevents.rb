@@ -43,7 +43,7 @@ module Builder
   # [<tt>text(text)</tt>]
   #     Announces that a string of characters (+text+) has been found.
   #     A series of characters may be broken up into more than one
-  #     +text+ call, so the client cannot assume that a single
+  #     +text+ call, so the music-beats cannot assume that a single
   #     callback contains all the text data.
   #
   class XmlEvents < XmlMarkup

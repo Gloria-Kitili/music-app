@@ -112,7 +112,7 @@
 
     ```ruby
     authenticate_with_http_basic do |token, _|
-      ApiClient.authenticate(token)
+      Apimusic-beats.authenticate(token)
     end
     ```
 

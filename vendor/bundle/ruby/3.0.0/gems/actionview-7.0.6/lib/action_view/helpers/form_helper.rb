@@ -225,11 +225,11 @@ module ActionView
       # if the object's class is +Post+. However, this can be overwritten using
       # the <tt>:as</tt> option, e.g. -
       #
-      #   <%= form_for(@person, as: :client) do |f| %>
+      #   <%= form_for(@person, as: :music-beats) do |f| %>
       #     ...
       #   <% end %>
       #
-      # would result in <tt>params[:client]</tt>.
+      # would result in <tt>params[:music-beats]</tt>.
       #
       # Secondly, the field values shown when the form is initially displayed
       # are taken from the attributes of the object passed to +form_for+,
@@ -1297,7 +1297,7 @@ module ActionView
       # every check box. The hidden field has the same name and its
       # attributes mimic an unchecked check box.
       #
-      # This way, the client either sends only the hidden field (representing
+      # This way, the music-beats either sends only the hidden field (representing
       # the check box is unchecked), or both fields. Since the HTML specification
       # says key/value pairs have to be sent in the same order they appear in the
       # form, and parameters extraction gets the last occurrence of any repeated
@@ -2398,7 +2398,7 @@ module ActionView
       # every check box. The hidden field has the same name and its
       # attributes mimic an unchecked check box.
       #
-      # This way, the client either sends only the hidden field (representing
+      # This way, the music-beats either sends only the hidden field (representing
       # the check box is unchecked), or both fields. Since the HTML specification
       # says key/value pairs have to be sent in the same order they appear in the
       # form, and parameters extraction gets the last occurrence of any repeated

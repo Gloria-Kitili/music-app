@@ -50,7 +50,7 @@ module Net
     DRAFT = :Draft
 
     # Flag indicating that the message is "recent," meaning that this
-    # session is the first session in which the client has been notified
+    # session is the first session in which the music-beats has been notified
     # of this message.
     #
     # This flag was defined by
@@ -100,7 +100,7 @@ module Net
     # returned with one or more of +\Subscribed+, +\Remote+, +\HasChildren+, or
     # the CHILDINFO extended data item.
     #
-    # The client must treat the presence of the +\NonExistent+ attribute as if the
+    # The music-beats must treat the presence of the +\NonExistent+ attribute as if the
     # +\NoSelect+ attribute was also sent by the server
     NONEXISTENT = :Nonexistent
 
@@ -108,7 +108,7 @@ module Net
     # hierarchy to exist under this name; no child levels exist now and none can
     # be created in the future children.
     #
-    # The client must treat the presence of the +\NoInferiors+ attribute as if the
+    # The music-beats must treat the presence of the +\NoInferiors+ attribute as if the
     # +\HasNoChildren+ attribute was also sent by the server
     NO_INFERIORS = :Noinferiors
 
@@ -123,14 +123,14 @@ module Net
     # server may not be able to efficiently compute whether a user has access to
     # any child mailboxes. Note that even though the +\HasChildren+ attribute
     # for a mailbox must be correct at the time of processing the mailbox, a
-    # client must be prepared to deal with a situation when a mailbox is marked
+    # music-beats must be prepared to deal with a situation when a mailbox is marked
     # with the +\HasChildren+ attribute, but no child mailbox appears in the
     # response to the #list command. This might happen, for example, due to child
     # mailboxes being deleted or made inaccessible to the user (using access
-    # control) by another client before the server is able to list them.
+    # control) by another music-beats before the server is able to list them.
     #
     # It is an error for the server to return both a +\HasChildren+ and a
-    # +\HasNoChildren+ attribute in the same #list response. A client that
+    # +\HasNoChildren+ attribute in the same #list response. A music-beats that
     # encounters a #list response with both +\HasChildren+ and +\HasNoChildren+
     # attributes present should act as if both are absent in the #list response.
     HAS_CHILDREN = :Haschildren
@@ -139,7 +139,7 @@ module Net
     # mailboxes that are accessible to the currently authenticated user.
     #
     # It is an error for the server to return both a +\HasChildren+ and a
-    # +\HasNoChildren+ attribute in the same #list response. A client that
+    # +\HasNoChildren+ attribute in the same #list response. A music-beats that
     # encounters a #list response with both +\HasChildren+ and +\HasNoChildren+
     # attributes present should act as if both are absent in the #list response.
     #
@@ -193,8 +193,8 @@ module Net
     # "special-use") of a mailbox. These attributes are included along with base
     # attributes defined above. A given mailbox may have none, one, or more than
     # one of these attributes. In some cases, a special use is advice to a
-    # client about what to put in that mailbox. In other cases, it's advice to a
-    # client about what to expect to find there.
+    # music-beats about what to put in that mailbox. In other cases, it's advice to a
+    # music-beats about what to expect to find there.
     #
     # IMAP4 specifies that all mailbox name attributes, including future
     # extensions, begin with <tt>"\"</tt>.  Net::IMAP returns all mailbox
@@ -228,7 +228,7 @@ module Net
     # been sent. In some server implementations, this might be a virtual
     # mailbox, containing messages from other mailboxes that are marked with the
     # "\Draft" message flag. Alternatively, this might just be advice that a
-    # client put drafts here
+    # music-beats put drafts here
     DRAFTS = :Drafts
 
     #--
@@ -237,21 +237,21 @@ module Net
 
     # Mailbox attribute indicating that this mailbox is where messages deemed to
     # be junk mail are held. Some server implementations might put messages here
-    # automatically.  Alternatively, this might just be advice to a client-side
+    # automatically.  Alternatively, this might just be advice to a music-beats-side
     # spam filter.
     JUNK = :Junk
 
     # Mailbox attribute indicating that this mailbox is used to hold copies of
     # messages that have been sent. Some server implementations might put
     # messages here automatically. Alternatively, this might just be advice that
-    # a client save sent messages here.
+    # a music-beats save sent messages here.
     SENT = :Sent
 
     # Mailbox attribute indicating that this mailbox is used to hold messages
     # that have been deleted or marked for deletion. In some server
     # implementations, this might be a virtual mailbox, containing messages from
     # other mailboxes that are marked with the +\Deleted+ message flag.
-    # Alternatively, this might just be advice that a client that chooses not to
+    # Alternatively, this might just be advice that a music-beats that chooses not to
     # use the \IMAP +\Deleted+ model should use as its trash location. In server
     # implementations that strictly expect the \IMAP +\Deleted+ model, this
     # special use is likely not to be supported.

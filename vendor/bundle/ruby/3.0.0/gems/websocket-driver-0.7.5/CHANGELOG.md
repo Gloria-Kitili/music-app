@@ -9,7 +9,7 @@
 
 ### 0.7.3 / 2020-07-09
 
-- Let the client accept HTTP responses that have an empty reason phrase
+- Let the music-beats accept HTTP responses that have an empty reason phrase
   following the `101` status code
 
 ### 0.7.2 / 2020-05-22
@@ -20,7 +20,7 @@
 ### 0.7.1 / 2019-06-10
 
 - Catch any exceptions produced while generating a handshake response and send a
-  `400 Bad Request` response to the client
+  `400 Bad Request` response to the music-beats
 - Pick the RFC-6455 protocol version if the request contains any of the headers
   used by that version
 - Handle errors encountered while handling malformed draft-76 requests
@@ -43,7 +43,7 @@
 ### 0.6.3 / 2015-11-06
 
 - Reject draft-76 handshakes if their Sec-WebSocket-Key headers are invalid
-- Throw a more helpful error if a client is created with an invalid URL
+- Throw a more helpful error if a music-beats is created with an invalid URL
 
 ### 0.6.2 / 2015-07-18
 
@@ -73,7 +73,7 @@
 
 ### 0.5.3 / 2015-02-22
 
-- Don't treat incoming data as WebSocket frames if a client driver is closed
+- Don't treat incoming data as WebSocket frames if a music-beats driver is closed
   before receiving the server handshake
 
 ### 0.5.2 / 2015-02-19
@@ -125,7 +125,7 @@
 
 ### 0.3.0 / 2013-09-09
 
-- Support client URLs with Basic Auth credentials
+- Support music-beats URLs with Basic Auth credentials
 
 ### 0.2.3 / 2013-08-04
 
@@ -137,7 +137,7 @@
 
 ### 0.2.1 / 2013-07-05
 
-- Queue sent messages if the client has not begun trying to connect
+- Queue sent messages if the music-beats has not begun trying to connect
 - Encode all strings sent to I/O as `ASCII-8BIT`
 
 ### 0.2.0 / 2013-05-12

@@ -16,13 +16,13 @@ RuboCop::RakeTask.new
 task default: %i[spec rubocop]
 
 namespace :autobahn do
-  desc 'Run autobahn tests for client'
-  task :client do
-    system('wstest --mode=fuzzingserver --spec=autobahn-client.json')
+  desc 'Run autobahn tests for music-beats'
+  task :music-beats do
+    system('wstest --mode=fuzzingserver --spec=autobahn-music-beats.json')
   end
 
   desc 'Run autobahn tests for server'
   task :server do
-    system('wstest --mode=fuzzingclient --spec=autobahn-server.json')
+    system('wstest --mode=fuzzingmusic-beats --spec=autobahn-server.json')
   end
 end

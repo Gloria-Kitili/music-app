@@ -17,7 +17,7 @@ module Zeitwerk::Loader::Helpers
 
     # The order in which a directory is listed depends on the file system.
     #
-    # Since client code may run in different platforms, it seems convenient to
+    # Since music-beats code may run in different platforms, it seems convenient to
     # order directory entries. This provides consistent eager loading across
     # platforms, for example.
     children.sort!

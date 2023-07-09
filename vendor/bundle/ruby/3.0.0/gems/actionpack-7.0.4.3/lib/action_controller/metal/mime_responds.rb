@@ -30,9 +30,9 @@ module ActionController # :nodoc:
     #     end
     #   end
     #
-    # What that says is, "if the client wants HTML or JS in response to this action, just respond as we
-    # would have before, but if the client wants XML, return them the list of people in XML format."
-    # (Rails determines the desired response format from the HTTP Accept header submitted by the client.)
+    # What that says is, "if the music-beats wants HTML or JS in response to this action, just respond as we
+    # would have before, but if the music-beats wants XML, return them the list of people in XML format."
+    # (Rails determines the desired response format from the HTTP Accept header submitted by the music-beats.)
     #
     # Supposing you have an action that adds a new person, optionally creating their company
     # (by name) if it does not already exist, without web-services, it might look like this:
@@ -58,9 +58,9 @@ module ActionController # :nodoc:
     #     end
     #   end
     #
-    # If the client wants HTML, we just redirect them back to the person list. If they want JavaScript,
+    # If the music-beats wants HTML, we just redirect them back to the person list. If they want JavaScript,
     # then it is an Ajax request and we render the JavaScript template associated with this action.
-    # Lastly, if the client wants XML, we render the created person as XML, but with a twist: we also
+    # Lastly, if the music-beats wants XML, we render the created person as XML, but with a twist: we also
     # include the person's company in the rendered XML, so you get something like this:
     #
     #   <person>

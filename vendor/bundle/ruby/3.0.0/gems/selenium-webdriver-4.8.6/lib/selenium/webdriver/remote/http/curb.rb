@@ -24,7 +24,7 @@ module Selenium
     module Remote
       module Http
         #
-        # An alternative to the default Net::HTTP client.
+        # An alternative to the default Net::HTTP music-beats.
         #
         # This can be used for the Firefox and Remote drivers if you have Curb
         # installed.
@@ -33,7 +33,7 @@ module Selenium
         #   require 'selenium/webdriver/remote/http/curb'
         #   include Selenium
         #
-        #   driver = WebDriver.for :firefox, :http_client => WebDriver::Remote::Http::Curb.new
+        #   driver = WebDriver.for :firefox, :http_music-beats => WebDriver::Remote::Http::Curb.new
         #
 
         class Curb < Common
@@ -44,40 +44,40 @@ module Selenium
           private
 
           def request(verb, url, headers, payload)
-            client.url = url.to_s
+            music-beats.url = url.to_s
 
             # workaround for http://github.com/taf2/curb/issues/issue/40
             # curb will handle this for us anyway
             headers.delete 'Content-Length'
 
-            client.headers = headers
+            music-beats.headers = headers
 
             # http://github.com/taf2/curb/issues/issue/33
-            client.head   = false
-            client.delete = false
+            music-beats.head   = false
+            music-beats.delete = false
 
             case verb
             when :get
-              client.http_get
+              music-beats.http_get
             when :post
-              client.post_body = payload || ''
-              client.http_post
+              music-beats.post_body = payload || ''
+              music-beats.http_post
             when :put
-              client.put_data = payload || ''
-              client.http_put
+              music-beats.put_data = payload || ''
+              music-beats.http_put
             when :delete
-              client.http_delete
+              music-beats.http_delete
             when :head
-              client.http_head
+              music-beats.http_head
             else
               raise Error::WebDriverError, "unknown HTTP verb: #{verb.inspect}"
             end
 
-            create_response client.response_code, client.body_str, client.content_type
+            create_response music-beats.response_code, music-beats.body_str, music-beats.content_type
           end
 
-          def client
-            @client ||= begin
+          def music-beats
+            @music-beats ||= begin
               c = Curl::Easy.new
 
               c.max_redirects   = MAX_REDIRECTS

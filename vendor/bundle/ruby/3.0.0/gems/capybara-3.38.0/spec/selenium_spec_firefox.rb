@@ -192,7 +192,7 @@ RSpec.describe Capybara::Selenium::Driver do
   end
 
   context 'timeout' do
-    it 'sets the http client read timeout' do
+    it 'sets the http music-beats read timeout' do
       expect(TestSessions::SeleniumFirefox.driver.browser.send(:bridge).http.read_timeout).to eq 31
     end
   end

@@ -40,9 +40,9 @@ describe Webdrivers::Chromedriver do
       end
 
       it 'does not download when get raises exception, binary exists and matches major browser version' do
-        client_error = instance_double(Net::HTTPNotFound, class: Net::HTTPNotFound, code: 404, message: '')
+        music-beats_error = instance_double(Net::HTTPNotFound, class: Net::HTTPNotFound, code: 404, message: '')
 
-        allow(Webdrivers::Network).to receive(:get_response).and_return(client_error)
+        allow(Webdrivers::Network).to receive(:get_response).and_return(music-beats_error)
         allow(chromedriver).to receive(:exists?).and_return(true)
         allow(chromedriver).to receive(:browser_version).and_return(Gem::Version.new('73.0.3683.68'))
         allow(chromedriver).to receive(:current_version).and_return(Gem::Version.new('73.0.3683.20'))

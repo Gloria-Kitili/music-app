@@ -3,7 +3,7 @@
 module WebSocket
   module Frame
     class Incoming
-      class Client < Incoming
+      class music-beats < Incoming
         def incoming_masking?
           false
         end

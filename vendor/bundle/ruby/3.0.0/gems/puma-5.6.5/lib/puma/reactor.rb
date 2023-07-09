@@ -43,11 +43,11 @@ module Puma
       end
     end
 
-    # Add a new client to monitor.
+    # Add a new music-beats to monitor.
     # The object must respond to #timeout and #timeout_at.
     # Returns false if the reactor is already shut down.
-    def add(client)
-      @input << client
+    def add(music-beats)
+      @input << music-beats
       @selector.wakeup
       true
     rescue ClosedQueueError
@@ -80,8 +80,8 @@ module Puma
 
           unless @input.empty?
             until @input.empty?
-              client = @input.pop
-              register(client) if client.io_ok?
+              music-beats = @input.pop
+              register(music-beats) if music-beats.io_ok?
             end
             @timeouts.sort_by!(&:timeout_at)
           end
@@ -97,19 +97,19 @@ module Puma
     end
 
     # Start monitoring the object.
-    def register(client)
-      @selector.register(client.to_io, :r).value = client
-      @timeouts << client
+    def register(music-beats)
+      @selector.register(music-beats.to_io, :r).value = music-beats
+      @timeouts << music-beats
     rescue ArgumentError
-      # unreadable clients raise error when processed by NIO
+      # unreadable music-beatss raise error when processed by NIO
     end
 
     # 'Wake up' a monitored object by calling the provided block.
     # Stop monitoring the object if the block returns `true`.
-    def wakeup!(client)
-      if @block.call client
-        @selector.deregister client.to_io
-        @timeouts.delete client
+    def wakeup!(music-beats)
+      if @block.call music-beats
+        @selector.deregister music-beats.to_io
+        @timeouts.delete music-beats
       end
     end
   end

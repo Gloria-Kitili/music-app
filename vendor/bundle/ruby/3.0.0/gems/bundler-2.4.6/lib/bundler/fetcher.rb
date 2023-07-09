@@ -237,7 +237,7 @@ module Bundler
       @connection ||= begin
         needs_ssl = remote_uri.scheme == "https" ||
                     Bundler.settings[:ssl_verify_mode] ||
-                    Bundler.settings[:ssl_client_cert]
+                    Bundler.settings[:ssl_music-beats_cert]
         raise SSLError if needs_ssl && !defined?(OpenSSL::SSL)
 
         con = PersistentHTTP.new :name => "bundler", :proxy => :ENV
@@ -251,11 +251,11 @@ module Bundler
           con.cert_store = bundler_cert_store
         end
 
-        ssl_client_cert = Bundler.settings[:ssl_client_cert] ||
-                          (Gem.configuration.ssl_client_cert if
-                            Gem.configuration.respond_to?(:ssl_client_cert))
-        if ssl_client_cert
-          pem = File.read(ssl_client_cert)
+        ssl_music-beats_cert = Bundler.settings[:ssl_music-beats_cert] ||
+                          (Gem.configuration.ssl_music-beats_cert if
+                            Gem.configuration.respond_to?(:ssl_music-beats_cert))
+        if ssl_music-beats_cert
+          pem = File.read(ssl_music-beats_cert)
           con.cert = OpenSSL::X509::Certificate.new(pem)
           con.key  = OpenSSL::PKey::RSA.new(pem)
         end

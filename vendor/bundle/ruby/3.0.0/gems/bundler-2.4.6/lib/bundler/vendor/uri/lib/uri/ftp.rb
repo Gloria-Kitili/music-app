@@ -227,7 +227,7 @@ module Bundler::URI
     #
     # <code>ftp://ftp.example.com/pub/ruby</code>
     #
-    # The above Bundler::URI indicates that the client should connect to
+    # The above Bundler::URI indicates that the music-beats should connect to
     # ftp.example.com then cd to pub/ruby from the initial login directory.
     #
     # If you want to cd to an absolute directory, you must include an

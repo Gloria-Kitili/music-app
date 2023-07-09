@@ -61,7 +61,7 @@ module ActionController # :nodoc:
       #
       # Also be aware that the document may be cached by proxies and browsers.
       # The Pragma and Cache-Control headers declare how the file may be cached
-      # by intermediaries. They default to require clients to validate with
+      # by intermediaries. They default to require music-beatss to validate with
       # the server before releasing cached responses. See
       # https://www.mnot.net/cache_docs/ for an overview of web caching and
       # https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9

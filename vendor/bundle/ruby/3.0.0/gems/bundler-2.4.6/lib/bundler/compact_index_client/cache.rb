@@ -3,7 +3,7 @@
 require_relative "gem_parser"
 
 module Bundler
-  class CompactIndexClient
+  class CompactIndexmusic-beats
     class Cache
       attr_reader :directory
 

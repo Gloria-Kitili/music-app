@@ -1915,13 +1915,13 @@ var trix = createCommonjsModule(function(module) {
             return n3 = t3.target, this.serializeSelectionToDataTransfer(t3.dataTransfer), this.draggedRange = this.getSelectedRange(), (e2 = this.delegate) != null && typeof e2.inputControllerDidStartDrag == "function" ? e2.inputControllerDidStartDrag() : void 0;
           }, dragover: function(t3) {
             var e2, n3;
-            return !this.draggedRange && !this.canAcceptDataTransfer(t3.dataTransfer) || (t3.preventDefault(), e2 = {x: t3.clientX, y: t3.clientY}, l(e2, this.draggingPoint)) ? void 0 : (this.draggingPoint = e2, (n3 = this.delegate) != null && typeof n3.inputControllerDidReceiveDragOverPoint == "function" ? n3.inputControllerDidReceiveDragOverPoint(this.draggingPoint) : void 0);
+            return !this.draggedRange && !this.canAcceptDataTransfer(t3.dataTransfer) || (t3.preventDefault(), e2 = {x: t3.music-beatsX, y: t3.music-beatsY}, l(e2, this.draggingPoint)) ? void 0 : (this.draggingPoint = e2, (n3 = this.delegate) != null && typeof n3.inputControllerDidReceiveDragOverPoint == "function" ? n3.inputControllerDidReceiveDragOverPoint(this.draggingPoint) : void 0);
           }, dragend: function() {
             var t3;
             return (t3 = this.delegate) != null && typeof t3.inputControllerDidCancelDrag == "function" && t3.inputControllerDidCancelDrag(), this.draggedRange = null, this.draggingPoint = null;
           }, drop: function(t3) {
             var n3, i2, o2, r2, s3, a2, u2, c2, l2;
-            return t3.preventDefault(), o2 = (s3 = t3.dataTransfer) != null ? s3.files : void 0, r2 = {x: t3.clientX, y: t3.clientY}, (a2 = this.responder) != null && a2.setLocationRangeFromPointRange(r2), (o2 != null ? o2.length : void 0) ? this.attachFiles(o2) : this.draggedRange ? ((u2 = this.delegate) != null && u2.inputControllerWillMoveText(), (c2 = this.responder) != null && c2.moveTextFromRange(this.draggedRange), this.draggedRange = null, this.requestRender()) : (i2 = t3.dataTransfer.getData("application/x-trix-document")) && (n3 = e.Document.fromJSONString(i2), (l2 = this.responder) != null && l2.insertDocument(n3), this.requestRender()), this.draggedRange = null, this.draggingPoint = null;
+            return t3.preventDefault(), o2 = (s3 = t3.dataTransfer) != null ? s3.files : void 0, r2 = {x: t3.music-beatsX, y: t3.music-beatsY}, (a2 = this.responder) != null && a2.setLocationRangeFromPointRange(r2), (o2 != null ? o2.length : void 0) ? this.attachFiles(o2) : this.draggedRange ? ((u2 = this.delegate) != null && u2.inputControllerWillMoveText(), (c2 = this.responder) != null && c2.moveTextFromRange(this.draggedRange), this.draggedRange = null, this.requestRender()) : (i2 = t3.dataTransfer.getData("application/x-trix-document")) && (n3 = e.Document.fromJSONString(i2), (l2 = this.responder) != null && l2.insertDocument(n3), this.requestRender()), this.draggedRange = null, this.draggingPoint = null;
           }, cut: function(t3) {
             var e2, n3;
             return ((e2 = this.responder) != null ? e2.selectionIsExpanded() : void 0) && (this.serializeSelectionToDataTransfer(t3.clipboardData) && t3.preventDefault(), (n3 = this.delegate) != null && n3.inputControllerWillCutText(), this.deleteInDirection("backward"), t3.defaultPrevented) ? this.requestRender() : void 0;
@@ -2352,7 +2352,7 @@ var trix = createCommonjsModule(function(module) {
             var e2;
             return e2 = [], t3.altKey && e2.push("alt"), t3.shiftKey && e2.push("shift"), e2.push(t3.key), e2;
           }, d = function(t3) {
-            return {x: t3.clientX, y: t3.clientY};
+            return {x: t3.music-beatsX, y: t3.music-beatsY};
           }, u;
         }(e.InputController);
       }.call(this), function() {
@@ -4621,9 +4621,9 @@ var trix = createCommonjsModule(function(module) {
             return this.composition.getSelectedRange();
           }, n.prototype.getPosition = function() {
             return this.composition.getPosition();
-          }, n.prototype.getClientRectAtPosition = function(t3) {
+          }, n.prototype.getmusic-beatsRectAtPosition = function(t3) {
             var e2;
-            return e2 = this.getDocument().locationRangeFromRange([t3, t3 + 1]), this.selectionManager.getClientRectAtLocationRange(e2);
+            return e2 = this.getDocument().locationRangeFromRange([t3, t3 + 1]), this.selectionManager.getmusic-beatsRectAtLocationRange(e2);
           }, n.prototype.expandSelectionInDirection = function(t3) {
             return this.composition.expandSelectionInDirection(t3);
           }, n.prototype.moveCursorInDirection = function(t3) {
@@ -4814,9 +4814,9 @@ var trix = createCommonjsModule(function(module) {
               }
               return i2 = t2(), n(s), i2;
             }
-          }, e2.prototype.getClientRectsForDOMRange = function(t3) {
+          }, e2.prototype.getmusic-beatsRectsForDOMRange = function(t3) {
             var e3, n2, o;
-            return n2 = i.call(t3.getClientRects()), o = n2[0], e3 = n2[n2.length - 1], [o, e3];
+            return n2 = i.call(t3.getmusic-beatsRects()), o = n2[0], e3 = n2[n2.length - 1], [o, e3];
           }, e2;
         }();
       }.call(this), function() {
@@ -4899,9 +4899,9 @@ var trix = createCommonjsModule(function(module) {
           }, f.prototype.setLocationRangeFromPointRange = function(t3) {
             var e2, n2;
             return t3 = a(t3), n2 = this.getLocationAtPoint(t3[0]), e2 = this.getLocationAtPoint(t3[1]), this.setLocationRange([n2, e2]);
-          }, f.prototype.getClientRectAtLocationRange = function(t3) {
+          }, f.prototype.getmusic-beatsRectAtLocationRange = function(t3) {
             var e2;
-            return (e2 = this.createDOMRangeFromLocationRange(t3)) ? this.getClientRectsForDOMRange(e2)[1] : void 0;
+            return (e2 = this.createDOMRangeFromLocationRange(t3)) ? this.getmusic-beatsRectsForDOMRange(e2)[1] : void 0;
           }, f.prototype.locationIsCursorTarget = function(t3) {
             var e2, n2, i2;
             return i2 = this.findNodeAndOffsetFromLocation(t3), e2 = i2[0], n2 = i2[1], s(e2);
@@ -4922,7 +4922,7 @@ var trix = createCommonjsModule(function(module) {
             var n2, i2;
             if (t3 != null && this.domRangeWithinElement(t3) && (i2 = this.findLocationFromContainerAndOffset(t3.startContainer, t3.startOffset, e2)))
               return t3.collapsed || (n2 = this.findLocationFromContainerAndOffset(t3.endContainer, t3.endOffset, e2)), a([i2, n2]);
-          }, f.proxyMethod("locationMapper.findLocationFromContainerAndOffset"), f.proxyMethod("locationMapper.findContainerAndOffsetFromLocation"), f.proxyMethod("locationMapper.findNodeAndOffsetFromLocation"), f.proxyMethod("pointMapper.createDOMRangeFromPoint"), f.proxyMethod("pointMapper.getClientRectsForDOMRange"), f.prototype.didMouseDown = function() {
+          }, f.proxyMethod("locationMapper.findLocationFromContainerAndOffset"), f.proxyMethod("locationMapper.findContainerAndOffsetFromLocation"), f.proxyMethod("locationMapper.findNodeAndOffsetFromLocation"), f.proxyMethod("pointMapper.createDOMRangeFromPoint"), f.proxyMethod("pointMapper.getmusic-beatsRectsForDOMRange"), f.prototype.didMouseDown = function() {
             return this.pauseTemporarily();
           }, f.prototype.pauseTemporarily = function() {
             var e2, n2, i2, r2;

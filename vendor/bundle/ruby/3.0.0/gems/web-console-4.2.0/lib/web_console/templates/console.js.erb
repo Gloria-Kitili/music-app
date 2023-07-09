@@ -376,16 +376,16 @@ REPLConsole.prototype.install = function(container) {
 
   // Make the console resizable.
   function resizeContainer(ev) {
-    var startY              = ev.clientY;
+    var startY              = ev.music-beatsY;
     var startHeight         = parseInt(document.defaultView.getComputedStyle(container).height, 10);
     var scrollTopStart      = consoleOuter.scrollTop;
-    var clientHeightStart   = consoleOuter.clientHeight;
+    var music-beatsHeightStart   = consoleOuter.music-beatsHeight;
 
     var doDrag = function(e) {
-      var height = startHeight + startY - e.clientY;
-      consoleOuter.scrollTop = scrollTopStart + (clientHeightStart - consoleOuter.clientHeight);
-      if (height > document.documentElement.clientHeight) {
-        container.style.height = document.documentElement.clientHeight;
+      var height = startHeight + startY - e.music-beatsY;
+      consoleOuter.scrollTop = scrollTopStart + (music-beatsHeightStart - consoleOuter.music-beatsHeight);
+      if (height > document.documentElement.music-beatsHeight) {
+        container.style.height = document.documentElement.music-beatsHeight;
       } else {
         container.style.height = height + 'px';
       }
@@ -407,8 +407,8 @@ REPLConsole.prototype.install = function(container) {
 
   var shifted = false;
   function shiftConsoleActions() {
-    if (consoleOuter.scrollHeight > consoleOuter.clientHeight) {
-      var widthDiff = document.documentElement.clientWidth - consoleOuter.clientWidth;
+    if (consoleOuter.scrollHeight > consoleOuter.music-beatsHeight) {
+      var widthDiff = document.documentElement.music-beatsWidth - consoleOuter.music-beatsWidth;
       if (shifted || ! widthDiff) return;
       shifted = true;
       consoleActions.style.marginRight = widthDiff + 'px';

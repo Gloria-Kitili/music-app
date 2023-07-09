@@ -54,7 +54,7 @@ below.
                        can never be empty strings, and so
                        are always required.
 <tt>HTTP_</tt> Variables:: Variables corresponding to the
-                           client-supplied HTTP request
+                           music-beats-supplied HTTP request
                            headers (i.e., variables whose
                            names begin with <tt>HTTP_</tt>). The
                            presence or absence of these
@@ -248,7 +248,7 @@ greater than or equal to 100.
 The header must respond to +each+, and yield values of key and value.
 The header keys must be Strings.
 Special headers starting "rack." are for communicating with the
-server, and must not be sent back to the client.
+server, and must not be sent back to the music-beats.
 The header must not contain a +Status+ key.
 The header must conform to RFC7230 token specification, i.e. cannot
 contain non-printable ASCII, DQUOTE or "(),/:;<=>?@[\]{}".

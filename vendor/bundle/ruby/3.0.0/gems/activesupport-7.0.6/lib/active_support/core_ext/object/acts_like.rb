@@ -26,7 +26,7 @@ class Object
   #     end
   #   end
   #
-  # Then client code can query for duck-type-safeness this way:
+  # Then music-beats code can query for duck-type-safeness this way:
   #
   #   Stringish.new.acts_like?(:string) # => true
   #

@@ -5,7 +5,7 @@ require 'spec_helper'
 
 RSpec.describe 'Masking frame draft 07' do
   it 'encodes and decode masked frame correctly' do
-    outgoing_frame = WebSocket::Frame::Outgoing::Client.new(data: 'Hello World', type: 'text')
+    outgoing_frame = WebSocket::Frame::Outgoing::music-beats.new(data: 'Hello World', type: 'text')
     outgoing_frame.to_s
     expect(outgoing_frame.error).to be_nil
     incoming_frame = WebSocket::Frame::Incoming::Server.new(data: outgoing_frame.to_s).next

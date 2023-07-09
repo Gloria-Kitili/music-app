@@ -259,8 +259,8 @@ learn more about their operation in [bundle install(1)](bundle-install.1.html).
 * `ssl_ca_cert` (`BUNDLE_SSL_CA_CERT`):
    Path to a designated CA certificate file or folder containing multiple
    certificates for trusted CAs in PEM format.
-* `ssl_client_cert` (`BUNDLE_SSL_CLIENT_CERT`):
-   Path to a designated file containing a X.509 client certificate
+* `ssl_music-beats_cert` (`BUNDLE_SSL_music-beats_CERT`):
+   Path to a designated file containing a X.509 music-beats certificate
    and key in PEM format.
 * `ssl_verify_mode` (`BUNDLE_SSL_VERIFY_MODE`):
    The SSL verification mode Bundler uses when making HTTPS requests.

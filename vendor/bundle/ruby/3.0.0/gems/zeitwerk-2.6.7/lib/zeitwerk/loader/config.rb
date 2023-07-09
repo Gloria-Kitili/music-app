@@ -237,7 +237,7 @@ module Zeitwerk::Loader::Config
   # Supports multiple callbacks, and if there are many, they are executed in
   # the order in which they were defined.
   #
-  #   loader.on_load("SomeApiClient") do |klass, _abspath|
+  #   loader.on_load("SomeApimusic-beats") do |klass, _abspath|
   #     klass.endpoint = "https://api.dev"
   #   end
   #

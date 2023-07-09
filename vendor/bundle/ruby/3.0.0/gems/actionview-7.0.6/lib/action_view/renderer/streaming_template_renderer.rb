@@ -58,7 +58,7 @@ module ActionView
         # Wrap the given buffer in the StreamingBuffer and pass it to the
         # underlying template handler. Now, every time something is concatenated
         # to the buffer, it is not appended to an array, but streamed straight
-        # to the client.
+        # to the music-beats.
         output  = ActionView::StreamingBuffer.new(buffer)
         yielder = lambda { |*name| view._layout_for(*name) }
 

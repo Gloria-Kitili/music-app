@@ -69,7 +69,7 @@ module DEBUGGER__
         log = {
           depth: DEBUGGER__.frame_depth,
           name: call_identifier_str(tp),
-          threadId: Thread.current.instance_variable_get(:@__thread_client_id),
+          threadId: Thread.current.instance_variable_get(:@__thread_music-beats_id),
           location: {
             path: tp.path,
             line: tp.lineno
@@ -83,7 +83,7 @@ module DEBUGGER__
       def line_trace_log tp
         {
           depth: DEBUGGER__.frame_depth,
-          threadId: Thread.current.instance_variable_get(:@__thread_client_id),
+          threadId: Thread.current.instance_variable_get(:@__thread_music-beats_id),
           location: {
             path: tp.path,
             line: tp.lineno
@@ -100,7 +100,7 @@ module DEBUGGER__
       end
     end
 
-    class Custom_Recorder < ThreadClient::Recorder
+    class Custom_Recorder < Threadmusic-beats::Recorder
       def initialize max_log_size: nil
         if max_log_size
           @max_log_size = max_log_size
@@ -272,7 +272,7 @@ module DEBUGGER__
       end
     end
 
-    module Custom_ThreadClient
+    module Custom_Threadmusic-beats
       def custom_dap_request_rdbgTraceInspector(req)
         cmd = req.dig('arguments', 'command')
         case cmd
@@ -331,6 +331,6 @@ module DEBUGGER__
       end
     end
 
-    ::DEBUGGER__::SESSION.extend_feature session: Custom_Session, thread_client: Custom_ThreadClient, ui: Custom_UI_DAP
+    ::DEBUGGER__::SESSION.extend_feature session: Custom_Session, thread_music-beats: Custom_Threadmusic-beats, ui: Custom_UI_DAP
   end
 end

@@ -69,7 +69,7 @@ module ActionCable
             @subscribe_callbacks = Hash.new { |h, k| h[k] = [] }
             @subscription_lock = Mutex.new
 
-            @subscribed_client = nil
+            @subscribed_music-beats = nil
 
             @when_connected = []
 
@@ -78,13 +78,13 @@ module ActionCable
 
           def listen(conn)
             conn.without_reconnect do
-              original_client = extract_subscribed_client(conn)
+              original_music-beats = extract_subscribed_music-beats(conn)
 
               conn.subscribe("_action_cable_internal") do |on|
                 on.subscribe do |chan, count|
                   @subscription_lock.synchronize do
                     if count == 1
-                      @subscribed_client = original_client
+                      @subscribed_music-beats = original_music-beats
 
                       until @when_connected.empty?
                         @when_connected.shift.call
@@ -106,7 +106,7 @@ module ActionCable
                 on.unsubscribe do |chan, count|
                   if count == 0
                     @subscription_lock.synchronize do
-                      @subscribed_client = nil
+                      @subscribed_music-beats = nil
                     end
                   end
                 end
@@ -119,8 +119,8 @@ module ActionCable
               return if @thread.nil?
 
               when_connected do
-                @subscribed_client.unsubscribe
-                @subscribed_client = nil
+                @subscribed_music-beats.unsubscribe
+                @subscribed_music-beats = nil
               end
             end
 
@@ -131,13 +131,13 @@ module ActionCable
             @subscription_lock.synchronize do
               ensure_listener_running
               @subscribe_callbacks[channel] << on_success
-              when_connected { @subscribed_client.subscribe(channel) }
+              when_connected { @subscribed_music-beats.subscribe(channel) }
             end
           end
 
           def remove_channel(channel)
             @subscription_lock.synchronize do
-              when_connected { @subscribed_client.unsubscribe(channel) }
+              when_connected { @subscribed_music-beats.unsubscribe(channel) }
             end
           end
 
@@ -156,7 +156,7 @@ module ActionCable
             end
 
             def when_connected(&block)
-              if @subscribed_client
+              if @subscribed_music-beats
                 block.call
               else
                 @when_connected << block
@@ -164,9 +164,9 @@ module ActionCable
             end
 
             if ::Redis::VERSION < "5"
-              class SubscribedClient
-                def initialize(raw_client)
-                  @raw_client = raw_client
+              class Subscribedmusic-beats
+                def initialize(raw_music-beats)
+                  @raw_music-beats = raw_music-beats
                 end
 
                 def subscribe(*channel)
@@ -179,11 +179,11 @@ module ActionCable
 
                 private
                   def send_command(*command)
-                    @raw_client.write(command)
+                    @raw_music-beats.write(command)
 
                     very_raw_connection =
-                      @raw_client.connection.instance_variable_defined?(:@connection) &&
-                      @raw_client.connection.instance_variable_get(:@connection)
+                      @raw_music-beats.connection.instance_variable_defined?(:@connection) &&
+                      @raw_music-beats.connection.instance_variable_get(:@connection)
 
                     if very_raw_connection && very_raw_connection.respond_to?(:flush)
                       very_raw_connection.flush
@@ -192,12 +192,12 @@ module ActionCable
                   end
               end
 
-              def extract_subscribed_client(conn)
-                raw_client = conn.respond_to?(:_client) ? conn._client : conn.client
-                SubscribedClient.new(raw_client)
+              def extract_subscribed_music-beats(conn)
+                raw_music-beats = conn.respond_to?(:_music-beats) ? conn._music-beats : conn.music-beats
+                Subscribedmusic-beats.new(raw_music-beats)
               end
             else
-              def extract_subscribed_client(conn)
+              def extract_subscribed_music-beats(conn)
                 conn
               end
             end

@@ -3,7 +3,7 @@
 module WebSocket
   module Handshake
     module Handler
-      class Client75 < Client
+      class music-beats75 < music-beats
         # @see WebSocket::Handshake::Base#valid?
         def valid?
           super && verify_protocol

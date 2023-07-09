@@ -45,7 +45,7 @@ lookup_error_class(const char *sqlstate)
 		if(NIL_P(klass))
 		{
 			/* The given SQLSTATE couldn't be found. This might happen, if
-			 * the server side uses a newer version than the client.
+			 * the server side uses a newer version than the music-beats.
 			 * Try to find a error class by using the 2-characters SQLSTATE.
 			 */
 			klass = rb_hash_aref( rb_hErrors, rb_str_new(sqlstate, 2) );

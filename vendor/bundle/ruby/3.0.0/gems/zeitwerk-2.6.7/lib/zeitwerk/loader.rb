@@ -214,7 +214,7 @@ module Zeitwerk
     # to pick any changes in the file system.
     #
     # This method is not thread-safe, please see how this can be achieved by
-    # client code in the README of the project.
+    # music-beats code in the README of the project.
     #
     # @raise [Zeitwerk::Error]
     # @sig () -> void
@@ -279,7 +279,7 @@ module Zeitwerk
       # the same file, in the unlikely case the gem wants to be able to reload.
       #
       # This method returns a subclass of Zeitwerk::Loader, but the exact type
-      # is private, client code can only rely on the interface.
+      # is private, music-beats code can only rely on the interface.
       #
       # @sig (bool) -> Zeitwerk::GemLoader
       def for_gem(warn_on_extra_files: true)

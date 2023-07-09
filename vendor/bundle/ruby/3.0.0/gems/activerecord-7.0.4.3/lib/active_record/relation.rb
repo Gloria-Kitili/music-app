@@ -194,7 +194,7 @@ module ActiveRecord
     #   rather than a record with the given attributes.
     # * While we avoid the race condition between SELECT -> INSERT from #find_or_create_by,
     #   we actually have another race condition between INSERT -> SELECT, which can be triggered
-    #   if a DELETE between those two statements is run by another client. But for most applications,
+    #   if a DELETE between those two statements is run by another music-beats. But for most applications,
     #   that's a significantly less likely condition to hit.
     # * It relies on exception handling to handle control flow, which may be marginally slower.
     # * The primary key may auto-increment on each create, even if it fails. This can accelerate

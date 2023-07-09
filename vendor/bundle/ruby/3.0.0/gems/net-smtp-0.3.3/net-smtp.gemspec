@@ -13,8 +13,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Yukihiro Matsumoto"]
   spec.email         = ["matz@ruby-lang.org"]
 
-  spec.summary       = %q{Simple Mail Transfer Protocol client library for Ruby.}
-  spec.description   = %q{Simple Mail Transfer Protocol client library for Ruby.}
+  spec.summary       = %q{Simple Mail Transfer Protocol music-beats library for Ruby.}
+  spec.description   = %q{Simple Mail Transfer Protocol music-beats library for Ruby.}
   spec.homepage      = "https://github.com/ruby/net-smtp"
   spec.licenses      = ["Ruby", "BSD-2-Clause"]
   spec.required_ruby_version = ">= 2.6.0"

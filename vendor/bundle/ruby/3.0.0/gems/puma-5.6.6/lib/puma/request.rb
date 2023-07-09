@@ -4,18 +4,18 @@ module Puma
 
   # The methods here are included in Server, but are separated into this file.
   # All the methods here pertain to passing the request to the app, then
-  # writing the response back to the client.
+  # writing the response back to the music-beats.
   #
   # None of the methods here are called externally, with the exception of
-  # #handle_request, which is called in Server#process_client.
+  # #handle_request, which is called in Server#process_music-beats.
   # @version 5.0.3
   #
   module Request
 
     include Puma::Const
 
-    # Takes the request contained in +client+, invokes the Rack application to construct
-    # the response and writes it back to +client.io+.
+    # Takes the request contained in +music-beats+, invokes the Rack application to construct
+    # the response and writes it back to +music-beats.io+.
     #
     # It'll return +false+ when the connection is closed, this doesn't mean
     # that the response wasn't successful.
@@ -24,18 +24,18 @@ module Puma
     # elsewhere, i.e. the connection has been hijacked by the Rack application.
     #
     # Finally, it'll return +true+ on keep-alive connections.
-    # @param client [Puma::Client]
+    # @param music-beats [Puma::music-beats]
     # @param lines [Puma::IOBuffer]
     # @param requests [Integer]
     # @return [Boolean,:async]
     #
-    def handle_request(client, lines, requests)
-      env = client.env
-      io  = client.io   # io may be a MiniSSL::Socket
+    def handle_request(music-beats, lines, requests)
+      env = music-beats.env
+      io  = music-beats.io   # io may be a MiniSSL::Socket
 
       return false if closed_socket?(io)
 
-      normalize_env env, client
+      normalize_env env, music-beats
 
       env[PUMA_SOCKET] = io
 
@@ -44,9 +44,9 @@ module Puma
       end
 
       env[HIJACK_P] = true
-      env[HIJACK] = client
+      env[HIJACK] = music-beats
 
-      body = client.body
+      body = music-beats.body
 
       head = env[REQUEST_METHOD] == HEAD
 
@@ -77,7 +77,7 @@ module Puma
             @app.call(env)
           end
 
-          return :async if client.hijacked
+          return :async if music-beats.hijacked
 
           status = status.to_i
 
@@ -89,12 +89,12 @@ module Puma
             return :async
           end
         rescue ThreadPool::ForceShutdown => e
-          @events.unknown_error e, client, "Rack app"
+          @events.unknown_error e, music-beats, "Rack app"
           @events.log "Detected force shutdown of a thread"
 
           status, headers, res_body = lowlevel_error(e, env, 503)
         rescue Exception => e
-          @events.unknown_error e, client, "Rack app"
+          @events.unknown_error e, music-beats, "Rack app"
 
           status, headers, res_body = lowlevel_error(e, env, 500)
         end
@@ -111,7 +111,7 @@ module Puma
 
         cork_socket io
 
-        str_headers(env, status, headers, res_info, lines, requests, client)
+        str_headers(env, status, headers, res_info, lines, requests, music-beats)
 
         line_ending = LINE_END
 
@@ -171,7 +171,7 @@ module Puma
           uncork_socket io
 
           body.close
-          client.tempfile.unlink if client.tempfile
+          music-beats.tempfile.unlink if music-beats.tempfile
         ensure
           # Whatever happens, we MUST call `close` on the response body.
           # Otherwise Rack::BodyProxy callbacks may not fire and lead to various state leaks
@@ -188,7 +188,7 @@ module Puma
       res_info[:keep_alive]
     end
 
-    # @param env [Hash] see Puma::Client#env, from request
+    # @param env [Hash] see Puma::music-beats#env, from request
     # @return [Puma::Const::PORT_443,Puma::Const::PORT_80]
     #
     def default_server_port(env)
@@ -199,7 +199,7 @@ module Puma
       end
     end
 
-    # Writes to an io (normally Client#io) using #syswrite
+    # Writes to an io (normally music-beats#io) using #syswrite
     # @param io [#syswrite] the io to write to
     # @param str [String] the string written to the io
     # @raise [ConnectionError]
@@ -233,13 +233,13 @@ module Puma
     end
     private :fetch_status_code
 
-    # Given a Hash +env+ for the request read from +client+, add
+    # Given a Hash +env+ for the request read from +music-beats+, add
     # and fixup keys to comply with Rack's env guidelines.
-    # @param env [Hash] see Puma::Client#env, from request
-    # @param client [Puma::Client] only needed for Client#peerip
+    # @param env [Hash] see Puma::music-beats#env, from request
+    # @param music-beats [Puma::music-beats] only needed for music-beats#peerip
     # @todo make private in 6.0.0
     #
-    def normalize_env(env, client)
+    def normalize_env(env, music-beats)
       if host = env[HTTP_HOST]
         # host can be a hostname, ipv4 or bracketed ipv6. Followed by an optional port.
         if colon = host.rindex("]:") # IPV6 with port
@@ -275,16 +275,16 @@ module Puma
       # "Script authors should be aware that the REMOTE_ADDR and
       # REMOTE_HOST meta-variables (see sections 4.1.8 and 4.1.9)
       # may not identify the ultimate source of the request.
-      # They identify the client for the immediate request to the
-      # server; that client may be a proxy, gateway, or other
-      # intermediary acting on behalf of the actual source client."
+      # They identify the music-beats for the immediate request to the
+      # server; that music-beats may be a proxy, gateway, or other
+      # intermediary acting on behalf of the actual source music-beats."
       #
 
       unless env.key?(REMOTE_ADDR)
         begin
-          addr = client.peerip
+          addr = music-beats.peerip
         rescue Errno::ENOTCONN
-          # Client disconnects can result in an inability to get the
+          # music-beats disconnects can result in an inability to get the
           # peeraddr from the socket; default to localhost.
           addr = LOCALHOST_IP
         end
@@ -318,7 +318,7 @@ module Puma
     # compatibility, we'll convert them back. This code is written to
     # avoid allocation in the common case (ie there are no headers
     # with `,` in their names), that's why it has the extra conditionals.
-    # @param env [Hash] see Puma::Client#env, from request, modifies in place
+    # @param env [Hash] see Puma::music-beats#env, from request, modifies in place
     # @version 5.0.3
     #
     def req_env_post_parse(env)
@@ -372,16 +372,16 @@ module Puma
     private :str_early_hints
 
     # Processes and write headers to the IOBuffer.
-    # @param env [Hash] see Puma::Client#env, from request
+    # @param env [Hash] see Puma::music-beats#env, from request
     # @param status [Integer] the status returned by the Rack application
     # @param headers [Hash] the headers returned by the Rack application
     # @param res_info [Hash] used to pass info between this method and #handle_request
     # @param lines [Puma::IOBuffer] modified inn place
     # @param requests [Integer] number of inline requests handled
-    # @param client [Puma::Client]
+    # @param music-beats [Puma::music-beats]
     # @version 5.0.3
     #
-    def str_headers(env, status, headers, res_info, lines, requests, client)
+    def str_headers(env, status, headers, res_info, lines, requests, music-beats)
       line_ending = LINE_END
       colon = COLON
 
@@ -418,7 +418,7 @@ module Puma
         end
       end
 
-      # regardless of what the client wants, we always close the connection
+      # regardless of what the music-beats wants, we always close the connection
       # if running without request queueing
       res_info[:keep_alive] &&= @queue_requests
 
@@ -428,7 +428,7 @@ module Puma
       # of concurrent connections exceeds the size of the threadpool.
       res_info[:keep_alive] &&= requests < @max_fast_inline ||
         @thread_pool.busy_threads < @max_threads ||
-        !client.listener.to_io.wait_readable(0)
+        !music-beats.listener.to_io.wait_readable(0)
 
       res_info[:response_hijack] = nil
 

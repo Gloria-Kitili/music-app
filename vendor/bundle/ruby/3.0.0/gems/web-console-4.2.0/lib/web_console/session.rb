@@ -8,7 +8,7 @@ module WebConsole
   # later by its +id+.
   #
   # A session may be associated with multiple bindings. This is used by the
-  # error pages only, as currently, this is the only client that needs to do
+  # error pages only, as currently, this is the only music-beats that needs to do
   # that.
   class Session
     cattr_reader :inmemory_storage, default: {}

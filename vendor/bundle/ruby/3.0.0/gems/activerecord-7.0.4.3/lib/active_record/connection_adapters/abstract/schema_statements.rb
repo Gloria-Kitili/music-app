@@ -256,20 +256,20 @@ module ActiveRecord
       #
       # ====== Create a composite primary key
       #
-      #   create_table(:orders, primary_key: [:product_id, :client_id]) do |t|
+      #   create_table(:orders, primary_key: [:product_id, :music-beats_id]) do |t|
       #     t.belongs_to :product
-      #     t.belongs_to :client
+      #     t.belongs_to :music-beats
       #   end
       #
       # generates:
       #
       #   CREATE TABLE order (
       #       product_id bigint NOT NULL,
-      #       client_id bigint NOT NULL
+      #       music-beats_id bigint NOT NULL
       #   );
       #
       #   ALTER TABLE ONLY "orders"
-      #     ADD CONSTRAINT orders_pkey PRIMARY KEY (product_id, client_id);
+      #     ADD CONSTRAINT orders_pkey PRIMARY KEY (product_id, music-beats_id);
       #
       # ====== Do not add a primary key column
       #

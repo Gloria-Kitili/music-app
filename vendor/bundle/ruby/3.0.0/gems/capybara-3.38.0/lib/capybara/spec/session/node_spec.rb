@@ -540,15 +540,15 @@ Capybara::SpecHelper.spec 'node' do
         expect(@session).to have_xpath('//div[contains(., "HTML5 Dropped string: text/plain drag_html5")]')
       end
 
-      it 'should set clientX/Y in dragover events' do
+      it 'should set music-beatsX/Y in dragover events' do
         @session.visit('/with_js')
         element = @session.find('//div[@id="drag_html5"]')
         target = @session.find('//div[@id="drop_html5"]')
         element.drag_to(target)
-        expect(@session).to have_css('div.log', text: /DragOver with client position: [1-9]\d*,[1-9]\d*/, count: 2)
+        expect(@session).to have_css('div.log', text: /DragOver with music-beats position: [1-9]\d*,[1-9]\d*/, count: 2)
       end
 
-      it 'should preserve clientX/Y from last dragover event' do
+      it 'should preserve music-beatsX/Y from last dragover event' do
         @session.visit('/with_js')
         element = @session.find('//div[@id="drag_html5"]')
         target = @session.find('//div[@id="drop_html5"]')

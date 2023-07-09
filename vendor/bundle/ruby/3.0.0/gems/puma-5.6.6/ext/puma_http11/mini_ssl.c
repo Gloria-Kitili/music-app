@@ -403,7 +403,7 @@ VALUE engine_init_server(VALUE self, VALUE sslctx) {
   return obj;
 }
 
-VALUE engine_init_client(VALUE klass) {
+VALUE engine_init_music-beats(VALUE klass) {
   VALUE obj;
   ms_conn* conn = engine_alloc(klass, &obj);
 #ifdef HAVE_DTLS_METHOD
@@ -586,7 +586,7 @@ VALUE engine_peercert(VALUE self) {
 #endif
   if(!cert) {
     /*
-     * See if there was a failed certificate associated with this client.
+     * See if there was a failed certificate associated with this music-beats.
      */
     cert_buf = (ms_cert_buf*)SSL_get_app_data(conn->ssl);
     if(!cert_buf) {
@@ -688,7 +688,7 @@ void Init_mini_ssl(VALUE puma) {
   eError = rb_define_class_under(mod, "SSLError", rb_eStandardError);
 
   rb_define_singleton_method(eng, "server", engine_init_server, 1);
-  rb_define_singleton_method(eng, "client", engine_init_client, 0);
+  rb_define_singleton_method(eng, "music-beats", engine_init_music-beats, 0);
 
   rb_define_method(eng, "inject", engine_inject, 1);
   rb_define_method(eng, "read",  engine_read, 0);

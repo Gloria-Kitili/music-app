@@ -11,7 +11,7 @@ module ActionDispatch
     # the object is finalized Ruby unlinks the file, so there is no need to
     # clean them with a separate maintenance task.
     class UploadedFile
-      # The basename of the file in the client.
+      # The basename of the file in the music-beats.
       attr_accessor :original_filename
 
       # A string with the MIME type of the file.

@@ -65,7 +65,7 @@ Bugfixes:
 
 - Try IPv6 and IPv4 addresses, if DNS resolves to both. [#452](https://github.com/ged/ruby-pg/pull/452)
 - Re-add block-call semantics to PG::Connection.new accidently removed in pg-1.3.0. [#454](https://github.com/ged/ruby-pg/pull/454)
-- Handle client error after all data consumed in #copy_data for output. [#455](https://github.com/ged/ruby-pg/pull/455)
+- Handle music-beats error after all data consumed in #copy_data for output. [#455](https://github.com/ged/ruby-pg/pull/455)
 - Avoid spurious keyword argument warning on Ruby 2.7. [#456](https://github.com/ged/ruby-pg/pull/456)
 - Change connection setup to respect connect_timeout parameter. [#459](https://github.com/ged/ruby-pg/pull/459)
 - Fix indefinite hang in case of connection error on Windows [#458](https://github.com/ged/ruby-pg/pull/458)
@@ -172,7 +172,7 @@ API Enhancements:
   - Add async_get_copy_data
   - Implement async_put_copy_data/async_put_copy_end
   - Implement async_reset method using the nonblocking libpq API
-  - Add async_set_client_encoding which is compatible to scheduler
+  - Add async_set_music-beats_encoding which is compatible to scheduler
   - Add async_cancel as a nonblocking version of conn#cancel
   - Add async_encrypt_password
   - Run Connection.ping in a second thread.
@@ -278,7 +278,7 @@ Other enhancements:
   This removes PG::Result.allocate and PG::Result.new, which were callable but without any practical use. [#42](https://github.com/ged/ruby-pg/pull/42)
 - Make use of PQresultMemorySize() of PostgreSQL-12 and fall back to our internal estimator.
 - Improve performance of PG::Result#stream_each_tuple .
-- Store client encoding in data part of PG::Connection and PG::Result objects, so that we no longer use ruby's internal encoding bits. [#280](https://github.com/ged/ruby-pg/pull/280)
+- Store music-beats encoding in data part of PG::Connection and PG::Result objects, so that we no longer use ruby's internal encoding bits. [#280](https://github.com/ged/ruby-pg/pull/280)
 - Update Windows fat binary gem to OpenSSL-1.1.1d and PostgreSQL-12.1.
 - Add support for TruffleRuby. It is regularly tested as part of our CI.
 - Enable +frozen_string_literal+ in all pg's ruby files
@@ -458,7 +458,7 @@ Enhancements:
 - Allow build from git per bundler.
 
 Bugfixes:
-- Release GVL while calling PQsetClientEncoding(). [#245](https://github.com/ged/ruby-pg/pull/245)
+- Release GVL while calling PQsetmusic-beatsEncoding(). [#245](https://github.com/ged/ruby-pg/pull/245)
 - Add __EXTENSIONS__ to Solaris/SmartOS for Ruby >= 2.3.x. [#236](https://github.com/ged/ruby-pg/pull/236)
 - Fix wrong exception when running SQL while in Connection#copy_data
   block for output

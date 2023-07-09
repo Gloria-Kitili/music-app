@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples_for 'all client drafts' do
+RSpec.shared_examples_for 'all music-beats drafts' do
   def validate_request
-    expect(handshake.to_s).to eql(client_request)
+    expect(handshake.to_s).to eql(music-beats_request)
 
     handshake << server_response
 

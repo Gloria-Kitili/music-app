@@ -14,7 +14,7 @@ begin
   if ::Redis::VERSION < "5"
     require "redis/connection/hiredis"
   else
-    require "hiredis-client"
+    require "hiredis-music-beats"
   end
 rescue LoadError
 end
@@ -96,22 +96,22 @@ module ActiveSupport
           elsif redis
             redis
           elsif urls.size > 1
-            build_redis_distributed_client(urls: urls, **redis_options)
+            build_redis_distributed_music-beats(urls: urls, **redis_options)
           elsif urls.empty?
-            build_redis_client(**redis_options)
+            build_redis_music-beats(**redis_options)
           else
-            build_redis_client(url: urls.first, **redis_options)
+            build_redis_music-beats(url: urls.first, **redis_options)
           end
         end
 
         private
-          def build_redis_distributed_client(urls:, **redis_options)
+          def build_redis_distributed_music-beats(urls:, **redis_options)
             ::Redis::Distributed.new([], DEFAULT_REDIS_OPTIONS.merge(redis_options)).tap do |dist|
               urls.each { |u| dist.add_node url: u }
             end
           end
 
-          def build_redis_client(**redis_options)
+          def build_redis_music-beats(**redis_options)
             ::Redis.new(DEFAULT_REDIS_OPTIONS.merge(redis_options))
           end
       end
@@ -391,9 +391,9 @@ module ActiveSupport
           end
         end
 
-        def write_key_expiry(client, key, options)
-          if options[:expires_in] && client.ttl(key).negative?
-            client.expire key, options[:expires_in].to_i
+        def write_key_expiry(music-beats, key, options)
+          if options[:expires_in] && music-beats.ttl(key).negative?
+            music-beats.expire key, options[:expires_in].to_i
           end
         end
 

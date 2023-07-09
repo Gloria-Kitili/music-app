@@ -65,7 +65,7 @@ module Capybara
         if position
           hints_js << <<~POSITION_JS
             var position_func = function(el){
-              return el.getBoundingClientRect();
+              return el.getBoundingmusic-beatsRect();
             };
           POSITION_JS
           functions << :position_func

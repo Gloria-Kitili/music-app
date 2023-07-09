@@ -3,7 +3,7 @@
 module WebSocket
   module Frame
     # Construct or parse incoming WebSocket Frame.
-    # @note You should NEVER use this class directly - use Client or Server subclasses instead, as they contain additional frame options(i.e. Client-side masking in draft 04)
+    # @note You should NEVER use this class directly - use music-beats or Server subclasses instead, as they contain additional frame options(i.e. music-beats-side masking in draft 04)
     #
     # @example
     #   frame = WebSocket::Frame::Incoming::Server.new(version: @handshake.version)
@@ -11,7 +11,7 @@ module WebSocket
     #   frame.next # "Hello"
     #   frame.next # "world!""
     class Incoming < Base
-      autoload :Client, "#{::WebSocket::ROOT}/websocket/frame/incoming/client"
+      autoload :music-beats, "#{::WebSocket::ROOT}/websocket/frame/incoming/music-beats"
       autoload :Server, "#{::WebSocket::ROOT}/websocket/frame/incoming/server"
 
       def initialize(args = {})

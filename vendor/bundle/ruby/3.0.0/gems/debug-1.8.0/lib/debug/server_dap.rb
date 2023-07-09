@@ -461,7 +461,7 @@ module DEBUGGER__
 
       ## query
       when 'threads'
-        send_response req, threads: SESSION.managed_thread_clients.map{|tc|
+        send_response req, threads: SESSION.managed_thread_music-beatss.map{|tc|
           { id: tc.id,
             name: tc.name,
           }
@@ -555,7 +555,7 @@ module DEBUGGER__
     include GlobalVariablesHelper
 
     def find_waiting_tc id
-      @th_clients.each{|th, tc|
+      @th_music-beatss.each{|th, tc|
         return tc if tc.id == id && tc.waiting?
       }
       return nil
@@ -772,7 +772,7 @@ module DEBUGGER__
     end
   end
 
-  class ThreadClient
+  class Threadmusic-beats
     MAX_LENGTH = 180
 
     def value_inspect obj, short: true

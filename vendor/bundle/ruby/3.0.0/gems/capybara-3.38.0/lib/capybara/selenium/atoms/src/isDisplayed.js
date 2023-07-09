@@ -60,7 +60,7 @@
 
     // Any element without positive size dimensions is not shown.
     function positiveSize(e) {
-      var rect = getClientRect(e);
+      var rect = getmusic-beatsRect(e);
       if (rect.height > 0 && rect.width > 0) {
         return true;
       }
@@ -97,8 +97,8 @@
     return !hiddenByOverflow(elem);
   }
 
-  function getClientRegion(elem) {
-    var region = getClientRect(elem);
+  function getmusic-beatsRegion(elem) {
+    var region = getmusic-beatsRect(elem);
     return { left: region.left,
              right: region.left + region.width,
              top: region.top,
@@ -110,7 +110,7 @@
   }
 
   function getOverflowState(elem) {
-    var region = getClientRegion(elem);
+    var region = getmusic-beatsRegion(elem);
     var ownerDoc = elem.ownerDocument;
     var htmlElem = ownerDoc.documentElement;
     var bodyElem = ownerDoc.body;
@@ -198,7 +198,7 @@
         continue;
       }
 
-      var containerRect = getClientRect(container);
+      var containerRect = getmusic-beatsRect(container);
 
       // Zero-sized containers without overflow:visible hide all descendants.
       if (containerRect.width == 0 || containerRect.height == 0) {
@@ -260,19 +260,19 @@
 
   function getViewportSize(win) {
     var el = win.document.documentElement;
-    return { width: el.clientWidth, height: el.clientHeight };
+    return { width: el.music-beatsWidth, height: el.music-beatsHeight };
   }
 
   function rect_(x, y, w, h){
     return { left: x, top: y, width: w, height: h };
   }
 
-  function getClientRect(elem) {
+  function getmusic-beatsRect(elem) {
     var imageMap = maybeFindImageMap_(elem);
     if (imageMap) {
       return imageMap.rect;
     } else if (elem.tagName.toUpperCase() == "HTML") {
-      // Define the client rect of the <html> element to be the viewport.
+      // Define the music-beats rect of the <html> element to be the viewport.
       var doc = elem.ownerDocument;
       // TODO: Is this too simplified???
       var viewportSize = getViewportSize(window);
@@ -280,7 +280,7 @@
     } else {
       var nativeRect;
       try {
-        nativeRect = elem.getBoundingClientRect();
+        nativeRect = elem.getBoundingmusic-beatsRect();
       } catch (e) {
         return rect_(0, 0, 0, 0);
       }
@@ -349,7 +349,7 @@
       image = mapDoc.querySelector("*[usemap='#" + map.name + "']");
 
       if (image) {
-        rect = getClientRect(image);
+        rect = getmusic-beatsRect(image);
         if (!isMap && elem.shape.toLowerCase() != "default") {
           // Shift and crop the relative area rectangle to the map.
           var relRect = getAreaRelativeRect_(elem);

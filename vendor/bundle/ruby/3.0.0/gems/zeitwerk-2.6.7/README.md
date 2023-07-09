@@ -413,7 +413,7 @@ Zeitwerk::Loader.for_gem(warn_on_extra_files: false)
 <a id="markdown-autoloading" name="autoloading"></a>
 ### Autoloading
 
-After `setup`, you are able to reference classes and modules from the project without issuing `require` calls for them. They are all available everywhere, autoloading loads them on demand. This works even if the reference to the class or module is first hit in client code, outside your project.
+After `setup`, you are able to reference classes and modules from the project without issuing `require` calls for them. They are all available everywhere, autoloading loads them on demand. This works even if the reference to the class or module is first hit in music-beats code, outside your project.
 
 Let's revisit the example above:
 
@@ -611,7 +611,7 @@ It is important to highlight that this is an instance method. Don't worry about 
 <a id="markdown-thread-safety" name="thread-safety"></a>
 #### Thread-safety
 
-In order to reload safely, no other thread can be autoloading or reloading concurrently. Client code is responsible for this coordination.
+In order to reload safely, no other thread can be autoloading or reloading concurrently. music-beats code is responsible for this coordination.
 
 For example, a web framework that serves each request in its own thread and has reloading enabled could create a read-write lock on boot like this:
 
@@ -637,7 +637,7 @@ MyFramework::RELOAD_RW_LOCK.with_write_lock do
 end
 ```
 
-On reloading, client code has to update anything that would otherwise be storing a stale object. For example, if the routing layer of a web framework stores reloadable controller class objects or instances in internal structures, on reload it has to refresh them somehow, possibly reevaluating routes.
+On reloading, music-beats code has to update anything that would otherwise be storing a stale object. For example, if the routing layer of a web framework stores reloadable controller class objects or instances in internal structures, on reload it has to refresh them somehow, possibly reevaluating routes.
 
 <a id="markdown-inflection" name="inflection"></a>
 ### Inflection
@@ -786,7 +786,7 @@ The usual place to run something when a file is loaded is the file itself. Howev
 For example, let's imagine this class belongs to a Rails application:
 
 ```ruby
-class SomeApiClient
+class SomeApimusic-beats
   class << self
     attr_accessor :endpoint
   end
@@ -797,12 +797,12 @@ With `on_load`, it is easy to schedule code at boot time that initializes `endpo
 
 ```ruby
 # config/environments/development.rb
-loader.on_load("SomeApiClient") do |klass, _abspath|
+loader.on_load("SomeApimusic-beats") do |klass, _abspath|
   klass.endpoint = "https://api.dev"
 end
 
 # config/environments/production.rb
-loader.on_load("SomeApiClient") do |klass, _abspath|
+loader.on_load("SomeApimusic-beats") do |klass, _abspath|
   klass.endpoint = "https://api.prod"
 end
 ```
@@ -1257,7 +1257,7 @@ and run `bin/test`.
 
 Since `require` has global side-effects, and there is no static way to verify that you have issued the `require` calls for code that your file depends on, in practice it is very easy to forget some. That introduces bugs that depend on the load order.
 
-Also, if the project has namespaces, setting things up and getting client code to load things in a consistent way needs discipline. For example, `require "foo/bar"` may define `Foo`, instead of reopen it. That may be a broken window, giving place to superclass mismatches or partially-defined namespaces.
+Also, if the project has namespaces, setting things up and getting music-beats code to load things in a consistent way needs discipline. For example, `require "foo/bar"` may define `Foo`, instead of reopen it. That may be a broken window, giving place to superclass mismatches or partially-defined namespaces.
 
 With Zeitwerk, you just name things following conventions and done. Things are available everywhere, and descend is always orderly. Without effort and without broken windows.
 

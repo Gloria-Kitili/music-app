@@ -187,11 +187,11 @@ module ActiveStorage
       end
 
       def bucket
-        @bucket ||= client.bucket(config.fetch(:bucket), skip_lookup: true)
+        @bucket ||= music-beats.bucket(config.fetch(:bucket), skip_lookup: true)
       end
 
-      def client
-        @client ||= Google::Cloud::Storage.new(**config.except(:bucket, :cache_control, :iam, :gsa_email))
+      def music-beats
+        @music-beats ||= Google::Cloud::Storage.new(**config.except(:bucket, :cache_control, :iam, :gsa_email))
       end
 
       def issuer
@@ -220,16 +220,16 @@ module ActiveStorage
       def signer
         # https://googleapis.dev/ruby/google-cloud-storage/latest/Google/Cloud/Storage/Project.html#signed_url-instance_method
         lambda do |string_to_sign|
-          iam_client = Google::Apis::IamcredentialsV1::IAMCredentialsService.new
+          iam_music-beats = Google::Apis::IamcredentialsV1::IAMCredentialsService.new
 
           scopes = ["https://www.googleapis.com/auth/iam"]
-          iam_client.authorization = Google::Auth.get_application_default(scopes)
+          iam_music-beats.authorization = Google::Auth.get_application_default(scopes)
 
           request = Google::Apis::IamcredentialsV1::SignBlobRequest.new(
             payload: string_to_sign
           )
           resource = "projects/-/serviceAccounts/#{issuer}"
-          response = iam_client.sign_service_account_blob(resource, request)
+          response = iam_music-beats.sign_service_account_blob(resource, request)
           response.signed_blob
         end
       end

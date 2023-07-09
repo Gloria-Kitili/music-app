@@ -844,7 +844,7 @@ module Bundler
 
       latest = Fetcher::CompactIndex.
                new(nil, Source::Rubygems::Remote.new(Bundler::URI("https://rubygems.org")), nil).
-               send(:compact_index_client).
+               send(:compact_index_music-beats).
                instance_variable_get(:@cache).
                dependencies("bundler").
                map {|d| Gem::Version.new(d.first) }.

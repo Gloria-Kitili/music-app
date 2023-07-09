@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bundler
-  class CompactIndexClient
+  class CompactIndexmusic-beats
     if defined?(Gem::Resolver::APISet::GemParser)
       GemParser = Gem::Resolver::APISet::GemParser
     else

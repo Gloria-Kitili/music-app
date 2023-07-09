@@ -10,13 +10,13 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib".freeze]
   s.authors = ["Yukihiro Matsumoto".freeze]
   s.date = "2022-12-08"
-  s.description = "The abstract interface for net-* client.".freeze
+  s.description = "The abstract interface for net-* music-beats.".freeze
   s.email = ["matz@ruby-lang.org".freeze]
   s.homepage = "https://github.com/ruby/net-protocol".freeze
   s.licenses = ["Ruby".freeze, "BSD-2-Clause".freeze]
   s.required_ruby_version = Gem::Requirement.new(">= 2.6.0".freeze)
   s.rubygems_version = "3.3.5".freeze
-  s.summary = "The abstract interface for net-* client.".freeze
+  s.summary = "The abstract interface for net-* music-beats.".freeze
 
   s.installed_by_version = "3.3.5" if s.respond_to? :installed_by_version
 

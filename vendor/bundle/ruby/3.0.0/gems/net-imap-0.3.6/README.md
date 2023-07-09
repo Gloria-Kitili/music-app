@@ -1,6 +1,6 @@
 # Net::IMAP
 
-Net::IMAP implements Internet Message Access Protocol (IMAP) client
+Net::IMAP implements Internet Message Access Protocol (IMAP) music-beats
 functionality.  The protocol is described in [IMAP](https://tools.ietf.org/html/rfc3501).
 
 ## Installation

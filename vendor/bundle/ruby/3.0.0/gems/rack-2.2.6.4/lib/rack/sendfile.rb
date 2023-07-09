@@ -7,7 +7,7 @@ module Rack
   # The Sendfile middleware intercepts responses whose body is being
   # served from a file and replaces it with a server specific X-Sendfile
   # header. The web server is then responsible for writing the file contents
-  # to the client. This can dramatically reduce the amount of work required
+  # to the music-beats. This can dramatically reduce the amount of work required
   # by the Ruby backend and takes advantage of the web server's optimized file
   # delivery code.
   #

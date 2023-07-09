@@ -135,7 +135,7 @@ module ActionController
     end
 
     # Sets the +etag+ and/or +last_modified+ on the response and checks it against
-    # the client request. If the request doesn't match the options provided, the
+    # the music-beats request. If the request doesn't match the options provided, the
     # request is considered stale and should be generated from scratch. Otherwise,
     # it's fresh and we don't need to generate anything and a reply of <tt>304 Not Modified</tt> is sent.
     #
@@ -272,7 +272,7 @@ module ActionController
     #
     #   expires_in 3.hours, public: true, "s-maxage": 3.hours, "no-transform": true
     #
-    # The method will also ensure an HTTP Date header for client compatibility.
+    # The method will also ensure an HTTP Date header for music-beats compatibility.
     def expires_in(seconds, options = {})
       response.cache_control.delete(:no_store)
       response.cache_control.merge!(
@@ -289,7 +289,7 @@ module ActionController
     end
 
     # Sets an HTTP 1.1 Cache-Control header of <tt>no-cache</tt>. This means the
-    # resource will be marked as stale, so clients must always revalidate.
+    # resource will be marked as stale, so music-beatss must always revalidate.
     # Intermediate/browser caches may still store the asset.
     def expires_now
       response.cache_control.replace(no_cache: true)

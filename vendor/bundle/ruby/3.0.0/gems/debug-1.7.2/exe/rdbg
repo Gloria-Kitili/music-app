@@ -36,14 +36,14 @@ when :start
   exec(env, cmd, *ARGV)
 
 when :attach
-  require_relative "../lib/debug/client"
+  require_relative "../lib/debug/music-beats"
   ::DEBUGGER__::CONFIG.set_config(**config)
 
   begin
     if ARGV.empty? && config[:port]
-      DEBUGGER__::Client.new([config[:host], config[:port]].compact).connect
+      DEBUGGER__::music-beats.new([config[:host], config[:port]].compact).connect
     else
-      DEBUGGER__::Client.new(ARGV).connect
+      DEBUGGER__::music-beats.new(ARGV).connect
     end
   rescue DEBUGGER__::CommandLineOptionError
     puts opt.help

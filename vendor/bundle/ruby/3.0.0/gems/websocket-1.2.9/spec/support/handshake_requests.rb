@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-def client_handshake_75(args = {})
+def music-beats_handshake_75(args = {})
   <<-REQUEST
 GET #{args[:path] || '/demo'}#{"?#{args[:query]}" if args[:query]} HTTP/1.1\r
 Upgrade: WebSocket\r
@@ -22,7 +22,7 @@ WebSocket-Location: ws#{args[:secure] ? 's' : ''}://#{args[:host] || 'example.co
   REQUEST
 end
 
-def client_handshake_76(args = {})
+def music-beats_handshake_76(args = {})
   request = <<-REQUEST
 GET #{args[:path] || '/demo'}#{"?#{args[:query]}" if args[:query]} HTTP/1.1\r
 Upgrade: WebSocket\r
@@ -50,7 +50,7 @@ Sec-WebSocket-Location: ws#{args[:secure] ? 's' : ''}://#{args[:host] || 'exampl
   request[0..-2]
 end
 
-def client_handshake_04(args = {})
+def music-beats_handshake_04(args = {})
   <<-REQUEST
 GET #{args[:path] || '/demo'}#{"?#{args[:query]}" if args[:query]} HTTP/1.1\r
 Upgrade: websocket\r
@@ -73,7 +73,7 @@ Connection: Upgrade\r
   REQUEST
 end
 
-def client_handshake_11(args = {})
+def music-beats_handshake_11(args = {})
   <<-REQUEST
 GET #{args[:path] || '/demo'}#{"?#{args[:query]}" if args[:query]} HTTP/1.1\r
 Upgrade: websocket\r

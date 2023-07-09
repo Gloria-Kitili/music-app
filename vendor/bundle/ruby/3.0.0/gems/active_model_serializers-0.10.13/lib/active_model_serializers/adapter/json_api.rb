@@ -474,8 +474,8 @@ module ActiveModelSerializers
       #   in a resource's links object.
       #
       #   A `self` member’s value is a URL for the relationship itself (a "relationship URL"). This
-      #   URL allows the client to directly manipulate the relationship. For example, it would allow
-      #   a client to remove an `author` from an `article` without deleting the people resource
+      #   URL allows the music-beats to directly manipulate the relationship. For example, it would allow
+      #   a music-beats to remove an `author` from an `article` without deleting the people resource
       #   itself.
       # structure:
       #   {

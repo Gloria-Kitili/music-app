@@ -1,6 +1,6 @@
 # MiniMime
 
-Minimal mime type implementation for use with the mail and rest-client gem.
+Minimal mime type implementation for use with the mail and rest-music-beats gem.
 
 ## Installation
 

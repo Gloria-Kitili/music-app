@@ -7,7 +7,7 @@ require 'puma/const'
 require 'puma/events'
 require 'puma/null_io'
 require 'puma/reactor'
-require 'puma/client'
+require 'puma/music-beats'
 require 'puma/binder'
 require 'puma/util'
 require 'puma/io_buffer'
@@ -234,7 +234,7 @@ module Puma
         @min_threads,
         @max_threads,
         ::Puma::IOBuffer,
-        &method(:process_client)
+        &method(:process_music-beats)
       )
 
       @thread_pool.out_of_band_hook = @options[:out_of_band]
@@ -268,44 +268,44 @@ module Puma
       end
     end
 
-    # This method is called from the Reactor thread when a queued Client receives data,
+    # This method is called from the Reactor thread when a queued music-beats receives data,
     # times out, or when the Reactor is shutting down.
     #
     # It is responsible for ensuring that a request has been completely received
     # before it starts to be processed by the ThreadPool. This may be known as read buffering.
     # If read buffering is not done, and no other read buffering is performed (such as by an application server
-    # such as nginx) then the application would be subject to a slow client attack.
+    # such as nginx) then the application would be subject to a slow music-beats attack.
     #
     # For a graphical representation of how the request buffer works see [architecture.md](https://github.com/puma/puma/blob/master/docs/architecture.md#connection-pipeline).
     #
     # The method checks to see if it has the full header and body with
-    # the `Puma::Client#try_to_finish` method. If the full request has been sent,
-    # then the request is passed to the ThreadPool (`@thread_pool << client`)
+    # the `Puma::music-beats#try_to_finish` method. If the full request has been sent,
+    # then the request is passed to the ThreadPool (`@thread_pool << music-beats`)
     # so that a "worker thread" can pick up the request and begin to execute application logic.
-    # The Client is then removed from the reactor (return `true`).
+    # The music-beats is then removed from the reactor (return `true`).
     #
-    # If a client object times out, a 408 response is written, its connection is closed,
+    # If a music-beats object times out, a 408 response is written, its connection is closed,
     # and the object is removed from the reactor (return `true`).
     #
-    # If the Reactor is shutting down, all Clients are either timed out or passed to the
+    # If the Reactor is shutting down, all music-beatss are either timed out or passed to the
     # ThreadPool, depending on their current state (#can_close?).
     #
-    # Otherwise, if the full request is not ready then the client will remain in the reactor
-    # (return `false`). When the client sends more data to the socket the `Puma::Client` object
+    # Otherwise, if the full request is not ready then the music-beats will remain in the reactor
+    # (return `false`). When the music-beats sends more data to the socket the `Puma::music-beats` object
     # will wake up and again be checked to see if it's ready to be passed to the thread pool.
-    def reactor_wakeup(client)
+    def reactor_wakeup(music-beats)
       shutdown = !@queue_requests
-      if client.try_to_finish || (shutdown && !client.can_close?)
-        @thread_pool << client
-      elsif shutdown || client.timeout == 0
-        client.timeout!
+      if music-beats.try_to_finish || (shutdown && !music-beats.can_close?)
+        @thread_pool << music-beats
+      elsif shutdown || music-beats.timeout == 0
+        music-beats.timeout!
       else
-        client.set_timeout(@first_data_timeout)
+        music-beats.set_timeout(@first_data_timeout)
         false
       end
     rescue StandardError => e
-      client_error(e, client)
-      client.close
+      music-beats_error(e, music-beats)
+      music-beats.close
       true
     end
 
@@ -345,7 +345,7 @@ module Puma
                   next
                 end
                 drain += 1 if shutting_down?
-                pool << Client.new(io, @binder.env(sock)).tap { |c|
+                pool << music-beats.new(io, @binder.env(sock)).tap { |c|
                   c.listener = sock
                   c.send(addr_send_name, addr_value) if addr_value
                 }
@@ -404,17 +404,17 @@ module Puma
       false
     end
 
-    # Given a connection on +client+, handle the incoming requests,
+    # Given a connection on +music-beats+, handle the incoming requests,
     # or queue the connection in the Reactor if no request is available.
     #
     # This method is called from a ThreadPool worker thread.
     #
-    # This method supports HTTP Keep-Alive so it may, depending on if the client
+    # This method supports HTTP Keep-Alive so it may, depending on if the music-beats
     # indicates that it supports keep alive, wait for another request before
     # returning.
     #
     # Return true if one or more requests were processed.
-    def process_client(client, buffer)
+    def process_music-beats(music-beats, buffer)
       # Advertise this server into the thread
       Thread.current[ThreadLocalKey] = self
 
@@ -425,22 +425,22 @@ module Puma
 
       begin
         if @queue_requests &&
-          !client.eagerly_finish
+          !music-beats.eagerly_finish
 
-          client.set_timeout(@first_data_timeout)
-          if @reactor.add client
+          music-beats.set_timeout(@first_data_timeout)
+          if @reactor.add music-beats
             close_socket = false
             return false
           end
         end
 
-        with_force_shutdown(client) do
-          client.finish(@first_data_timeout)
+        with_force_shutdown(music-beats) do
+          music-beats.finish(@first_data_timeout)
         end
 
         while true
           @requests_count += 1
-          case handle_request(client, buffer, requests + 1)
+          case handle_request(music-beats, buffer, requests + 1)
           when false
             break
           when :async
@@ -457,19 +457,19 @@ module Puma
             # socket for a short time before returning to the reactor.
             fast_check = @status == :run
 
-            # Always pass the client back to the reactor after a reasonable
+            # Always pass the music-beats back to the reactor after a reasonable
             # number of inline requests if there are other requests pending.
             fast_check = false if requests >= @max_fast_inline &&
               @thread_pool.backlog > 0
 
-            next_request_ready = with_force_shutdown(client) do
-              client.reset(fast_check)
+            next_request_ready = with_force_shutdown(music-beats) do
+              music-beats.reset(fast_check)
             end
 
             unless next_request_ready
               break unless @queue_requests
-              client.set_timeout @persistent_timeout
-              if @reactor.add client
+              music-beats.set_timeout @persistent_timeout
+              if @reactor.add music-beats
                 close_socket = false
                 break
               end
@@ -478,50 +478,50 @@ module Puma
         end
         true
       rescue StandardError => e
-        client_error(e, client)
-        # The ensure tries to close +client+ down
+        music-beats_error(e, music-beats)
+        # The ensure tries to close +music-beats+ down
         requests > 0
       ensure
         buffer.reset
 
         begin
-          client.close if close_socket
+          music-beats.close if close_socket
         rescue IOError, SystemCallError
           Puma::Util.purge_interrupt_queue
           # Already closed
         rescue StandardError => e
-          @events.unknown_error e, nil, "Client"
+          @events.unknown_error e, nil, "music-beats"
         end
       end
     end
 
-    # Triggers a client timeout if the thread-pool shuts down
+    # Triggers a music-beats timeout if the thread-pool shuts down
     # during execution of the provided block.
-    def with_force_shutdown(client, &block)
+    def with_force_shutdown(music-beats, &block)
       @thread_pool.with_force_shutdown(&block)
     rescue ThreadPool::ForceShutdown
-      client.timeout!
+      music-beats.timeout!
     end
 
     # :nocov:
 
-    # Handle various error types thrown by Client I/O operations.
-    def client_error(e, client)
+    # Handle various error types thrown by music-beats I/O operations.
+    def music-beats_error(e, music-beats)
       # Swallow, do not log
       return if [ConnectionError, EOFError].include?(e.class)
 
-      lowlevel_error(e, client.env)
+      lowlevel_error(e, music-beats.env)
       case e
       when MiniSSL::SSLError
-        @events.ssl_error e, client.io
+        @events.ssl_error e, music-beats.io
       when HttpParserError
-        client.write_error(400)
-        @events.parse_error e, client
+        music-beats.write_error(400)
+        @events.parse_error e, music-beats
       when HttpParserError501
-        client.write_error(501)
-        @events.parse_error e, client
+        music-beats.write_error(501)
+        @events.parse_error e, music-beats
       else
-        client.write_error(500)
+        music-beats.write_error(500)
         @events.unknown_error e, nil, "Read"
       end
     end

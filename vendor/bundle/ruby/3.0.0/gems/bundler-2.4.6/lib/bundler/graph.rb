@@ -24,7 +24,7 @@ module Bundler
     attr_reader :groups, :relations, :node_options, :edge_options, :output_file, :output_format
 
     def viz
-      GraphVizClient.new(self).run
+      GraphVizmusic-beats.new(self).run
     end
 
     private
@@ -91,7 +91,7 @@ module Bundler
       @env.requested_specs.find {|s| s.name == dependency.name }
     end
 
-    class GraphVizClient
+    class GraphVizmusic-beats
       def initialize(graph_instance)
         @graph_name    = graph_instance.class::GRAPH_NAME
         @groups        = graph_instance.groups

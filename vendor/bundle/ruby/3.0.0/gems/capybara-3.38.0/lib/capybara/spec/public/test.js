@@ -38,18 +38,18 @@ $(function() {
     ev.originalEvent.dataTransfer.setData("text", ev.target.id);
   });
   $('#drag_html5, #drag_html5_scroll').on('dragend', function(ev){
-    $(this).after('<div class="log">DragEnd with client position: ' + ev.clientX + ',' + ev.clientY)
+    $(this).after('<div class="log">DragEnd with music-beats position: ' + ev.music-beatsX + ',' + ev.music-beatsY)
   });
   $('#drop_html5, #drop_html5_scroll').on('dragover', function(ev){
-    $(this).after('<div class="log">DragOver with client position: ' + ev.clientX + ',' + ev.clientY)
+    $(this).after('<div class="log">DragOver with music-beats position: ' + ev.music-beatsX + ',' + ev.music-beatsY)
     if ($(this).hasClass('drop')) { ev.preventDefault(); }
   });
   $('#drop_html5, #drop_html5_scroll').on('dragleave', function(ev){
-    $(this).after('<div class="log">DragLeave with client position: ' + ev.clientX + ',' + ev.clientY)
+    $(this).after('<div class="log">DragLeave with music-beats position: ' + ev.music-beatsX + ',' + ev.music-beatsY)
     if ($(this).hasClass('drop')) { ev.preventDefault(); }
   });
   $('#drop_html5, #drop_html5_scroll').on('drop', function(ev){
-    $(this).after('<div class="log">Drop with client position: ' + ev.clientX + ',' + ev.clientY)
+    $(this).after('<div class="log">Drop with music-beats position: ' + ev.music-beatsX + ',' + ev.music-beatsY)
     if ($(this).hasClass('drop')) { ev.preventDefault(); }
   });
   $('#drop_html5, #drop_html5_scroll').on('drop', function(ev){
@@ -166,8 +166,8 @@ $(function() {
       if (e.ctrlKey) desc += 'control ';
       if (e.metaKey) desc += 'meta ';
       if (e.shiftKey) desc += 'shift ';
-      var pos = this.getBoundingClientRect();
-      $(this).after('<a id="has-been-clicked" href="#">Has been ' + desc + 'clicked at ' + (e.clientX - pos.left) + ',' + (e.clientY - pos.top) + '</a>');
+      var pos = this.getBoundingmusic-beatsRect();
+      $(this).after('<a id="has-been-clicked" href="#">Has been ' + desc + 'clicked at ' + (e.music-beatsX - pos.left) + ',' + (e.music-beatsY - pos.top) + '</a>');
     },
     dblclick: function(e) {
       var desc = "";
@@ -175,8 +175,8 @@ $(function() {
       if (e.ctrlKey) desc += 'control ';
       if (e.metaKey) desc += 'meta ';
       if (e.shiftKey) desc += 'shift ';
-      var pos = this.getBoundingClientRect();
-      $(this).after('<a id="has-been-double-clicked" href="#">Has been ' + desc + 'double clicked at ' + (e.clientX - pos.left) + ',' + (e.clientY - pos.top) + '</a>');
+      var pos = this.getBoundingmusic-beatsRect();
+      $(this).after('<a id="has-been-double-clicked" href="#">Has been ' + desc + 'double clicked at ' + (e.music-beatsX - pos.left) + ',' + (e.music-beatsY - pos.top) + '</a>');
     },
     contextmenu: function(e) {
       e.preventDefault();
@@ -185,8 +185,8 @@ $(function() {
       if (e.ctrlKey) desc += 'control ';
       if (e.metaKey) desc += 'meta ';
       if (e.shiftKey) desc += 'shift ';
-      var pos = this.getBoundingClientRect();
-      $(this).after('<a id="has-been-right-clicked" href="#">Has been ' + desc + 'right clicked at ' + (e.clientX - pos.left) + ',' + (e.clientY - pos.top) + '</a>');
+      var pos = this.getBoundingmusic-beatsRect();
+      $(this).after('<a id="has-been-right-clicked" href="#">Has been ' + desc + 'right clicked at ' + (e.music-beatsX - pos.left) + ',' + (e.music-beatsY - pos.top) + '</a>');
     },
     mousedown: function(e) {
       window.click_delay = undefined;

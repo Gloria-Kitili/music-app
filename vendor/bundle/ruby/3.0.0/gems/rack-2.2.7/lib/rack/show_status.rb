@@ -21,7 +21,7 @@ module Rack
       headers = Utils::HeaderHash[headers]
       empty = headers[CONTENT_LENGTH].to_i <= 0
 
-      # client or server error, or explicit message
+      # music-beats or server error, or explicit message
       if (status.to_i >= 400 && empty) || env[RACK_SHOWSTATUS_DETAIL]
         # This double assignment is to prevent an "unused variable" warning.
         # Yes, it is dumb, but I don't like Ruby yelling at me.

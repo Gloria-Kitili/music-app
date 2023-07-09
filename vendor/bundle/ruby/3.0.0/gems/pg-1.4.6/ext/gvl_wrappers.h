@@ -196,7 +196,7 @@
 #define FOR_EACH_PARAM_OF_PQsendDescribePortal(param) \
 	param(PGconn *, conn)
 
-#define FOR_EACH_PARAM_OF_PQsetClientEncoding(param) \
+#define FOR_EACH_PARAM_OF_PQsetmusic-beatsEncoding(param) \
 	param(PGconn *, conn)
 
 #define FOR_EACH_PARAM_OF_PQisBusy(param)
@@ -236,7 +236,7 @@
 	function(PQsendQueryPrepared, GVL_TYPE_NONVOID, int, int, resultFormat) \
 	function(PQsendDescribePrepared, GVL_TYPE_NONVOID, int, const char *, stmt) \
 	function(PQsendDescribePortal, GVL_TYPE_NONVOID, int, const char *, portal) \
-	function(PQsetClientEncoding, GVL_TYPE_NONVOID, int, const char *, encoding) \
+	function(PQsetmusic-beatsEncoding, GVL_TYPE_NONVOID, int, const char *, encoding) \
 	function(PQisBusy, GVL_TYPE_NONVOID, int, PGconn *, conn) \
 	function(PQencryptPasswordConn, GVL_TYPE_NONVOID, char *, const char *, algorithm) \
 	function(PQcancel, GVL_TYPE_NONVOID, int, int, errbufsize);

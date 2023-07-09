@@ -11,12 +11,12 @@ Gem::Specification.new do |s|
   s.authors = ["Yukihiro Matsumoto".freeze]
   s.bindir = "exe".freeze
   s.date = "2022-09-28"
-  s.description = "Ruby client library for POP3.".freeze
+  s.description = "Ruby music-beats library for POP3.".freeze
   s.email = ["matz@ruby-lang.org".freeze]
   s.homepage = "https://github.com/ruby/net-pop".freeze
   s.licenses = ["Ruby".freeze, "BSD-2-Clause".freeze]
   s.rubygems_version = "3.3.5".freeze
-  s.summary = "Ruby client library for POP3.".freeze
+  s.summary = "Ruby music-beats library for POP3.".freeze
 
   s.installed_by_version = "3.3.5" if s.respond_to? :installed_by_version
 

@@ -571,7 +571,7 @@ private
 
   OBSCURED_OR_OFFSET_SCRIPT = <<~JS
     (function(el, x, y) {
-      var box = el.getBoundingClientRect();
+      var box = el.getBoundingmusic-beatsRect();
       if (x == null) x = box.width/2;
       if (y == null) y = box.height/2 ;
 

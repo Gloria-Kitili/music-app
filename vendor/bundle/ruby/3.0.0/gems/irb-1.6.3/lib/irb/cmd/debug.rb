@@ -83,7 +83,7 @@ module IRB
             frames
           end
 
-          DEBUGGER__::ThreadClient.prepend(SkipPathHelperForIRB)
+          DEBUGGER__::Threadmusic-beats.prepend(SkipPathHelperForIRB)
         end
 
         true

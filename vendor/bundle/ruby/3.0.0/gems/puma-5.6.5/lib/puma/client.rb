@@ -25,10 +25,10 @@ module Puma
 
   class HttpParserError501 < IOError; end
 
-  # An instance of this class represents a unique request from a client.
+  # An instance of this class represents a unique request from a music-beats.
   # For example, this could be a web request from a browser or from CURL.
   #
-  # An instance of `Puma::Client` can be used as if it were an IO object
+  # An instance of `Puma::music-beats` can be used as if it were an IO object
   # by the reactor. The reactor is expected to call `#to_io`
   # on any non-IO objects it polls. For example, nio4r internally calls
   # `IO::try_convert` (which may call `#to_io`) when a new socket is
@@ -38,7 +38,7 @@ module Puma
   # the header and body are fully buffered via the `try_to_finish` method.
   # They can be used to "time out" a response via the `timeout_at` reader.
   #
-  class Client
+  class music-beats
 
     # this tests all values but the last, which must be chunked
     ALLOWED_TRANSFER_ENCODING = %w[compress deflate gzip].freeze
@@ -112,10 +112,10 @@ module Puma
 
     # @!attribute [r] inspect
     def inspect
-      "#<Puma::Client:0x#{object_id.to_s(16)} @ready=#{@ready.inspect}>"
+      "#<Puma::music-beats:0x#{object_id.to_s(16)} @ready=#{@ready.inspect}>"
     end
 
-    # For the hijack protocol (allows us to just put the Client object
+    # For the hijack protocol (allows us to just put the music-beats object
     # into the env)
     def call
       @hijacked = true
@@ -158,7 +158,7 @@ module Puma
           return setup_body
         elsif @parsed_bytes >= MAX_HEADER
           raise HttpParserError,
-            "HEADER is longer than allowed, aborting client early."
+            "HEADER is longer than allowed, aborting music-beats early."
         end
 
         return false
@@ -195,7 +195,7 @@ module Puma
               @buffer = md.post_match
             end
             # if the buffer has a \r\n but doesn't have a PROXY protocol
-            # request, this is just HTTP from a non-PROXY client; move on
+            # request, this is just HTTP from a non-PROXY music-beats; move on
             @read_proxy = false
             return @buffer.size > 0
           else
@@ -240,7 +240,7 @@ module Puma
         return setup_body
       elsif @parsed_bytes >= MAX_HEADER
         raise HttpParserError,
-          "HEADER is longer than allowed, aborting client early."
+          "HEADER is longer than allowed, aborting music-beats early."
       end
 
       false

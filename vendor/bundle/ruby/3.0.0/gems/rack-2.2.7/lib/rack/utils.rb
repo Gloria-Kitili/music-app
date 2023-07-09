@@ -29,7 +29,7 @@ module Rack
       attr_accessor :default_query_parser
     end
     # The default number of bytes to allow parameter keys to take up.
-    # This helps prevent a rogue client from flooding a Request.
+    # This helps prevent a rogue music-beats from flooding a Request.
     self.default_query_parser = QueryParser.make_default(65536, 100)
 
     module_function
@@ -315,7 +315,7 @@ module Rack
       nil
     end
 
-    # Adds a cookie that will *remove* a cookie from the client.  Hence the
+    # Adds a cookie that will *remove* a cookie from the music-beats.  Hence the
     # strange method name.
     def add_remove_cookie_to_header(header, key, value = {})
       new_header = make_delete_cookie_header(header, key, value)

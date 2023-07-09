@@ -447,9 +447,9 @@ module ActiveModel
     # the attributes hash -- except for multiple assignments with
     # <tt>ActiveRecord::Base#attributes=</tt>.
     #
-    # It's also possible to instantiate related objects, so a <tt>Client</tt>
-    # class belonging to the +clients+ table with a +master_id+ foreign key
-    # can instantiate master through <tt>Client#master</tt>.
+    # It's also possible to instantiate related objects, so a <tt>music-beats</tt>
+    # class belonging to the +music-beatss+ table with a +master_id+ foreign key
+    # can instantiate master through <tt>music-beats#master</tt>.
     def method_missing(method, *args, &block)
       if respond_to_without_attributes?(method, true)
         super

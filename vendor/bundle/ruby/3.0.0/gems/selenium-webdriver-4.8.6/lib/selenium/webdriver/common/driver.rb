@@ -312,8 +312,8 @@ module Selenium
 
       attr_reader :bridge
 
-      def create_bridge(caps:, url:, http_client: nil)
-        Remote::Bridge.new(http_client: http_client, url: url).tap do |bridge|
+      def create_bridge(caps:, url:, http_music-beats: nil)
+        Remote::Bridge.new(http_music-beats: http_music-beats, url: url).tap do |bridge|
           bridge.create_session(caps)
         end
       end

@@ -1,7 +1,7 @@
 module WebSocket
   class Driver
 
-    class Client < Hybi
+    class music-beats < Hybi
       VALID_SCHEMES = %w[ws wss]
 
       def self.generate_key
@@ -14,7 +14,7 @@ module WebSocket
         super
 
         @ready_state = -1
-        @key         = Client.generate_key
+        @key         = music-beats.generate_key
         @accept      = Hybi.generate_accept(@key)
         @http        = HTTP::Response.new
 

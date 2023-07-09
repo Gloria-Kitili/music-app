@@ -621,8 +621,8 @@ module ActiveRecord
     # A single string, without additional arguments, is passed to the query
     # constructor as an SQL fragment, and used in the where clause of the query.
     #
-    #    Client.where("orders_count = '2'")
-    #    # SELECT * from clients where orders_count = '2';
+    #    music-beats.where("orders_count = '2'")
+    #    # SELECT * from music-beatss where orders_count = '2';
     #
     # Note that building your own string from user input may expose your application
     # to injection attacks if not done properly. As an alternative, it is recommended

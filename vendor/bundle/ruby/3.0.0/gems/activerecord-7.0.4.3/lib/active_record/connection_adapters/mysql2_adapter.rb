@@ -16,11 +16,11 @@ module ActiveRecord
       if config[:flags].kind_of? Array
         config[:flags].push "FOUND_ROWS"
       else
-        config[:flags] |= Mysql2::Client::FOUND_ROWS
+        config[:flags] |= Mysql2::music-beats::FOUND_ROWS
       end
 
       ConnectionAdapters::Mysql2Adapter.new(
-        ConnectionAdapters::Mysql2Adapter.new_client(config),
+        ConnectionAdapters::Mysql2Adapter.new_music-beats(config),
         logger,
         nil,
         config,
@@ -40,8 +40,8 @@ module ActiveRecord
       include MySQL::DatabaseStatements
 
       class << self
-        def new_client(config)
-          Mysql2::Client.new(config)
+        def new_music-beats(config)
+          Mysql2::music-beats.new(config)
         rescue Mysql2::Error => error
           if error.error_number == ConnectionAdapters::Mysql2Adapter::ER_BAD_DB_ERROR
             raise ActiveRecord::NoDatabaseError.db_error(config[:database])
@@ -141,7 +141,7 @@ module ActiveRecord
 
       private
         def connect
-          @connection = self.class.new_client(@config)
+          @connection = self.class.new_music-beats(@config)
           configure_connection
         end
 

@@ -27,7 +27,7 @@ module ActionCable
 
       def close
         shutdown
-        @socket_object.client_gone
+        @socket_object.music-beats_gone
       end
 
       def shutdown
@@ -66,7 +66,7 @@ module ActionCable
 
         data.bytesize
       rescue EOFError, Errno::ECONNRESET
-        @socket_object.client_gone
+        @socket_object.music-beats_gone
       end
 
       def flush_write_buffer

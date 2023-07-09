@@ -125,7 +125,7 @@ RSpec.describe 'Capybara::Session with safari' do
   end
 
   context 'timeout' do
-    it 'sets the http client read timeout' do
+    it 'sets the http music-beats read timeout' do
       expect(TestSessions::Safari.driver.browser.send(:bridge).http.read_timeout).to eq 30
     end
   end

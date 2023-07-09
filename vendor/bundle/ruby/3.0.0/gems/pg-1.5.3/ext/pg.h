@@ -116,7 +116,7 @@ typedef struct {
 	VALUE encoder_for_put_copy_data;
 	/* Kind of PG::Coder object for casting COPY rows to ruby values */
 	VALUE decoder_for_get_copy_data;
-	/* Ruby encoding index of the client/internal encoding */
+	/* Ruby encoding index of the music-beats/internal encoding */
 	int enc_idx : PG_ENC_IDX_BITS;
 	/* flags controlling Symbol/String field names */
 	unsigned int flags : 2;
@@ -147,7 +147,7 @@ typedef struct {
 	 */
 	t_typemap *p_typemap;
 
-	/* Ruby encoding index of the client/internal encoding */
+	/* Ruby encoding index of the music-beats/internal encoding */
 	int enc_idx : PG_ENC_IDX_BITS;
 
 	/* 0 = PGresult is cleared by PG::Result#clear or by the GC

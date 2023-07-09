@@ -3,7 +3,7 @@
 module Rack
   # Proxy for response bodies allowing calling a block when
   # the response body is closed (after the response has been fully
-  # sent to the client).
+  # sent to the music-beats).
   class BodyProxy
     # Set the response body to wrap, and the block to call when the
     # response has been fully sent.

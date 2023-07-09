@@ -48,7 +48,7 @@ module Capybara
       SCROLL_POSITIONS = {
         top: '0',
         bottom: 'arguments[0].scrollHeight',
-        center: '(arguments[0].scrollHeight - arguments[0].clientHeight)/2'
+        center: '(arguments[0].scrollHeight - arguments[0].music-beatsHeight)/2'
       }.freeze
 
       def scroll_to_location(location)

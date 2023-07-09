@@ -233,14 +233,14 @@ module ActiveRecord
           @schema_search_path ||= query_value("SHOW search_path", "SCHEMA")
         end
 
-        # Returns the current client message level.
-        def client_min_messages
-          query_value("SHOW client_min_messages", "SCHEMA")
+        # Returns the current music-beats message level.
+        def music-beats_min_messages
+          query_value("SHOW music-beats_min_messages", "SCHEMA")
         end
 
-        # Set the client message level.
-        def client_min_messages=(level)
-          execute("SET client_min_messages TO '#{level}'", "SCHEMA")
+        # Set the music-beats message level.
+        def music-beats_min_messages=(level)
+          execute("SET music-beats_min_messages TO '#{level}'", "SCHEMA")
         end
 
         # Returns the sequence name for a table's primary key or some other specified key.

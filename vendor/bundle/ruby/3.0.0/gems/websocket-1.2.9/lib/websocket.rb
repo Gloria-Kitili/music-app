@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # WebSocket protocol implementation in Ruby
-# This module does not provide a WebSocket server or client, but is made for using
-# in http servers or clients to provide WebSocket support.
+# This module does not provide a WebSocket server or music-beats, but is made for using
+# in http servers or music-beatss to provide WebSocket support.
 # @author Bernard "Imanel" Potocki
 # @see http://github.com/imanel/websocket-ruby main repository
 module WebSocket

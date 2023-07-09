@@ -37,7 +37,7 @@
   * Remove yaml (psych) requirement in StateFile ([#2784])
   * Allow culling of oldest workers, previously was only youngest ([#2773], [#2794])
   * Add worker_check_interval configuration option ([#2759])
-  * Always send lowlevel_error response to client ([#2731], [#2341])
+  * Always send lowlevel_error response to music-beats ([#2731], [#2341])
   * Support for cert_pem and key_pem with ssl_bind DSL ([#2728])
 
 * Bugfixes
@@ -90,7 +90,7 @@
 * Bugfixes
   * `Binder#parse` - allow for symlinked unix path, add create_activated_fds debug ENV ([#2643], [#2638])
   * Fix deprecation warning: minissl.c - Use Random.bytes if available ([#2642])
-  * Client certificates: set session id context while creating SSLContext ([#2633])
+  * music-beats certificates: set session id context while creating SSLContext ([#2633])
   * Fix deadlock issue in thread pool ([#2656])
 
 * Refactor
@@ -145,7 +145,7 @@
 ## 5.2.1 / 2021-02-05
 
 * Bugfixes
-  * Fix TCP cork/uncork operations to work with ssl clients ([#2550])
+  * Fix TCP cork/uncork operations to work with ssl music-beatss ([#2550])
   * Require rack/common_logger explicitly if :verbose is true ([#2547])
   * MiniSSL::Socket#write - use data.byteslice(wrote..-1) ([#2543])
   * Set `@env[CONTENT_LENGTH]` value as string. ([#2549])
@@ -207,7 +207,7 @@
 ## 5.0.3 / 2020-10-26
 
 * Bugfixes
-  * Add Client#io_ok?, check before Reactor#register ([#2432])
+  * Add music-beats#io_ok?, check before Reactor#register ([#2432])
   * Fix hang on shutdown in refork ([#2442])
   * Fix `Bundler::GemNotFound` errors for `nio4r` gem during phased restarts ([#2427], [#2018])
   * Server run thread safety fix ([#2435])
@@ -218,8 +218,8 @@
   * Remove accept_nonblock.rb, add test_integration_ssl.rb ([#2448])
   * Refactor status.rb - dry it up a bit ([#2450])
   * Extract req/resp methods to new request.rb from server.rb ([#2419])
-  * Refactor Reactor and Client request buffering ([#2279])
-  * client.rb - remove JRuby specific 'finish' code ([#2412])
+  * Refactor Reactor and music-beats request buffering ([#2279])
+  * music-beats.rb - remove JRuby specific 'finish' code ([#2412])
   * Consolidate fast_write calls in Server, extract early_hints assembly ([#2405])
   * Remove upstart from docs ([#2408])
   * Extract worker process into separate class ([#2374])
@@ -238,7 +238,7 @@
   * Prevent connections from entering Reactor after shutdown begins ([#2377])
   * Fix error backtrace debug logging && Do not log request dump if it is not parsed ([#2376])
   * Split TCP_CORK and TCP_INFO ([#2372])
-  * Do not log EOFError when a client connection is closed without write ([#2384])
+  * Do not log EOFError when a music-beats connection is closed without write ([#2384])
 
 * Refactor
   * Change Events#ssl_error signature from (error, peeraddr, peercert) to (error, ssl_socket) ([#2375])
@@ -277,7 +277,7 @@
 * Bugfixes
   * Fix JSON loading issues on phased-restarts ([#2269])
   * Improve shutdown reliability ([#2312], [#2338])
-  * Close client http connections made to an ssl server with TLSv1.3 ([#2116])
+  * Close music-beats http connections made to an ssl server with TLSv1.3 ([#2116])
   * Do not set user_config to quiet by default to allow for file config ([#2074])
   * Always close SSL connection in Puma::ControlCLI ([#2211])
   * Windows update extconf.rb for use with ssp and varied Ruby/MSYS2 combinations ([#2069])
@@ -366,7 +366,7 @@ Each patchlevel release contains a separate security fix. We recommend simply up
 ## 4.3.1 and 3.12.2 / 2019-12-05
 
 * Security
-  * Fix: a poorly-behaved client could use keepalive requests to monopolize Puma's reactor and create a denial of service attack. CVE-2019-16770.
+  * Fix: a poorly-behaved music-beats could use keepalive requests to monopolize Puma's reactor and create a denial of service attack. CVE-2019-16770.
 
 ## 4.3.0 / 2019-11-07
 
@@ -582,7 +582,7 @@ Each patchlevel release contains a separate security fix. We recommend simply up
 
 * 2 features:
   * The ENV is now reset to its original values when Puma restarts via USR1/USR2 ([#1260]) (MRI only, no JRuby support)
-  * Puma will no longer accept more clients than the maximum number of threads. ([#1278])
+  * Puma will no longer accept more music-beatss than the maximum number of threads. ([#1278])
 
 * 9 bugfixes:
   * Reduce information leakage by preventing HTTP parse errors from writing environment hashes to STDERR ([#1306])
@@ -618,7 +618,7 @@ Each patchlevel release contains a separate security fix. We recommend simply up
   * The `tmp/restart.txt` plugin no longer restricts the user from running more than one server from the same folder at a time ([#1226])
 
 * 1 feature:
-  * Closed clients are aborted to save capacity ([#1227])
+  * Closed music-beatss are aborted to save capacity ([#1227])
 
 * 1 refactor:
   * Bundler is no longer a dependency from tests ([#1213])
@@ -922,7 +922,7 @@ Each patchlevel release contains a separate security fix. We recommend simply up
   * Support passing JRuby keystore info in ssl_bind DSL
   * Allow umask for unix:/// style control urls
   * Expose `old_worker_count` in stats url
-  * Support TLS client auth (verify_mode) in jruby
+  * Support TLS music-beats auth (verify_mode) in jruby
 
 * 7 bug fixes:
 
@@ -940,7 +940,7 @@ Each patchlevel release contains a separate security fix. We recommend simply up
 
 * 12 merged PRs
   * Merge pull request [#822] from kwugirl/remove_NEWRELIC_DISPATCHER
-  * Merge pull request [#833] from joemiller/jruby-client-tls-auth
+  * Merge pull request [#833] from joemiller/jruby-music-beats-tls-auth
   * Merge pull request [#837] from YuriSolovyov/ssl-keystore-jruby
   * Merge pull request [#839] from mezuka/master
   * Merge pull request [#845] from deepj/timeout-deprecation
@@ -1122,7 +1122,7 @@ The "clearly I don't have enough tests for the config" release.
   * Do not automatically use chunked responses when hijacked
   * Do not suppress Content-Length on partial hijack
   * Don't allow any exceptions to terminate a thread
-  * Handle ENOTCONN client disconnects when setting REMOTE_ADDR
+  * Handle ENOTCONN music-beats disconnects when setting REMOTE_ADDR
   * Handle very early exit of cluster mode. Fixes [#722]
   * Install rack when running tests on travis to use rack/lint
   * Make puma -v and -h return success exit code
@@ -1130,7 +1130,7 @@ The "clearly I don't have enough tests for the config" release.
   * Pass options from pumactl properly when pruning. Fixes [#694]
   * Remove rack dependency. Fixes [#705]
   * Remove the default Content-Type: text/plain
-  * Add Client Side Certificate Auth
+  * Add music-beats Side Certificate Auth
 
 * 8 doc/test changes:
   * Added example sourcing of environment vars
@@ -1160,7 +1160,7 @@ The "clearly I don't have enough tests for the config" release.
   * Merge pull request [#712] from yakara-ltd/pumactl-default-config
   * Merge pull request [#715] from RobotJiang/master
   * Merge pull request [#725] from rwz/master
-  * Merge pull request [#726] from strenuus/handle-client-disconnect
+  * Merge pull request [#726] from strenuus/handle-music-beats-disconnect
   * Merge pull request [#729] from allaire/patch-1
   * Merge pull request [#730] from iamjarvo/container-infrastructure
 
@@ -1349,7 +1349,7 @@ The "clearly I don't have enough tests for the config" release.
 
 * 4 bug fixes:
   * During upgrade, change directory in main process instead of workers.
-  * Close the client properly on error
+  * Close the music-beats properly on error
   * Capistrano: fallback from phased restart to start when not started
   * Allow tag option in conf file
 
@@ -1519,7 +1519,7 @@ The "clearly I don't have enough tests for the config" release.
   * Improve the logging output when hijack is used. Fixes [#332]
   * Remove unnecessary thread pool size conversions
   * Setup :worker_boot as an Array. Fixes [#317]
-  * Use 127.0.0.1 as REMOTE_ADDR of unix client. Fixes [#309]
+  * Use 127.0.0.1 as REMOTE_ADDR of unix music-beats. Fixes [#309]
 
 
 ## 2.3.2 / 2013-07-08
@@ -1745,7 +1745,7 @@ be added back in a future date when a java Puma::MiniSSL is added.
 ## 1.6.0 / 2012-07-23
 
 * 1 major bug fix:
-  * Prevent slow clients from starving the server by introducing a
+  * Prevent slow music-beatss from starving the server by introducing a
     dedicated IO reactor thread. Credit for reporting goes to @meh.
 
 ## 1.5.0 / 2012-07-19

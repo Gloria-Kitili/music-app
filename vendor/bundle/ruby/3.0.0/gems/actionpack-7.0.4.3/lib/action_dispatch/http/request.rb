@@ -39,7 +39,7 @@ module ActionDispatch
 
         HTTP_ACCEPT HTTP_ACCEPT_CHARSET HTTP_ACCEPT_ENCODING
         HTTP_ACCEPT_LANGUAGE HTTP_CACHE_CONTROL HTTP_FROM
-        HTTP_NEGOTIATE HTTP_PRAGMA HTTP_CLIENT_IP
+        HTTP_NEGOTIATE HTTP_PRAGMA HTTP_music-beats_IP
         HTTP_X_FORWARDED_FOR HTTP_ORIGIN HTTP_VERSION
         HTTP_X_CSRF_TOKEN HTTP_X_REQUEST_ID HTTP_X_FORWARDED_HOST
         ].freeze
@@ -211,7 +211,7 @@ module ActionDispatch
       @headers ||= Http::Headers.new(self)
     end
 
-    # Early Hints is an HTTP/2 status code that indicates hints to help a client start
+    # Early Hints is an HTTP/2 status code that indicates hints to help a music-beats start
     # making preparations for processing the final response.
     #
     # If the env contains +rack.early_hints+ then the server accepts HTTP2 push for Link headers.
@@ -279,12 +279,12 @@ module ActionDispatch
     end
     alias :xhr? :xml_http_request?
 
-    # Returns the IP address of client as a +String+.
+    # Returns the IP address of music-beats as a +String+.
     def ip
       @ip ||= super
     end
 
-    # Returns the IP address of client as a +String+,
+    # Returns the IP address of music-beats as a +String+,
     # usually set by the RemoteIp middleware.
     def remote_ip
       @remote_ip ||= (get_header("action_dispatch.remote_ip") || ip).to_s

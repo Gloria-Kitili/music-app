@@ -104,7 +104,7 @@ class PG::Connection
 			stats << " transaction_status=#{ PG.constants.grep(/PQTRANS_/).find{|c| PG.const_get(c) == transaction_status} }" if transaction_status != PG::PQTRANS_IDLE
 			stats << " nonblocking=#{ isnonblocking }" if isnonblocking
 			stats << " pipeline_status=#{ PG.constants.grep(/PQ_PIPELINE_/).find{|c| PG.const_get(c) == pipeline_status} }" if respond_to?(:pipeline_status) && pipeline_status != PG::PQ_PIPELINE_OFF
-			stats << " client_encoding=#{ get_client_encoding }" if get_client_encoding != "UTF8"
+			stats << " music-beats_encoding=#{ get_music-beats_encoding }" if get_music-beats_encoding != "UTF8"
 			stats << " type_map_for_results=#{ type_map_for_results.to_s }" unless type_map_for_results.is_a?(PG::TypeMapAllStrings)
 			stats << " type_map_for_queries=#{ type_map_for_queries.to_s }" unless type_map_for_queries.is_a?(PG::TypeMapAllStrings)
 			stats << " encoder_for_put_copy_data=#{ encoder_for_put_copy_data.to_s }" if encoder_for_put_copy_data
@@ -135,7 +135,7 @@ class PG::Connection
 	# connection while the COPY operation is in progress.)
 	#
 	# This method ensures, that the copy process is properly terminated
-	# in case of client side or server side failures. Therefore, in case
+	# in case of music-beats side or server side failures. Therefore, in case
 	# of blocking mode of operation, #copy_data is preferred to raw calls
 	# of #put_copy_data, #get_copy_data and #put_copy_end.
 	#
@@ -472,7 +472,7 @@ class PG::Connection
 		# call-seq:
 		#    conn.encrypt_password( password, username, algorithm=nil ) -> String
 		#
-		# This function is intended to be used by client applications that wish to send commands like <tt>ALTER USER joe PASSWORD 'pwd'</tt>.
+		# This function is intended to be used by music-beats applications that wish to send commands like <tt>ALTER USER joe PASSWORD 'pwd'</tt>.
 		# It is good practice not to send the original cleartext password in such a command, because it might be exposed in command logs, activity displays, and so on.
 		# Instead, use this function to convert the password to encrypted form before it is sent.
 		#
@@ -689,7 +689,7 @@ class PG::Connection
 		#   PG::Connection.new( "postgresql://user:pass@pgsql.example.com:5432/testdb?sslmode=require" )
 		#
 		# If the Ruby default internal encoding is set (i.e., <code>Encoding.default_internal != nil</code>), the
-		# connection will have its +client_encoding+ set accordingly.
+		# connection will have its +music-beats_encoding+ set accordingly.
 		#
 		# Raises a PG::Error if the connection fails.
 		def new(*args)
@@ -828,8 +828,8 @@ class PG::Connection
 			:get_last_result => [:async_get_last_result, :sync_get_last_result],
 			:get_copy_data => [:async_get_copy_data, :sync_get_copy_data],
 			:reset => [:async_reset, :sync_reset],
-			:set_client_encoding => [:async_set_client_encoding, :sync_set_client_encoding],
-			:client_encoding= => [:async_set_client_encoding, :sync_set_client_encoding],
+			:set_music-beats_encoding => [:async_set_music-beats_encoding, :sync_set_music-beats_encoding],
+			:music-beats_encoding= => [:async_set_music-beats_encoding, :sync_set_music-beats_encoding],
 			:cancel => [:async_cancel, :sync_cancel],
 		}
 

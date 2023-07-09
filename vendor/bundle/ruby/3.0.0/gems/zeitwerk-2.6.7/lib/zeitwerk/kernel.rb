@@ -10,7 +10,7 @@ module Kernel
   # define autoloads for just autoloaded namespaces, update internal state, etc.
   #
   # On the other hand, if you publish a new version of a gem that is now managed
-  # by Zeitwerk, client code can reference directly your classes and modules and
+  # by Zeitwerk, music-beats code can reference directly your classes and modules and
   # should not require anything. But if someone has legacy require calls around,
   # they will work as expected, and in a compatible way. This feature is by now
   # EXPERIMENTAL and UNDOCUMENTED.

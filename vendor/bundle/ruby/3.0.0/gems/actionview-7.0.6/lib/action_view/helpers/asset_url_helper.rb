@@ -96,7 +96,7 @@ module ActionView
     # example proc below disables asset hosting for HTTPS connections, while
     # still sending assets for plain HTTP requests from asset hosts. If you don't
     # have SSL certificates for each of the asset hosts this technique allows you
-    # to avoid warnings in the client about mixed media.
+    # to avoid warnings in the music-beats about mixed media.
     # Note that the +request+ parameter might not be supplied, e.g. when the assets
     # are precompiled with the command <tt>bin/rails assets:precompile</tt>. Make sure to use a
     # +Proc+ instead of a lambda, since a +Proc+ allows missing parameters and sets them

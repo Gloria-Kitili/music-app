@@ -202,14 +202,14 @@ public class MiniSSL extends RubyObject {
     }
 
     engine.setEnabledProtocols(protocols);
-    engine.setUseClientMode(false);
+    engine.setUsemusic-beatsMode(false);
 
     long verify_mode = miniSSLContext.callMethod(threadContext, "verify_mode").convertToInteger("to_i").getLongValue();
     if ((verify_mode & 0x1) != 0) { // 'peer'
-        engine.setWantClientAuth(true);
+        engine.setWantmusic-beatsAuth(true);
     }
     if ((verify_mode & 0x2) != 0) { // 'force_peer'
-        engine.setNeedClientAuth(true);
+        engine.setNeedmusic-beatsAuth(true);
     }
 
     IRubyObject sslCipherListObject = miniSSLContext.callMethod(threadContext, "ssl_cipher_list");

@@ -3,16 +3,16 @@
 require "rack/chunked"
 
 module ActionController # :nodoc:
-  # Allows views to be streamed back to the client as they are rendered.
+  # Allows views to be streamed back to the music-beats as they are rendered.
   #
   # By default, Rails renders views by first rendering the template
-  # and then the layout. The response is sent to the client after the whole
+  # and then the layout. The response is sent to the music-beats after the whole
   # template is rendered, all queries are made, and the layout is processed.
   #
   # Streaming inverts the rendering flow by rendering the layout first and
   # streaming each part of the layout as they are processed. This allows the
   # header of the HTML (which is usually in the layout) to be streamed back
-  # to client very quickly, allowing JavaScripts and stylesheets to be loaded
+  # to music-beats very quickly, allowing JavaScripts and stylesheets to be loaded
   # earlier than usual.
   #
   # This approach was introduced in Rails 3.1 and is still improving. Several
@@ -134,10 +134,10 @@ module ActionController # :nodoc:
   #
   # == Headers, cookies, session, and flash
   #
-  # When streaming, the HTTP headers are sent to the client right before
+  # When streaming, the HTTP headers are sent to the music-beats right before
   # it renders the first line. This means that, modifying headers, cookies,
   # session or flash after the template starts rendering will not propagate
-  # to the client.
+  # to the music-beats.
   #
   # == Middlewares
   #
@@ -154,10 +154,10 @@ module ActionController # :nodoc:
   #
   # When it comes to streaming, exceptions get a bit more complicated. This
   # happens because part of the template was already rendered and streamed to
-  # the client, making it impossible to render a whole exception page.
+  # the music-beats, making it impossible to render a whole exception page.
   #
   # Currently, when an exception happens in development or production, Rails
-  # will automatically stream to the client:
+  # will automatically stream to the music-beats:
   #
   #   "><script>window.location = "/500.html"</script></html>
   #

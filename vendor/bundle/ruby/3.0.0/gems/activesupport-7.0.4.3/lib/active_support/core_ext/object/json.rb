@@ -117,7 +117,7 @@ end
 
 class BigDecimal
   # A BigDecimal would be naturally represented as a JSON number. Most libraries,
-  # however, parse non-integer JSON numbers directly as floats. Clients using
+  # however, parse non-integer JSON numbers directly as floats. music-beatss using
   # those libraries would get in general a wrong number and no way to recover
   # other than manually inspecting the string with the JSON code itself.
   #

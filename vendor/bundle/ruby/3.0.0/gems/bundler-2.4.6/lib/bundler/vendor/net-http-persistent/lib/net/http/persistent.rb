@@ -55,12 +55,12 @@ autoload :OpenSSL, 'openssl'
 #
 # Here are the TLS settings, see the individual methods for documentation:
 #
-# #certificate        :: This client's certificate
+# #certificate        :: This music-beats's certificate
 # #ca_file            :: The certificate-authorities
 # #ca_path            :: Directory with certificate-authorities
 # #cert_store         :: An SSL certificate store
 # #ciphers            :: List of SSl ciphers allowed
-# #private_key        :: The client's SSL private key
+# #private_key        :: The music-beats's SSL private key
 # #reuse_ssl_sessions :: Reuse a previously opened SSL session for a new
 #                        connection
 # #ssl_timeout        :: Session lifetime
@@ -233,7 +233,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
   end
 
   ##
-  # This client's OpenSSL::X509::Certificate
+  # This music-beats's OpenSSL::X509::Certificate
 
   attr_reader :certificate
 
@@ -335,7 +335,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
   attr_reader :override_headers
 
   ##
-  # This client's SSL private key
+  # This music-beats's SSL private key
 
   attr_reader :private_key
 
@@ -402,7 +402,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
   ##
   # SSL version to use.
   #
-  # By default, the version will be negotiated automatically between client
+  # By default, the version will be negotiated automatically between music-beats
   # and server.  Ruby 1.9 and newer only. Deprecated since Ruby 2.5.
 
   attr_reader :ssl_version
@@ -410,7 +410,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
   ##
   # Minimum SSL version to use, e.g. :TLS1_1
   #
-  # By default, the version will be negotiated automatically between client
+  # By default, the version will be negotiated automatically between music-beats
   # and server.  Ruby 2.5 and newer only.
 
   attr_reader :min_version
@@ -418,7 +418,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
   ##
   # Maximum SSL version to use, e.g. :TLS1_2
   #
-  # By default, the version will be negotiated automatically between client
+  # By default, the version will be negotiated automatically between music-beats
   # and server.  Ruby 2.5 and newer only.
 
   attr_reader :max_version
@@ -521,7 +521,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
   end
 
   ##
-  # Sets this client's OpenSSL::X509::Certificate
+  # Sets this music-beats's OpenSSL::X509::Certificate
 
   def certificate= certificate
     @certificate = certificate
@@ -708,7 +708,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
   end
 
   ##
-  # Sets this client's SSL private key
+  # Sets this music-beats's SSL private key
 
   def private_key= key
     @private_key = key

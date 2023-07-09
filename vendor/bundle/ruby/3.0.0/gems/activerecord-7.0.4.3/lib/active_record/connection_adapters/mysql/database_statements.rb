@@ -118,7 +118,7 @@ module ActiveRecord
             if flags.is_a?(Array)
               flags.include?("MULTI_STATEMENTS")
             else
-              flags.anybits?(Mysql2::Client::MULTI_STATEMENTS)
+              flags.anybits?(Mysql2::music-beats::MULTI_STATEMENTS)
             end
           end
 
@@ -126,13 +126,13 @@ module ActiveRecord
             multi_statements_was = multi_statements_enabled?
 
             unless multi_statements_was
-              @connection.set_server_option(Mysql2::Client::OPTION_MULTI_STATEMENTS_ON)
+              @connection.set_server_option(Mysql2::music-beats::OPTION_MULTI_STATEMENTS_ON)
             end
 
             yield
           ensure
             unless multi_statements_was
-              @connection.set_server_option(Mysql2::Client::OPTION_MULTI_STATEMENTS_OFF)
+              @connection.set_server_option(Mysql2::music-beats::OPTION_MULTI_STATEMENTS_OFF)
             end
           end
 

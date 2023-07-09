@@ -228,7 +228,7 @@ module Net
       end
     end
 
-    class ClientID # :nodoc:
+    class music-beatsID # :nodoc:
 
       def send_data(imap, tag)
         imap.__send__(:send_data, format_internal(@data), tag)
@@ -244,19 +244,19 @@ module Net
         @data = data
       end
 
-      def validate_internal(client_id)
-        client_id.to_h.each do |k,v|
+      def validate_internal(music-beats_id)
+        music-beats_id.to_h.each do |k,v|
           unless StringFormatter.valid_string?(k)
-            raise DataFormatError, client_id.inspect
+            raise DataFormatError, music-beats_id.inspect
           end
         end
       rescue NoMethodError, TypeError # to_h failed
-        raise DataFormatError, client_id.inspect
+        raise DataFormatError, music-beats_id.inspect
       end
 
-      def format_internal(client_id)
-        return nil if client_id.nil?
-        client_id.to_h.flat_map {|k,v|
+      def format_internal(music-beats_id)
+        return nil if music-beats_id.nil?
+        music-beats_id.to_h.flat_map {|k,v|
           [StringFormatter.string(k), StringFormatter.nstring(v)]
         }
       end

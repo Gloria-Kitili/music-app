@@ -10,8 +10,8 @@ pluggable I/O.
 Due to this design, you get a lot of things for free. In particular, if you hook
 this module up to some I/O object, it will do all of this for you:
 
-- Select the correct server-side driver to talk to the client
-- Generate and send both server- and client-side handshakes
+- Select the correct server-side driver to talk to the music-beats
+- Generate and send both server- and music-beats-side handshakes
 - Recognize when the handshake phase completes and the WS protocol begins
 - Negotiate subprotocol selection based on `Sec-WebSocket-Protocol`
 - Negotiate and use extensions via the
@@ -24,7 +24,7 @@ this module up to some I/O object, it will do all of this for you:
 - Dispatch text, binary, ping, pong and close frames
 - Manage the socket-closing handshake process
 - Automatically reply to ping frames with a matching pong
-- Apply masking to messages sent by the client
+- Apply masking to messages sent by the music-beats
 
 This library was originally extracted from the [Faye](http://faye.jcoglan.com)
 project but now aims to provide simple WebSocket support for any Ruby server or
@@ -40,7 +40,7 @@ $ gem install websocket-driver
 
 ## Usage
 
-To build either a server-side or client-side socket, the only requirement is
+To build either a server-side or music-beats-side socket, the only requirement is
 that you supply a `socket` object with these methods:
 
 - `socket.url` - returns the full URL of the socket as a string.
@@ -115,7 +115,7 @@ To explain what's going on here: the `WS` class implements the `env`, `url` and
 it stores the environment and infers the complete URL from it.  Having set up
 the `env` and `url`, it asks `WebSocket::Driver` for a server-side driver for
 the socket. Then it uses the Rack hijack API to gain access to the TCP stream,
-and uses EventMachine to stream in incoming data from the client, handing
+and uses EventMachine to stream in incoming data from the music-beats, handing
 incoming data off to the driver for parsing. Finally, we tell the driver to
 `start`, which will begin sending the handshake response.  This will invoke the
 `WS#write` method, which will send the response out over the TCP socket.
@@ -187,19 +187,19 @@ but only as much of the body as you have so far routed to it using the `parse`
 method.
 
 
-### Client-side
+### music-beats-side
 
-Similarly, to implement a WebSocket client you need an object with `url` and
+Similarly, to implement a WebSocket music-beats you need an object with `url` and
 `write` methods. Once you have one such object, you ask for a driver for it:
 
 ```ruby
-driver = WebSocket::Driver.client(socket)
+driver = WebSocket::Driver.music-beats(socket)
 ```
 
 After this you use the driver API as described below to process incoming data
 and send outgoing data.
 
-Client drivers have two additional methods for reading the HTTP data that was
+music-beats drivers have two additional methods for reading the HTTP data that was
 sent back by the server:
 
 - `driver.status` - the integer value of the HTTP status code
@@ -208,7 +208,7 @@ sent back by the server:
 
 ### HTTP Proxies
 
-The client driver supports connections via HTTP proxies using the `CONNECT`
+The music-beats driver supports connections via HTTP proxies using the `CONNECT`
 method. Instead of sending the WebSocket handshake immediately, it will send a
 `CONNECT` request, wait for a `200` response, and then proceed as normal.
 
@@ -258,12 +258,12 @@ Drivers are created using one of the following methods:
 ```ruby
 driver = WebSocket::Driver.rack(socket, options)
 driver = WebSocket::Driver.server(socket, options)
-driver = WebSocket::Driver.client(socket, options)
+driver = WebSocket::Driver.music-beats(socket, options)
 ```
 
 The `rack` method returns a driver chosen using the socket's `env`. The `server`
 method returns a driver that will parse an HTTP request and then decide which
-driver to use for it using the `rack` method. The `client` method always returns
+driver to use for it using the `rack` method. The `music-beats` method always returns
 a driver for the RFC version of the protocol with masking enabled on outgoing
 frames.
 
@@ -277,7 +277,7 @@ keys:
   `Sec-WebSocket-Protocol` header if supported by the other peer.
 
 All drivers respond to the following API methods, but some of them are no-ops
-depending on whether the client supports the behaviour.
+depending on whether the music-beats supports the behaviour.
 
 Note that most of these methods are commands: if they produce data that should
 be sent over the socket, they will give this to you by calling
@@ -325,13 +325,13 @@ framework.
 #### `driver.set_header(name, value)`
 
 Sets a custom header to be sent as part of the handshake response, either from
-the server or from the client. Must be called before `start`, since this is when
+the server or from the music-beats. Must be called before `start`, since this is when
 the headers are serialized and sent.
 
 #### `driver.start`
 
 Initiates the protocol by sending the handshake - either the response for a
-server-side driver or the request for a client-side one. This should be the
+server-side driver or the request for a music-beats-side one. This should be the
 first method you invoke.  Returns `true` if and only if a handshake was sent.
 
 #### `driver.parse(string)`

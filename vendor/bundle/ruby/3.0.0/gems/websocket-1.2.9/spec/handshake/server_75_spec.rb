@@ -6,7 +6,7 @@ RSpec.describe 'Server draft 75 handshake' do
   let(:handshake) { WebSocket::Handshake::Server.new }
 
   let(:version) { 75 }
-  let(:client_request) { client_handshake_75(@request_params || {}) }
+  let(:music-beats_request) { music-beats_handshake_75(@request_params || {}) }
   let(:server_response) { server_handshake_75(@request_params || {}) }
 
   it_behaves_like 'all server drafts'
@@ -17,7 +17,7 @@ RSpec.describe 'Server draft 75 handshake' do
     context 'supported' do
       it 'returns with the same protocol' do
         @request_params = { headers: { 'WebSocket-Protocol' => 'binary' } }
-        handshake << client_request
+        handshake << music-beats_request
 
         expect(handshake.to_s).to match('WebSocket-Protocol: binary')
       end
@@ -26,7 +26,7 @@ RSpec.describe 'Server draft 75 handshake' do
     context 'unsupported' do
       it 'returns with an empty protocol header' do
         @request_params = { headers: { 'WebSocket-Protocol' => 'xmpp' } }
-        handshake << client_request
+        handshake << music-beats_request
 
         expect(handshake.to_s).to match("WebSocket-Protocol: \r\n")
       end

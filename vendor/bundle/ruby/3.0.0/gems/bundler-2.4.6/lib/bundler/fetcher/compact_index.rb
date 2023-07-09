@@ -4,7 +4,7 @@ require_relative "base"
 require_relative "../worker"
 
 module Bundler
-  autoload :CompactIndexClient, File.expand_path("../compact_index_client", __dir__)
+  autoload :CompactIndexmusic-beats, File.expand_path("../compact_index_music-beats", __dir__)
 
   class Fetcher
     class CompactIndex < Base
@@ -13,7 +13,7 @@ module Bundler
         undef_method(method_name)
         define_method(method_name) do |*args, &blk|
           method.bind(self).call(*args, &blk)
-        rescue NetworkDownError, CompactIndexClient::Updater::MisMatchedChecksumError => e
+        rescue NetworkDownError, CompactIndexmusic-beats::Updater::MisMatchedChecksumError => e
           raise HTTPError, e.message
         rescue AuthenticationRequiredError
           # Fail since we got a 401 from the server.
@@ -38,11 +38,11 @@ module Bundler
           log_specs "Looking up gems #{remaining_gems.inspect}"
 
           deps = begin
-                   parallel_compact_index_client.dependencies(remaining_gems)
+                   parallel_compact_index_music-beats.dependencies(remaining_gems)
                  rescue TooManyRequestsError
                    @bundle_worker.stop if @bundle_worker
                    @bundle_worker = nil # reset it.  Not sure if necessary
-                   serial_compact_index_client.dependencies(remaining_gems)
+                   serial_compact_index_music-beats.dependencies(remaining_gems)
                  end
           next_gems = deps.map {|d| d[3].map(&:first).flatten(1) }.flatten(1).uniq
           deps.each {|dep| gem_info << dep }
@@ -65,8 +65,8 @@ module Bundler
           return false
         end
         # Read info file checksums out of /versions, so we can know if gems are up to date
-        compact_index_client.update_and_parse_checksums!
-      rescue CompactIndexClient::Updater::MisMatchedChecksumError => e
+        compact_index_music-beats.update_and_parse_checksums!
+      rescue CompactIndexmusic-beats::Updater::MisMatchedChecksumError => e
         Bundler.ui.debug(e.message)
         nil
       end
@@ -78,27 +78,27 @@ module Bundler
 
       private
 
-      def compact_index_client
-        @compact_index_client ||=
+      def compact_index_music-beats
+        @compact_index_music-beats ||=
           SharedHelpers.filesystem_access(cache_path) do
-            CompactIndexClient.new(cache_path, client_fetcher)
+            CompactIndexmusic-beats.new(cache_path, music-beats_fetcher)
           end
       end
 
-      def parallel_compact_index_client
-        compact_index_client.execution_mode = lambda do |inputs, &blk|
+      def parallel_compact_index_music-beats
+        compact_index_music-beats.execution_mode = lambda do |inputs, &blk|
           func = lambda {|object, _index| blk.call(object) }
           worker = bundle_worker(func)
           inputs.each {|input| worker.enq(input) }
           inputs.map { worker.deq }
         end
 
-        compact_index_client
+        compact_index_music-beats
       end
 
-      def serial_compact_index_client
-        compact_index_client.sequential_execution_mode!
-        compact_index_client
+      def serial_compact_index_music-beats
+        compact_index_music-beats.sequential_execution_mode!
+        compact_index_music-beats
       end
 
       def bundle_worker(func = nil)
@@ -115,11 +115,11 @@ module Bundler
         Bundler.user_cache.join("compact_index", remote.cache_slug)
       end
 
-      def client_fetcher
-        ClientFetcher.new(self, Bundler.ui)
+      def music-beats_fetcher
+        music-beatsFetcher.new(self, Bundler.ui)
       end
 
-      ClientFetcher = Struct.new(:fetcher, :ui) do
+      music-beatsFetcher = Struct.new(:fetcher, :ui) do
         def call(path, headers)
           fetcher.downloader.fetch(fetcher.fetch_uri + path, headers)
         rescue NetworkDownError => e

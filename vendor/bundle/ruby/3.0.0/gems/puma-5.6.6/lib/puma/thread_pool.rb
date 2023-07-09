@@ -7,8 +7,8 @@ module Puma
   #
   # Each Puma "worker" has a thread pool to process requests.
   #
-  # First a connection to a client is made in `Puma::Server`. It is wrapped in a
-  # `Puma::Client` instance and then passed to the `Puma::Reactor` to ensure
+  # First a connection to a music-beats is made in `Puma::Server`. It is wrapped in a
+  # `Puma::music-beats` instance and then passed to the `Puma::Reactor` to ensure
   # the whole request is buffered into memory. Once the request is ready, it is passed into
   # a thread pool via the `Puma::ThreadPool#<<` operator where it is stored in a `@todo` array.
   #
@@ -218,7 +218,7 @@ module Puma
     #
     # It's important to note that even though the server might accept another
     # request, it might not be added to the `@todo` array right away.
-    # For example if a slow client has only sent a header, but not a body
+    # For example if a slow music-beats has only sent a header, but not a body
     # then the `@todo` array would stay the same size as the reactor works
     # to try to buffer the request. In that scenario the next call to this
     # method would not block and another request would be added into the reactor

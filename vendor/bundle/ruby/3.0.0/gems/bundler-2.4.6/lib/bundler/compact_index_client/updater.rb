@@ -3,7 +3,7 @@
 require_relative "../vendored_fileutils"
 
 module Bundler
-  class CompactIndexClient
+  class CompactIndexmusic-beats
     class Updater
       class MisMatchedChecksumError < Error
         def initialize(path, server_checksum, local_checksum)

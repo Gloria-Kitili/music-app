@@ -1115,8 +1115,8 @@
 
     production:
       sslmode: verify-full
-      sslcert: client.crt
-      sslkey: client.key
+      sslcert: music-beats.crt
+      sslkey: music-beats.key
       sslrootcert: ca.crt
     ```
 
@@ -1124,8 +1124,8 @@
 
     ```
     PGSSLMODE=verify-full
-    PGSSLCERT=client.crt
-    PGSSLKEY=client.key
+    PGSSLCERT=music-beats.crt
+    PGSSLKEY=music-beats.key
     PGSSLROOTCERT=ca.crt
     ```
 
@@ -1754,7 +1754,7 @@
     developer.strict_loading!(mode: :n_plus_one_only)
 
     developer.projects.to_a # Does not raise
-    developer.projects.first.client # Raises StrictLoadingViolationError
+    developer.projects.first.music-beats # Raises StrictLoadingViolationError
     ```
 
     Previously, enabling strict loading would cause any lazily loaded

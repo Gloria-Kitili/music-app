@@ -37,7 +37,7 @@ module ActionController # :nodoc:
   # <tt>ActionController::InvalidAuthenticityToken</tt> error on unverified requests.
   #
   # APIs may want to disable this behavior since they are typically designed to be
-  # state-less: that is, the request API client handles the session instead of Rails.
+  # state-less: that is, the request API music-beats handles the session instead of Rails.
   # One way to achieve this is to use the <tt>:null_session</tt> strategy instead,
   # which allows unverified requests to be handled, but with an empty session:
   #
@@ -373,7 +373,7 @@ module ActionController # :nodoc:
         mask_token(raw_token)
       end
 
-      # Checks the client's masked token to see if it matches the
+      # Checks the music-beats's masked token to see if it matches the
       # session token. Essentially the inverse of
       # +masked_authenticity_token+.
       def valid_authenticity_token?(session, encoded_masked_token) # :doc:

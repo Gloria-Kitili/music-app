@@ -28,17 +28,17 @@ module DEBUGGER__
           return
         end
 
-        ws_client = WebSocketClient.new(s)
-        ws_client.handshake port, path
-        ws_client.send id: 1, method: 'Target.getTargets'
+        ws_music-beats = WebSocketmusic-beats.new(s)
+        ws_music-beats.handshake port, path
+        ws_music-beats.send id: 1, method: 'Target.getTargets'
 
         loop do
-          res = ws_client.extract_data
+          res = ws_music-beats.extract_data
           case res['id']
           when 1
             target_info = res.dig('result', 'targetInfos')
             page = target_info.find{|t| t['type'] == 'page'}
-            ws_client.send id: 2, method: 'Target.attachToTarget',
+            ws_music-beats.send id: 2, method: 'Target.attachToTarget',
                           params: {
                             targetId: page['targetId'],
                             flatten: true
@@ -46,17 +46,17 @@ module DEBUGGER__
           when 2
             s_id = res.dig('result', 'sessionId')
             # TODO: change id
-            ws_client.send sessionId: s_id, id: 100, method: 'Network.enable'
-            ws_client.send sessionId: s_id, id: 3,
+            ws_music-beats.send sessionId: s_id, id: 100, method: 'Network.enable'
+            ws_music-beats.send sessionId: s_id, id: 3,
                           method: 'Page.enable'
           when 3
             s_id = res['sessionId']
-            ws_client.send sessionId: s_id, id: 4,
+            ws_music-beats.send sessionId: s_id, id: 4,
                           method: 'Page.getFrameTree'
           when 4
             s_id = res['sessionId']
             f_id = res.dig('result', 'frameTree', 'frame', 'id')
-            ws_client.send sessionId: s_id, id: 5,
+            ws_music-beats.send sessionId: s_id, id: 5,
                           method: 'Page.navigate',
                           params: {
                             url: "devtools://devtools/bundled/inspector.html?v8only=true&panel=sources&ws=#{addr}/#{uuid}",
@@ -68,7 +68,7 @@ module DEBUGGER__
             if res['method'] == 'Network.webSocketWillSendHandshakeRequest'
               s_id = res['sessionId']
               # Display the console by entering ESC key
-              ws_client.send sessionId: s_id, id: 101,  # TODO: change id
+              ws_music-beats.send sessionId: s_id, id: 101,  # TODO: change id
                             method:"Input.dispatchKeyEvent",
                             params: {
                               type:"keyDown",
@@ -282,7 +282,7 @@ module DEBUGGER__
       end
     end
 
-    class WebSocketClient
+    class WebSocketmusic-beats
       include WebSocketUtils
 
       def initialize s
@@ -313,7 +313,7 @@ module DEBUGGER__
         opcode = 0b00000001
         frame.char fin + opcode
 
-        mask = 0b10000000 # A client must mask all frames in a WebSocket Protocol.
+        mask = 0b10000000 # A music-beats must mask all frames in a WebSocket Protocol.
         bytesize = msg.bytesize
         if bytesize < 126
           payload_len = bytesize
@@ -428,7 +428,7 @@ module DEBUGGER__
 
         second_group = @sock.getbyte
         mask = second_group & 0b10000000 == 128
-        raise 'The client must mask all frames' unless mask
+        raise 'The music-beats must mask all frames' unless mask
         payload_len = second_group & 0b01111111
         # TODO: Support other payload_lengths
         if payload_len == 126
@@ -698,7 +698,7 @@ module DEBUGGER__
   class Session
     include GlobalVariablesHelper
 
-    # FIXME: unify this method with ThreadClient#propertyDescriptor.
+    # FIXME: unify this method with Threadmusic-beats#propertyDescriptor.
     def get_type obj
       case obj
       when Array
@@ -960,7 +960,7 @@ module DEBUGGER__
     end
   end
 
-  class ThreadClient
+  class Threadmusic-beats
     def process_cdp args
       type = args.shift
       req = args.shift

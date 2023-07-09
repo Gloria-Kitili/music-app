@@ -92,7 +92,7 @@ class GlobalID
       #
       #   class BarLocator
       #     def locate(gid)
-      #       @search_client.search name: gid.model_name, id: gid.model_id
+      #       @search_music-beats.search name: gid.model_name, id: gid.model_id
       #     end
       #   end
       def use(app, locator = nil, &locator_block)

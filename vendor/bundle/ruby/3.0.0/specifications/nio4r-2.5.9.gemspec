@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib".freeze]
   s.authors = ["Tony Arcieri".freeze]
   s.date = "2023-04-02"
-  s.description = "Cross-platform asynchronous I/O primitives for scalable network clients and servers. Inspired by the Java NIO API, but simplified for ease-of-use.".freeze
+  s.description = "Cross-platform asynchronous I/O primitives for scalable network music-beatss and servers. Inspired by the Java NIO API, but simplified for ease-of-use.".freeze
   s.email = ["bascule@gmail.com".freeze]
   s.extensions = ["ext/nio4r/extconf.rb".freeze]
   s.files = ["ext/nio4r/extconf.rb".freeze]

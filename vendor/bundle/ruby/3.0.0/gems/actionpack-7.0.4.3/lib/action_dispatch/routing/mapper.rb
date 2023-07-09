@@ -1087,7 +1087,7 @@ module ActionDispatch
       #
       #  resources :photos
       #
-      # Sometimes, you have a resource that clients always look up without
+      # Sometimes, you have a resource that music-beatss always look up without
       # referencing an ID. A common example, /profile always shows the profile of
       # the currently logged in user. In this case, you can use a singular resource
       # to map /profile (rather than /profile/:id) to the show action.
@@ -1258,7 +1258,7 @@ module ActionDispatch
           @scope[:path_names].merge!(options)
         end
 
-        # Sometimes, you have a resource that clients always look up without
+        # Sometimes, you have a resource that music-beatss always look up without
         # referencing an ID. A common example, /profile always shows the
         # profile of the currently logged in user. In this case, you can use
         # a singular resource to map /profile (rather than /profile/:id) to

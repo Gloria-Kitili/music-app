@@ -66,7 +66,7 @@ module DEBUGGER__
         SESSION.add_preset_commands provider, cmds, kick: false, continue: nonstop
       end
 
-      ThreadClient.current.on_breakpoint @tp, self
+      Threadmusic-beats.current.on_breakpoint @tp, self
     end
 
     def to_s
@@ -349,7 +349,7 @@ module DEBUGGER__
     def setup
       @tp = TracePoint.new(:line){|tp|
         next if SESSION.in_subsession? # TODO: Ractor support
-        next if ThreadClient.current.management?
+        next if Threadmusic-beats.current.management?
         next if skip_path?(tp.path)
 
         if need_suspend? safe_eval(tp.binding, @cond)
@@ -359,7 +359,7 @@ module DEBUGGER__
     end
 
     private def need_suspend? cond_result
-      map = ThreadClient.current.check_bp_fulfillment_map
+      map = Threadmusic-beats.current.check_bp_fulfillment_map
       if cond_result
         if map[self]
           false

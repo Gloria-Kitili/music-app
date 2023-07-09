@@ -181,8 +181,8 @@ module Rack
     # before the Rack application is returned by to_app.
     #
     #   warmup do |app|
-    #     client = Rack::MockRequest.new(app)
-    #     client.get('/')
+    #     music-beats = Rack::MockRequest.new(app)
+    #     music-beats.get('/')
     #   end
     #
     #   use SomeMiddleware

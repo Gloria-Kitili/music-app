@@ -10,7 +10,7 @@ module DEBUGGER__
       @sock = @sock_for_fork = nil
       @accept_m = Mutex.new
       @accept_cv = ConditionVariable.new
-      @client_addr = nil
+      @music-beats_addr = nil
       @q_msg = nil
       @q_ans = nil
       @unsent_messages = []
@@ -144,13 +144,13 @@ module DEBUGGER__
 
         # TODO: protocol version
         if v != VERSION
-          @sock.puts msg = "out DEBUGGER: Incompatible version (server:#{VERSION} and client:#{$1})"
+          @sock.puts msg = "out DEBUGGER: Incompatible version (server:#{VERSION} and music-beats:#{$1})"
           raise GreetingError, msg
         end
         parse_option(params)
 
-        puts "DEBUGGER (client): Connected. PID:#{Process.pid}, $0:#{$0}"
-        puts "DEBUGGER (client): Type `Ctrl-C` to enter the debug console." unless @need_pause_at_first
+        puts "DEBUGGER (music-beats): Connected. PID:#{Process.pid}, $0:#{$0}"
+        puts "DEBUGGER (music-beats): Type `Ctrl-C` to enter the debug console." unless @need_pause_at_first
         puts
 
       when /^Content-Length: (\d+)/
@@ -255,7 +255,7 @@ module DEBUGGER__
     def setup_interrupt
       prev_handler = trap(TRAP_SIGNAL) do
         # $stderr.puts "trapped SIGINT"
-        ThreadClient.current.on_trap TRAP_SIGNAL
+        Threadmusic-beats.current.on_trap TRAP_SIGNAL
 
         case prev_handler
         when Proc
@@ -444,8 +444,8 @@ module DEBUGGER__
             vscode_setup @local_addr.inspect_sockaddr
           end
 
-          Socket.accept_loop(socks) do |sock, client|
-            @client_addr = client
+          Socket.accept_loop(socks) do |sock, music-beats|
+            @music-beats_addr = music-beats
             yield @sock_for_fork = sock
           end
         end
@@ -497,9 +497,9 @@ module DEBUGGER__
       vscode_setup @sock_path if CONFIG[:open] == 'vscode'
 
       begin
-        Socket.unix_server_loop @sock_path do |sock, client|
+        Socket.unix_server_loop @sock_path do |sock, music-beats|
           @sock_for_fork = sock
-          @client_addr = client
+          @music-beats_addr = music-beats
 
           yield sock
         ensure
