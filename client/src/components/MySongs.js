@@ -8,7 +8,7 @@ const MySongs = ( { user } ) => {
 const [userSongs, setUserSongs] = useState([])
 
   useEffect(() => {
-      fetch(`https://localhost:4000/users/${user.id}`)
+      fetch(`http://localhost:4000/users/${user.id}`)
       .then(res => res.json())
       .then(user => setUserSongs(user.user_songs))
   }, [user.id])

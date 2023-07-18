@@ -11,7 +11,7 @@ const MyAlbumPage = ( { userAlbum, onDeleteUserAlbum } ) => {
   }
 
   function handleDeleteUserAlbum() {
-    fetch(`https://localhost:4000/user_albums/${id}`, {
+    fetch(`http://localhost:4000/user_albums/${id}`, {
         method:'DELETE'
       })
     onDeleteUserAlbum(id)

@@ -12,7 +12,7 @@ const MyArtistPage = ( { userArtist, onDeleteUserArtist } ) => {
   }
 
   function handleDeleteUserArtist() {
-    fetch(`https://localhost:4000/user_artists/${id}`, {
+    fetch(`http://localhost:4000/user_artists/${id}`, {
         method:'DELETE'
       })
     onDeleteUserArtist(id)

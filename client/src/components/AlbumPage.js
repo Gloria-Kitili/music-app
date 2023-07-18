@@ -18,7 +18,7 @@ function AlbumPage({ album, user}){
   }
 
   function handleAddAlbum() {
-    fetch('https://localhost:4000/user_albums', {
+    fetch('http://localhost:4000/user_albums', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

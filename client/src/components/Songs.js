@@ -33,7 +33,7 @@ const Song = ( { song, artist, user } ) => {
       }
     
       function handleAddSong() {
-        fetch('https://localhost:4000/user_songs', {
+        fetch('http://localhost:4000/user_songs', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

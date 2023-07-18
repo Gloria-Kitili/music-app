@@ -14,7 +14,7 @@ const EachArtist = ( { user }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`https://localhost:4000/artists/${id}`)
+    fetch(`http://localhost:4000/artists/${id}`)
     .then((r) => r.json())
     .then(artist => {
       setArtist(artist);

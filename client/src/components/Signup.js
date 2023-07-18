@@ -34,7 +34,7 @@ function Signup({ setUser }){
         else if (password !== passwordConfirmation) {
             setErrors("Passwords do not match");            
           }    
-        else{fetch('https://localhost:4000/users', {
+        else{fetch('http://localhost:4000/users', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

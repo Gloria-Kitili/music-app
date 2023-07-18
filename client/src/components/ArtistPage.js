@@ -18,7 +18,7 @@ const ArtistPage = ( { artist, user } ) => {
   }
 
   function handleAddArtist() {
-    fetch(`https://localhost:4000/user_artists`, {
+    fetch(`http://localhost:4000/user_artists`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

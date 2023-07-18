@@ -22,7 +22,7 @@ function App() {
 
  //check if user is authorized after logging in
   useEffect(() => {
-    fetch('https://localhost:4000/me')
+    fetch('http://localhost:4000/me')
     .then((res) => {
       if (res.ok) {
         res.json().then((user) => {
@@ -39,14 +39,14 @@ function App() {
   },[]);
 
   useEffect(() => {
-    fetch('https://localhost:4000/albums')
+    fetch('http://localhost:4000/albums')
     .then(res => res.json())
     .then((albums) => setAlbums(albums))
   }, []);
   // console.log(albums);
 
   useEffect(() => {
-    fetch(`https://localhost:4000/artists`)
+    fetch(`http://localhost:4000/artists`)
     .then((r) => r.json())
     .then(artists => setArtists(artists))
   }, [])

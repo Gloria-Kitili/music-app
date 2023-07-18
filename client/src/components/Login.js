@@ -17,7 +17,7 @@ function Login( {setUser} ){
             
         }
     
-        fetch('https://localhost:4000/login', {
+        fetch('http://localhost:4000/login', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

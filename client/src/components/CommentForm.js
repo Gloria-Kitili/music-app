@@ -11,7 +11,7 @@ function CommentForm( { onAddComment, songVideoId, users } ) {
 
       function handleSubmit(e){
         e.preventDefault();
-        fetch('https://localhost:4000/song_video_comments', {
+        fetch('http://localhost:4000/song_video_comments', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

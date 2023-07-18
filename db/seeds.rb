@@ -6451,4 +6451,19 @@ title: "pov",
     
 songs.each do |o|
     Song.create(title: o[:title], year: o[:year], artist: o[:artist], featuring: o[:featuring], album: o[:album], produced_by: o[:produced_by], written_by: o[:written_by], image: o[:image], about: o[:about], music_video: o[:music_video])
-    end
+    end 
+
+    User.create(
+        username: "john_doe",
+        password_digest: "RollieGs26"
+    )
+    
+    User.create(
+        username: "Nancy_jane",
+        password_digest: "Macharia_DD"
+    )
+
+    User.create(
+        username: "Ruth_james",
+        password_digest: "Purple"
+    )

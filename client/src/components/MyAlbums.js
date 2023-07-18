@@ -9,7 +9,7 @@ const [userAlbums, setUserAlbums] = useState([])
 
 
   useEffect(() => {
-      fetch(`https://localhost:4000//users/${user.id}`)
+      fetch(`http://localhost:4000//users/${user.id}`)
       .then(res => res.json())
       .then(user => setUserAlbums(user.user_albums))
   }, [user.id])

@@ -13,7 +13,7 @@ const SongVideo = ( { songVideo, opts, onHandleDelete, users } ) => {
   video_url.startsWith("https://youtu.be") ? videoId = video_url.slice(17, 28) : videoId = video_url.slice(32, 43)
 
   useEffect(() => {
-      fetch(`https://localhost:4000/song_videos/${id}`)
+      fetch(`http://localhost:4000/song_videos/${id}`)
       .then((r) => r.json())
       .then(songVideo => {
           setSongVideoComments([...songVideo.song_video_comments])
@@ -22,7 +22,7 @@ const SongVideo = ( { songVideo, opts, onHandleDelete, users } ) => {
 // console.log(songVideoComments);
 
   function handleDelete() {
-    fetch(`https://localhost:4000/song_videos/${id}`, {
+    fetch(`http://localhost:4000/song_videos/${id}`, {
       method: 'DELETE'
     });
     onHandleDelete(id)
@@ -35,7 +35,7 @@ const SongVideo = ( { songVideo, opts, onHandleDelete, users } ) => {
   function handleDeleteComment(id) {
     const deleteComment = songVideoComments.filter((comment) => comment.id !== id)
     setSongVideoComments(deleteComment) 
-    fetch(`https://localhost:4000/song_video_comments/${id}`, {
+    fetch(`http://localhost:4000/song_video_comments/${id}`, {
         method:'DELETE'
       })
   }

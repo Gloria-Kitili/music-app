@@ -17,7 +17,7 @@ function Comment( { songVideoComment, handleDeleteComment, onUpdateComment, user
 
     function handleSubmit(e) {
         e.preventDefault()
-        fetch(`https://localhost:4000/song_video_comments/${id}`, {
+        fetch(`http://localhost:4000/song_video_comments/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

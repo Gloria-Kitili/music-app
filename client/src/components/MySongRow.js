@@ -12,7 +12,7 @@ const MySongRow = ( { userSong, onDeleteUserSong } ) => {
     const { artist_id } = song
 
     useEffect(() => {
-        fetch(`https://localhost:4000/artists/${artist_id}`)
+        fetch(`http://localhost:4000/artists/${artist_id}`)
         .then(res => res.json())
         .then(artist => setArtist(artist))
     }, [artist_id])
@@ -27,7 +27,7 @@ const MySongRow = ( { userSong, onDeleteUserSong } ) => {
 
     function handleClick(song){
         let videoId
-        song.music_video.startsWith("https://youtu.be") ? videoId = song.music_video.slice(17, 28) : videoId = song.music_video.slice(32, 43)
+        song.music_video.startsWith("http://youtu.be") ? videoId = song.music_video.slice(17, 28) : videoId = song.music_video.slice(32, 43)
         
         if (videoUrl) {
             setVideoUrl('')
@@ -37,7 +37,7 @@ const MySongRow = ( { userSong, onDeleteUserSong } ) => {
     }
 
     function handleDeleteUserSong() {
-        fetch(`https://localhost:4000/user_songs/${id}`, {
+        fetch(`http://localhost:4000/user_songs/${id}`, {
             method:'DELETE'
           })
         onDeleteUserSong(id)

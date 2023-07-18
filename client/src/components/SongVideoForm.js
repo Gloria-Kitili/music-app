@@ -21,7 +21,7 @@ function SongVideoForm( { id, user, addSongVideos } ) {
 
       function handleSubmit(e){
         e.preventDefault();
-        fetch('https://localhost:4000/song_videos', {
+        fetch('http://localhost:4000/song_videos', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
