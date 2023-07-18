@@ -34,7 +34,7 @@ function Signup({ setUser }){
         else if (password !== passwordConfirmation) {
             setErrors("Passwords do not match");            
           }    
-        else{fetch('https://railsapp-music-app.onrender.com/users', {
+        else{fetch('https://localhost:4000/users', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

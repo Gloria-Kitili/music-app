@@ -1158,7 +1158,7 @@ class TestMinitestUnitRecording < MetaMetaMetaTestCase
   end
 
   def test_run_with_bogus_reporter
-    # https://github.com/seattlerb/minitest/issues/659
+    # http://github.com/seattlerb/minitest/issues/659
     # TODO: remove test for minitest 6
     @tu = Class.new FakeNamedTest do
       def test_method

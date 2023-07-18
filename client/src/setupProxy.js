@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://railsapp-music-app.onrender.com',
+      target: 'https://localhost:4000',
       changeOrigin: true,
     })
   );

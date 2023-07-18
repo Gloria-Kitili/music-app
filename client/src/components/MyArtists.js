@@ -7,7 +7,7 @@ const MyArtists = ( { user } ) => {
 const [userArtists, setUserArtists] = useState([])
 
   useEffect(() => {
-      fetch(`https://railsapp-music-app.onrender.com//users/${user.id}`)
+      fetch(`https://localhost:4000//users/${user.id}`)
       .then(res => res.json())
       .then(user => setUserArtists(user.user_artists))
   }, [user.id])

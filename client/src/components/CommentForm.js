@@ -11,7 +11,7 @@ function CommentForm( { onAddComment, songVideoId, users } ) {
 
       function handleSubmit(e){
         e.preventDefault();
-        fetch('https://railsapp-music-app.onrender.com/song_video_comments', {
+        fetch('https://localhost:4000/song_video_comments', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

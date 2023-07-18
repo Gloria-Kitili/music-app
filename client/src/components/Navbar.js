@@ -7,7 +7,7 @@ function Navbar({ user, setUser}){
 
     const navigate = useNavigate();
     function handleLogout(){
-        fetch('https://railsapp-music-app.onrender.com/logout', {
+        fetch('https://localhost:4000/logout', {
             method: 'DELETE'
           })
           .then((res) => {

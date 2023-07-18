@@ -15,7 +15,7 @@ class ArtistsController < ApplicationController
     end
 
     def create
-        artist = artist.create!(artist_params)
+        artist = Artist.create!(artist_params)
         render json: artist, status: :created
     end
 
@@ -26,7 +26,7 @@ class ArtistsController < ApplicationController
     end
 
     def artist_params
-        params.permit(:title, :year, :image, :genre, :label, :rating, :artist_id)
+        params.permit(:name, :bio, :image)
     end
 
     def render_not_found_response

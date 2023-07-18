@@ -23,7 +23,7 @@ const EachSong = ( { user } ) => {
   };
 
   useEffect(() => {
-    fetch(`https://railsapp-music-app.onrender.com/songs/${id}`)
+    fetch(`https://localhost:4000/songs/${id}`)
     .then((r) => r.json())
     .then(song => {
       setSong(song);

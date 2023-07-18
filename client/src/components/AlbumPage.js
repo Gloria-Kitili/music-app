@@ -18,7 +18,7 @@ function AlbumPage({ album, user}){
   }
 
   function handleAddAlbum() {
-    fetch('https://railsapp-music-app.onrender.com/user_albums', {
+    fetch('https://localhost:4000/user_albums', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

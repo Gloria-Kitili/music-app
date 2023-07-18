@@ -613,8 +613,8 @@ describe Minitest::Spec do
       end
     end
 
-    # https://github.com/seattlerb/minitest/issues/837
-    # https://github.com/rails/rails/pull/39304
+    # http://github.com/seattlerb/minitest/issues/837
+    # http://github.com/rails/rails/pull/39304
     it "deprecates expectation used without _ with empty backtrace_filter" do
       skip "N/A" if ENV["MT_NO_EXPECTATIONS"]
 
